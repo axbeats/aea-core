@@ -1,0 +1,32 @@
+# Rust specific ignores
+/target/
+**/target/
+**/*.rs.bk
+
+# Ignore WebAssembly files
+*.wasm
+
+# IDEs and editors
+/.idea/
+/.vscode/
+/*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# Node.js related (if applicable)
+/node_modules/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# By default, ignore hidden files and directories that start with a dot.
+.*
+!.gitignore
+
+# Ignore generated files
+**/*.rs.bk
