@@ -4,7 +4,7 @@ use crate::*;
 /// Represents the permissions associated with a video on the platform.
 ///
 /// This struct contains various flags and settings that control who can interact with the video and how.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Debug)]
 // Specify that Serde should use the `near_sdk::serde` crate for serialization.
 #[serde(crate = "near_sdk::serde")]
 pub struct VideoPermissions {

@@ -4,7 +4,7 @@ use crate::*;
 /// Represents a tag that can be associated with various entities on the platform.
 ///
 /// A tag consists of a type (e.g., hashtag, account) and its content (e.g., "nature" for a hashtag).
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, PartialEq)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
 // Specify that Serde should use the `near_sdk::serde` crate for serialization.
 #[serde(crate = "near_sdk::serde")]
 pub struct Tag {
@@ -46,7 +46,7 @@ impl Tag {
 }
 
 /// Enum representing the available types of tags and their corresponding prefixes.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, PartialEq)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
 // Specify that Serde should use the `near_sdk::serde` crate for serialization.
 #[serde(crate = "near_sdk::serde")]
 pub enum TagType {

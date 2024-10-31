@@ -2,7 +2,7 @@ use crate::*;
 
 pub type VideoId = u64;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Video {
     pub id: VideoId,
@@ -50,5 +50,3 @@ impl Video {
         }
     }
 }
-
-// Update name - delete 
