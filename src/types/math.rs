@@ -2,6 +2,7 @@ use crate::*;
 
 pub type YoctoNumber = u128;
 pub const ONE_YOCTO_NUMBER: u128 = 1_000_000_000_000_000_000_000_000;
+pub const ONE_HUNDRED_YOCTO_NUMBER: u128 = 100_000_000_000_000_000_000_000_000;
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[serde(crate = "near_sdk::serde")]

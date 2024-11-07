@@ -18,6 +18,7 @@ pub enum ValueType {
     Location(String),
     Date(u64),
     Time(u64),
+    Distribution(Distribution),
 }
 
 impl ValueType {
