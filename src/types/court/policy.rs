@@ -1,13 +1,13 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct LawPolicy {
     pub threshold: Percentage,
     pub quorum: Quorum,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub enum Quorum {
     Fixed(u64),

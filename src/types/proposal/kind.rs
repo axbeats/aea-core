@@ -10,10 +10,10 @@ pub enum ProposalKind {
         group_id: GroupId,
         member_id: AccountId,
     },
-    AddGroup {
+    CreateGroup {
         input: GroupInput,
     },
-    AddValue {
+    CreateValue {
         input: ValueInput,
     },
     FactoryInfoUpdate {
@@ -97,9 +97,9 @@ impl ProposalKind {
     /// Returns label of policy for given type of proposal.
     pub fn to_policy_label(&self) -> &str {
         match self {
-            ProposalKind::AddGroup { .. } => "add_group",
+            ProposalKind::CreateGroup { .. } => "create_group",
             ProposalKind::AddAccountToGroup { .. } => "add_member_to_group",
-            ProposalKind::AddValue { .. } => "add_value",
+            ProposalKind::CreateValue { .. } => "create_value",
             ProposalKind::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalKind::FunctionCall { .. } => "function_call",
             ProposalKind::RemoveGroup { .. } => "remove_group",

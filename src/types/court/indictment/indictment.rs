@@ -2,7 +2,7 @@ use crate::*;
 
 pub type IndictmentId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Indictment {
     pub id: IndictmentId,

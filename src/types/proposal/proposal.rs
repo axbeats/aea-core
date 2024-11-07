@@ -3,7 +3,7 @@ use crate::*;
 pub type ProposalId = u64;
 pub type CurrentStage = u8; // 1 based index
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Proposal {
     pub id: u64,

@@ -2,7 +2,7 @@ use crate::*;
 
 pub type VideoId = u64;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Video {
     pub id: VideoId,
