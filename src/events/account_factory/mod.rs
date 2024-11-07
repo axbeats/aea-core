@@ -1,5 +1,11 @@
-use crate::*;
 use super::*;
+use crate::*;
+
+pub use self::create_account::*;
+pub use self::create_deploy_contract::*;
+
+mod create_account;
+mod create_deploy_contract;
 
 // Define the event variants for profile events
 #[derive(Serialize, Deserialize, Debug)]
@@ -38,48 +44,5 @@ impl std::fmt::Display for AccountFactoryEvent {
             "EVENT_JSON:{}",
             serde_json::to_string(self).map_err(|_| std::fmt::Error)?
         )
-    }
-}
-
-// CreateProfileEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
-pub struct CreateAccountEvent {
-    pub account_id: AccountId,
-    pub timestamp: u64,
-}
-
-impl CreateAccountEvent {
-    pub fn emit(self) {
-        let event = AccountFactoryEvent::new(AccountFactoryEventKind::CreateAccount(self));
-        env::log_str(&event.to_string());
-    }
-}
-
-impl EventKind for CreateAccountEvent {
-    fn event_kind(&self) -> &str {
-        "create_account"
-    }
-}
-
-// CreateProfileEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
-pub struct CreateDeployContractEvent {
-    pub account_id: AccountId,
-    pub bytes_hash: Vec<u8>,
-    pub timestamp: u64,
-}
-
-impl CreateDeployContractEvent {
-    pub fn emit(self) {
-        let event = AccountFactoryEvent::new(AccountFactoryEventKind::CreateDeployContract(self));
-        env::log_str(&event.to_string());
-    }
-}
-
-impl EventKind for CreateDeployContractEvent {
-    fn event_kind(&self) -> &str {
-        "create_deploy_contract"
     }
 }

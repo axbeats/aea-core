@@ -1,5 +1,9 @@
-use crate::*;
 use super::*;
+use crate::*;
+
+pub use self::create_deploy_staking::*;
+
+mod create_deploy_staking;
 
 // Define the event variants for staking factory events
 #[derive(Serialize, Deserialize, Debug)]
@@ -37,26 +41,5 @@ impl std::fmt::Display for StakingFactoryEvent {
             "EVENT_JSON:{}",
             serde_json::to_string(self).map_err(|_| std::fmt::Error)?
         )
-    }
-}
-
-// Event for creating and deploying a staking contract
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
-pub struct CreateDeployStakingEvent {
-    pub staking_id: AccountId,
-    pub timestamp: u64,
-}
-
-impl CreateDeployStakingEvent {
-    pub fn emit(self) {
-        let event = StakingFactoryEvent::new(StakingFactoryEventKind::CreateDeployStaking(self));
-        env::log_str(&event.to_string());
-    }
-}
-
-impl EventKind for CreateDeployStakingEvent {
-    fn event_kind(&self) -> &str {
-        "create_deploy_staking"
     }
 }
