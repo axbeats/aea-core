@@ -5,6 +5,7 @@ use crate::*;
 pub enum VoteMethod {
     Proposal,
     Choice(ChoiceId),
+    Calibration(CalibrationId),
 }
 
 // Vote method as a parameter input for Proposal indicating the Group that can vote on the choice.
@@ -20,6 +21,7 @@ impl VoteMethod {
         match self {
             VoteMethod::Proposal => "proposal",
             VoteMethod::Choice(_) => "choice",
+            VoteMethod::Calibration(_) => "calibration",
         }
     }
 }

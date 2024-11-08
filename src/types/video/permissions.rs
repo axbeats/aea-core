@@ -14,3 +14,15 @@ pub struct VideoPermissions {
     pub approved_account_ids: HashMap<AccountId, u64>, // Mapping of approved account IDs to their corresponding approval IDs.
     pub next_approval_id: u64,                  // The next available approval ID.
 }
+
+impl Default for VideoPermissions {
+    fn default() -> Self {
+        VideoPermissions {
+            allow_comments: false,
+            allow_collaborations: false,
+            allow_promoted: false,
+            approved_account_ids: HashMap::new(),
+            next_approval_id: 0,
+        }
+    }
+}

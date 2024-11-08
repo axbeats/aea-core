@@ -13,6 +13,7 @@ pub const CHOICE_ID: &str = "choice1.aea1.testnet";
 pub const DAO_FACTORY_ID: &str = "dao1.aea1.testnet";
 pub const GROUP_ID: &str = "group1.aea1.testnet";
 pub const MARKETPLACE_ID: &str = "marketplace1.aea1.testnet";
+pub const PRODUCT_ID: &str = "product1.aea1.testnet";
 pub const PROFILE_ID: &str = "user5.aea1.testnet";
 pub const PROPOSAL_ID: &str = "proposal1.aea1.testnet";
 pub const STAKING_FACTORY_ID: &str = "staking1.aea1.testnet";

@@ -1,6 +1,7 @@
 pub use self::engagement::*;
 pub use self::input::*;
 pub use self::interaction::*;
+pub use self::node::*;
 pub use self::output::*;
 pub use self::permissions::*;
 pub use self::result::*;
@@ -10,6 +11,7 @@ pub use self::video::*;
 mod engagement;
 mod input;
 mod interaction;
+mod node;
 mod output;
 mod permissions;
 mod result;
