@@ -40,6 +40,7 @@ impl Accusation {
             dao_id,
             accused_id,
             accuser_id,
+            group_id: node.get::<GroupId>("group_id").unwrap_or_default(),
             evidence,
             violation_time,
             reported_at: node.get::<TimestampMilliSeconds>("reported_at").unwrap_or(0),

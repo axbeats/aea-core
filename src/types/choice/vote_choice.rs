@@ -1,3 +1,6 @@
+use near_sdk::serde_json;
+// use neo4rs::Node;
+
 use crate::*;
 
 pub type ChoiceVoteId = u64;
@@ -9,7 +12,8 @@ pub type ChoiceVoteId = u64;
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct ChoiceVote {
-    pub id: ChoiceId,
+    pub id: ChoiceId, // Should rename this to choice_id - Nov 9 2024
+    pub vote_id: ChoiceVoteId, 
     pub account_id: AccountId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
@@ -33,6 +37,7 @@ impl ChoiceVote {
     pub fn from_input(input: ChoiceVoteInput, weight: u128) -> Self {
         Self {
             id: input.id,
+            vote_id: 0, // Will set in contract
             account_id: input.account_id,
             dao_id: input.dao_id,
             group_id: input.group_id,

@@ -6,6 +6,7 @@ pub use self::output::*;
 pub use self::permissions::*;
 pub use self::result::*;
 pub use self::tag::*;
+pub use self::token::*;
 pub use self::video::*;
 
 mod engagement;
@@ -16,4 +17,5 @@ mod output;
 mod permissions;
 mod result;
 mod tag;
+mod token;
 mod video;

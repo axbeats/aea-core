@@ -1,3 +1,6 @@
+use near_sdk::serde_json;
+// use neo4rs::Node;
+
 use crate::*;
 
 pub type CalibrationVoteId = u64;
@@ -21,6 +24,16 @@ pub struct DeltaVote {
     pub increase: SubValueName,
     pub decrease: SubValueName,
 }
+
+impl Default for DeltaVote {
+    fn default() -> Self {
+        DeltaVote {
+            increase: SubValueName::default(),
+            decrease: SubValueName::default(),
+        }
+    }
+}
+
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]

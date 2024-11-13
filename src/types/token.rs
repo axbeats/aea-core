@@ -1,5 +1,8 @@
 use crate::*;
 
+pub type TokenId = u64;
+pub type ApprovalId = u32;
+
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub enum TokenWeightKind {

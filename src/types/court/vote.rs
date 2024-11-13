@@ -1,3 +1,5 @@
+// use neo4rs::Node;
+
 use crate::*;
 
 pub type IndictmentVoteId = u64;

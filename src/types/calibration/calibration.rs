@@ -12,7 +12,7 @@ pub struct Calibration {
     pub video: VideoHash,
     pub image: ImageHash,
     pub description: String,
-    pub cooldown_period: u64,
+    pub cooldown_period: TimestampSeconds,
     pub adjustment_factor: AdjustmentFactor,
     pub initiated_at: u64,
 }

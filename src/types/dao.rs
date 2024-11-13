@@ -16,7 +16,7 @@ pub struct DaoInput {
 pub struct DaoConfig {
     pub dao_id: DaoId,
     pub default_policy: Policy,
-    pub token_id: Option<TokenId>,
+    pub token_id: Option<TokenContractId>,
     pub staking_id: Option<StakingId>,
     pub metadata: ContractMetadata,
 }
@@ -26,6 +26,6 @@ pub struct DaoConfig {
 pub struct DaoOutput {
     pub dao_id: DaoId,
     pub policy: Policy,
-    pub token_id: Option<TokenId>,
+    pub token_id: Option<TokenContractId>,
     pub staking_id: Option<StakingId>,
 }

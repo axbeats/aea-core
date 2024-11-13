@@ -10,6 +10,7 @@ pub struct Indictment {
     pub law_id: LawId,
     pub dao_id: DaoId,
     pub accused_id: AccountId,
+    pub group_id: GroupId,
     pub evidence: Vec<Evidence>,
     pub status: IndictmentStatus,
     pub violation_time: ViolationTime,

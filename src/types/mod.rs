@@ -24,6 +24,7 @@ pub use self::time::*;
 pub use self::token::*;
 pub use self::value::*;
 pub use self::video::*;
+pub use self::vote::*;
 pub use self::weight::*;
 
 mod amount;
@@ -52,4 +53,5 @@ mod time;
 mod token;
 mod value;
 mod video;
+mod vote;
 mod weight;

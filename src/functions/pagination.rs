@@ -6,4 +6,3 @@ pub fn apply_pagination<T>(items: Vec<T>, from_index: Option<usize>, limit: Opti
     let end = (start + limit).min(items.len()); // Ensure we don't go out of bounds
     items.into_iter().skip(start).take(end - start).collect()
 }
-

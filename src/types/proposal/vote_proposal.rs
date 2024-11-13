@@ -1,3 +1,5 @@
+// use neo4rs::Node;
+
 use crate::*;
 
 pub type ProposalVoteId = u64;
@@ -72,12 +74,3 @@ impl ProposalVoteInput {
         }
     }
 }
-
-// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-// #[serde(crate = "near_sdk::serde")]
-// pub struct ProposalVotingSession {
-//     pub group_id: GroupId,
-//     pub start_time: Option<u64>,
-//     pub voting_period: u64,
-// }
-

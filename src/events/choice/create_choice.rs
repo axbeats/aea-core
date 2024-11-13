@@ -5,7 +5,9 @@ use super::*;
 #[serde(crate = "near_sdk::serde")]
 pub struct CreateChoiceEvent {
     pub choice: Choice,
+    pub options: Vec<(OptionId, ValueType)>,  // Include option IDs and their values
 }
+
 
 impl CreateChoiceEvent {
     pub fn emit(self) {
