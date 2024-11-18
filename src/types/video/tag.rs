@@ -35,7 +35,11 @@ impl Tag {
             '@' => TagType::Account,
             '%' => TagType::Video,
             '&' => TagType::Audio,
-            '!' => TagType::Proposal,
+            '^' => TagType::Proposal,
+            '~' => TagType::Choice,
+            '+' => TagType::Calibration,
+            '!' => TagType::Rule,
+            '=' => TagType::Review,
             '*' => TagType::Product,
             '$' => TagType::Token,
             _ => panic!("Invalid tag prefix!"), // Panic if the prefix is invalid (could be handled differently).
@@ -54,7 +58,11 @@ pub enum TagType {
     Account,   // @
     Video,     // %
     Audio,     // &
-    Proposal,  // !
+    Proposal,  // ^
+    Choice,    // ~
+    Calibration, // +
+    Rule,       // !
+    Review,    // =
     Product,   // *
     Token,     // $
 }
@@ -67,7 +75,11 @@ impl TagType {
             TagType::Account => '@',
             TagType::Video => '%',
             TagType::Audio => '&',
-            TagType::Proposal => '!',
+            TagType::Proposal => '^',
+            TagType::Choice => '~',
+            TagType::Calibration => '+',
+            TagType::Rule => '!',
+            TagType::Review => '=',
             TagType::Product => '*',
             TagType::Token => '$',
         }

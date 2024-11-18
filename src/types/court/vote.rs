@@ -2,40 +2,40 @@
 
 use crate::*;
 
-pub type IndictmentVoteId = u64;
+pub type ReviewVoteId = u64;
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
-pub struct IndictmentVote {
-    pub id: IndictmentVoteId,
+pub struct ReviewVote {
+    pub id: ReviewVoteId,
     pub dao_id: DaoId,
-    pub law_id: LawId,
-    pub indictment_id: IndictmentId,
+    pub rule_id: RuleId,
+    pub review_id: ReviewId,
     pub account_id: AccountId,
     pub group_id: GroupId,
-    pub vote: IndictmentVoteKind,
+    pub vote: ReviewVoteKind,
     pub weight: u128,
     pub issued_at: TimestampMilliSeconds,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
-pub struct IndictmentVoteInput {
-    pub indictment_id: IndictmentId,
+pub struct ReviewVoteInput {
+    pub review_id: ReviewId,
     pub group_id: GroupId,
-    pub vote: IndictmentVoteKind,
+    pub vote: ReviewVoteKind,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Default)]
 #[serde(crate = "near_sdk::serde")]
-pub struct IndictmentVoteTally {
+pub struct ReviewVoteTally {
     pub innocent_count: u128,
     pub guilty_count: u128,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
-pub enum IndictmentVoteKind {
+pub enum ReviewVoteKind {
     Innocent,
     Guilty,
 }

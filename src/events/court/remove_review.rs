@@ -1,0 +1,20 @@
+use super::*;
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(crate = "near_sdk::serde")]
+pub struct RemoveReviewEvent {
+    pub review: Review,
+}
+
+impl RemoveReviewEvent {
+    pub fn emit(self) {
+        let event = CourtEvent::new(CourtEventKind::RemoveReview(self));
+        env::log_str(&event.to_string());
+    }
+}
+
+impl EventKind for RemoveReviewEvent {
+    fn event_kind(&self) -> &str {
+        "remove_review"
+    }
+}

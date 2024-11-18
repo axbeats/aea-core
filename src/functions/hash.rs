@@ -17,15 +17,22 @@ pub fn hash_video_id(video_id: &VideoId) -> CryptoHash {
     hash
 }
 
-pub fn hash_law_id(law_id: &LawId) -> CryptoHash {
-    let bytes = law_id.to_le_bytes();
+pub fn hash_rule_id(rule_id: &RuleId) -> CryptoHash {
+    let bytes = rule_id.to_le_bytes();
     let mut hash = CryptoHash::default();
     hash.copy_from_slice(&env::sha256(&bytes));
     hash
 }
 
-pub fn hash_indictment_id(indictment_id: &IndictmentId) -> CryptoHash {
-    let bytes = indictment_id.to_le_bytes();
+pub fn hash_flag_id(flag_id: &FlagId) -> CryptoHash {
+    let bytes = flag_id.to_le_bytes();
+    let mut hash = CryptoHash::default();
+    hash.copy_from_slice(&env::sha256(&bytes));
+    hash
+}
+
+pub fn hash_review_id(review_id: &ReviewId) -> CryptoHash {
+    let bytes = review_id.to_le_bytes();
     let mut hash = CryptoHash::default();
     hash.copy_from_slice(&env::sha256(&bytes));
     hash

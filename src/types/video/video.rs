@@ -6,48 +6,34 @@ pub type VideoId = u64;
 #[serde(crate = "near_sdk::serde")]
 pub struct Video {
     pub id: VideoId,
-    pub owner_id: AccountId,
     pub creator_id: AccountId,
+    pub context: VideoContext,
     pub title: String,
-    pub caption: Option<String>,
+    pub description: Option<String>,
     pub video: VideoHash,
     pub image: ImageHash,
     pub location: Option<String>,
-    pub issued_at: u64,          // Milliseconds since Unix epoch
-    pub updated_at: Option<u64>, // Milliseconds since Unix epoch
     pub permissions: VideoPermissions,
-    pub tags: Option<Vec<Tag>>,
-    pub royalty: Option<HashMap<AccountId, u32>>,
+    pub created_at: TimestampNanoSeconds,
+    pub updated_at: Option<Vec<TimestampNanoSeconds>>,
 }
 
 impl Video {
     pub fn from_input(id: VideoId, input: VideoInput) -> Self {
-        let account_id = input
-            .owner_id
-            .unwrap_or_else(|| env::predecessor_account_id());
-
-        let permissions = VideoPermissions {
-            allow_comments: input.allow_comments,
-            allow_collaborations: input.allow_collaborations,
-            allow_promoted: input.allow_promoted,
-            approved_account_ids: Default::default(),
-            next_approval_id: 0,
-        };
+        let creator_id = env::predecessor_account_id();
 
         Video {
             id,
-            owner_id: account_id.clone(),
-            creator_id: account_id,
+            creator_id,
+            context: input.context,
             title: input.title,
-            caption: input.caption,
+            description: input.description,
             video: input.video,
             image: input.image,
             location: input.location,
-            issued_at: env::block_timestamp_ms(),
+            permissions: input.permissions,
+            created_at: env::block_timestamp_ms(),
             updated_at: None,
-            permissions,
-            tags: input.tags,
-            royalty: input.royalties,
         }
     }
 }

@@ -7,17 +7,32 @@ pub type CurrentStage = u8; // 1 based index
 #[serde(crate = "near_sdk::serde")]
 pub struct Proposal {
     pub id: u64,
+    pub video_id: VideoId,
     pub dao_id: AccountId,
     pub proposer_id: AccountId,
     pub proposer_group_id: GroupId,
     pub kind: ProposalKind,
-    pub video: VideoHash,
-    pub image: ImageHash,
-    pub description: String,
     pub voting_sessions: Vec<ProposalGroupVotingSession>,
     pub status: ProposalStatus,
-    pub submission_time: u64,
+    pub submission_time: TimestampNanoSeconds,
     pub bond: u128,
+}
+
+impl Proposal {
+    pub fn from_input(id: ProposalId, video_id: VideoId, input: ProposalInput) -> Self {
+        Self {
+            id,
+            video_id,
+            dao_id: input.dao_id,
+            proposer_id: env::predecessor_account_id(),
+            proposer_group_id: input.group_id,
+            kind: input.kind,
+            status: ProposalStatus::Initializing, // Will update later 
+            voting_sessions: Vec::new(), // Will update later
+            submission_time: env::block_timestamp(),
+            bond: 0,
+        }
+    }
 }
 
 impl Proposal {

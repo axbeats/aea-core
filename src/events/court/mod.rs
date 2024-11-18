@@ -1,21 +1,23 @@
 use super::*;
 use crate::*;
 
-pub use self::accuse::*;
-pub use self::create_indictment::*;
-pub use self::create_law::*;
-pub use self::remove_law::*;
-pub use self::retract_accusation::*;
-pub use self::update_indictment_status::*;
-pub use self::vote_indictment::*;
+pub use self::add_flag::*;
+pub use self::create_review::*;
+pub use self::create_rule::*;
+pub use self::remove_flag::*;
+pub use self::remove_review::*;
+pub use self::remove_rule::*;
+pub use self::update_review_status::*;
+pub use self::vote_review::*;
 
-mod accuse;
-mod create_indictment;
-mod create_law;
-mod remove_law;
-mod retract_accusation;
-mod update_indictment_status;
-mod vote_indictment;
+mod add_flag;
+mod create_review;
+mod create_rule;
+mod remove_flag;
+mod remove_review;
+mod remove_rule;
+mod update_review_status;
+mod vote_review;
 
 // Define the event variants for court events
 #[derive(Serialize, Deserialize, Debug)]
@@ -23,13 +25,14 @@ mod vote_indictment;
 #[serde(rename_all = "snake_case")]
 #[serde(crate = "near_sdk::serde")]
 pub enum CourtEventKind {
-    CreateLaw(CreateLawEvent),
-    RemoveLaw(RemoveLawEvent),
-    Accuse(AccuseEvent),
-    RetractAccusation(RetractAccusationEvent),
-    CreateIndictment(CreateIndictmentEvent),
-    VoteIndictment(VoteIndictmentEvent),
-    UpdateIndictmentStatus(UpdateIndictmentStatusEvent),
+    AddFlag(AddFlagEvent),
+    CreateRule(CreateRuleEvent),
+    RemoveFlag(RemoveFlagEvent),
+    RemoveReview(RemoveReviewEvent),
+    RemoveRule(RemoveRuleEvent),
+    CreateReview(CreateReviewEvent),
+    VoteReview(VoteReviewEvent),
+    UpdateReviewStatus(UpdateReviewStatusEvent),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

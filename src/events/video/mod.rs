@@ -12,7 +12,6 @@ pub use self::like::*;
 pub use self::like_comment::*;
 pub use self::like_reply::*;
 pub use self::reply::*;
-pub use self::transfer::*;
 pub use self::unfavourite::*;
 pub use self::unlike::*;
 pub use self::unlike_comment::*;
@@ -30,7 +29,6 @@ mod like;
 mod like_comment;
 mod like_reply;
 mod reply;
-mod transfer;
 mod unfavourite;
 mod unlike;
 mod unlike_comment;
@@ -45,7 +43,6 @@ pub enum VideoEventKind {
     CreateVideo(CreateVideoEvent),
     EditVideo(EditVideoEvent),
     DeleteVideo(DeleteVideoEvent),
-    TransferVideo(TransferVideoEvent),
     ViewVideo(ViewVideoEvent),
     LikeVideo(LikeVideoEvent),
     UnlikeVideo(UnlikeVideoEvent),

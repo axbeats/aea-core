@@ -4,7 +4,7 @@ use super::*;
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct DeleteVideoEvent {
-    pub owner_id: AccountId,
+    pub creator_id: AccountId,
     pub video_id: VideoId,
     pub timestamp: u64,
 }

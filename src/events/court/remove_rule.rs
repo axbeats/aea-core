@@ -3,20 +3,20 @@ use super::*;
 // Event for removing a law
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
-pub struct RemoveLawEvent {
-    pub law_id: LawId,
+pub struct RemoveRuleEvent {
+    pub rule_id: RuleId,
     pub timestamp: u64,
 }
 
-impl RemoveLawEvent {
+impl RemoveRuleEvent {
     pub fn emit(self) {
-        let event = CourtEvent::new(CourtEventKind::RemoveLaw(self));
+        let event = CourtEvent::new(CourtEventKind::RemoveRule(self));
         env::log_str(&event.to_string());
     }
 }
 
-impl EventKind for RemoveLawEvent {
+impl EventKind for RemoveRuleEvent {
     fn event_kind(&self) -> &str {
-        "remove_law"
+        "remove_rule"
     }
 }
