@@ -12,6 +12,7 @@ pub struct StakingConfig {
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenConfig {
     pub owner_id: AccountId,
+    pub mint_id: Option<AccountId>,
     pub total_supply: U128,
     pub metadata: FungibleTokenMetadata,
 }

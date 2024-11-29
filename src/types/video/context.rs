@@ -10,6 +10,9 @@ pub enum VideoContext {
     Rule(RuleId),
     Review(ReviewId, OriginalContext),
     // Violation(ViolationId, OriginalContext),
+    // Possible types
+    // Value(ValueId, VoteMethod),
+    // Group(GroupId, VoteMethod),
 }
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]

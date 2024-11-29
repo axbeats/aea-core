@@ -1,5 +1,65 @@
 use crate::*;
 
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub enum TypeAndValue {
+//     AccountId(AccountId),
+//     VideoId(VideoId),
+//     Int8(i8),
+//     Int16(i16),
+//     Int32(i32),
+//     Int64(i64),
+//     Int128(i128),
+//     UInt8(u8),
+//     UInt16(u16),
+//     UInt32(u32),
+//     UInt64(u64),
+//     UInt128(u128),
+//     Float32(f32),
+//     Float64(f64),
+//     String(String),
+//     Bool(bool),
+//     Bytes(Vec<u8>),
+//     Numbers(NumbersType),
+//     Words(WordsType),
+//     Sum100(DistributionType),
+//     Group(HashSet<AccountId>),
+// }
+
+
+// #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct SetType {
+//     pub elements: HashSet<TypeId>,
+// }
+
+// #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct MapType {
+//     pub elements: HashMap<String, TypeId>,
+// }
+
+
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct NumbersType {
+    pub elements: HashMap<String, u128>,
+}
+
+
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct WordsType {
+    pub elements: HashSet<String>,
+}
+
+
+
+
+
+
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, Eq, Hash, PartialEq, Ord, PartialOrd)]
 #[serde(crate = "near_sdk::serde")]
 pub enum ValueType {

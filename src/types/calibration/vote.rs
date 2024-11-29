@@ -5,6 +5,19 @@ use crate::*;
 
 pub type CalibrationVoteId = u64;
 
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct CalibrationVote {
+//     pub id: CalibrationVoteId,
+//     pub calibration_id: CalibrationId,
+//     pub account_id: AccountId,
+//     pub dao_id: DaoId,
+//     pub group_id: GroupId,
+//     pub vote: DeltaVote,
+//     pub weight: Weight,
+//     pub timestamp: TimestampSeconds,
+// }
+
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct CalibrationVote {
@@ -13,9 +26,30 @@ pub struct CalibrationVote {
     pub account_id: AccountId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
-    pub vote: DeltaVote,
+    pub kind: CalibrationVoteKind,
     pub weight: Weight,
     pub timestamp: TimestampSeconds,
+}
+
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub enum CalibrationVoteKind {
+    Single(SingleVote),
+    Delta(DeltaVote),
+}
+
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct SingleVote {
+    pub id: SubValueName,
+    pub direction: AdjustmentDirection,
+}
+
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub enum AdjustmentDirection {
+    Increase,
+    Decrease,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
@@ -35,6 +69,16 @@ impl Default for DeltaVote {
 }
 
 
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct CalibrationVoteInput {
+//     pub calibration_id: CalibrationId,
+//     pub account_id: AccountId,
+//     pub dao_id: DaoId,
+//     pub group_id: GroupId,
+//     pub vote: DeltaVote,
+// }
+
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct CalibrationVoteInput {
@@ -42,7 +86,7 @@ pub struct CalibrationVoteInput {
     pub account_id: AccountId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
-    pub vote: DeltaVote,
+    pub kind: CalibrationVoteKind,
 }
 
 impl CalibrationVote {
@@ -53,7 +97,7 @@ impl CalibrationVote {
             account_id: input.account_id,
             dao_id: input.dao_id,
             group_id: input.group_id,
-            vote: input.vote,
+            kind: input.kind,
             weight,
             timestamp: env::block_timestamp_ms(),
         }

@@ -4,6 +4,91 @@ pub type ValueId = u64;
 pub type ValueName = String;
 pub type SubValueName = String;
 
+
+
+
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub enum Value {
+//     AccountId(AccountId),
+//     Group(HashSet<AccountId>),
+//     Amount(YoctoNumber),
+//     Percentage(YoctoNumber),
+//     Distribution(Distribution),
+//     Weight(Weight),
+//     Bool(bool),
+//     String(String),
+//     VideoId(VideoId),
+// }
+
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub enum Value {
+//     Int8(i8),
+//     Int16(i16),
+//     Int32(i32),
+//     Int64(i64),
+//     Int128(i128),
+//     UInt8(u8),
+//     UInt16(u16),
+//     UInt32(u32),
+//     UInt64(u64),
+//     UInt128(u128),
+//     Float32(f32),
+//     Float64(f64),
+//     String(String),
+//     Bool(bool),
+//     Bytes(Vec<u8>),
+//     AccountId(AccountId),
+// }
+
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct GovernedValue {
+//     pub id: ValueId,
+//     pub parent_collection_id: Option<CollectionId>,
+//     pub child_collection_id: Option<CollectionId>,
+//     pub dao_id: DaoId,
+//     pub operator_id: ContractId,
+//     pub name: String,
+//     pub value: Value,
+//     pub vote_method: VoteMethod,
+// }
+
+// pub type CollectionId = u64; 
+
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct Collection {
+//     pub id: CollectionId,
+//     pub dao_id: DaoId,
+//     pub values: HashSet<ValueId>,
+//     pub vote_method: VoteMethod,
+// }
+
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct GovernedValue {
+//     pub id: ValueId,
+//     pub video_id: VideoId,
+//     pub dao_id: DaoId,
+//     pub operator_id: ContractId,
+//     pub value: Value,
+//     pub vote_method: VoteMethod,
+// }
+
+// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+// #[serde(crate = "near_sdk::serde")]
+// pub struct Value2 {
+//     pub id: ValueId,
+//     pub video_id: VideoId,
+//     pub type_id: TypeId,
+//     pub dao_id: DaoId,
+//     pub operator_id: ContractId,
+//     pub vote_method: VoteMethod,
+// }
+
+
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Value {
