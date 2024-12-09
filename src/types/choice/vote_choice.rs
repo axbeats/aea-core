@@ -17,7 +17,7 @@ pub struct ChoiceVote {
     pub account_id: AccountId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
-    pub voted_options: HashSet<OptionId>,
+    pub voted_options: HashSet<CandidateId>,
     pub weight: u128,
     pub issued_at: u64,
     pub updated_at: Option<Vec<u64>>,
@@ -30,7 +30,7 @@ pub struct ChoiceVoteInput {
     pub account_id: AccountId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
-    pub voted_options: Vec<OptionId>,
+    pub voted_options: Vec<CandidateId>,
 }
 
 impl ChoiceVote {

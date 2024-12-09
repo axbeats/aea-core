@@ -30,10 +30,24 @@ impl Group {
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[serde(crate = "near_sdk::serde")]
-pub struct LocalGroup {
+pub struct GroupMembers {
     pub members: Vec<AccountId>,
     pub update_method: VoteMethod,
 }
+
+impl ChoiceObject for GroupMembers {
+    fn set_elected(&mut self, elected: Vec<CandidateId>) {
+        // Assume elected candidates are represented as AccountIds in the LocalGroup context.
+        self.members = elected
+            .into_iter()
+            .filter_map(|candidate| match candidate {
+                CandidateId::AccountId(account_id) => Some(account_id),
+                _ => None, // Ignore other candidate types
+            })
+            .collect();
+    }
+}
+
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(crate = "near_sdk::serde")]

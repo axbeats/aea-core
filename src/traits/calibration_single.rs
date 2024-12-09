@@ -3,12 +3,12 @@ use crate::*;
 pub trait CalibrationSingleInterface {
     type Object: CalibrationSingleObject;
 
-    fn get_object(&self, identifier: ValueIdentifier) -> &Self::Object;
-    fn get_object_mut(&mut self, identifier: ValueIdentifier) -> &mut Self::Object;
+    fn get_object(&self, identifier: CalibrationIdentifier) -> &Self::Object;
+    fn get_object_mut(&mut self, identifier: CalibrationIdentifier) -> &mut Self::Object;
 
     fn calibrate_single(
         &mut self,
-        identifier: ValueIdentifier,
+        identifier: CalibrationIdentifier,
         single_vote: SingleVote,
         adjustment_factor: AdjustmentFactor,
     ) -> Result<(), CalibrationError>;

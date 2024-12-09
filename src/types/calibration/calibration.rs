@@ -35,7 +35,7 @@ pub type CalibrationId = u64;
 pub struct Calibration {
     pub id: CalibrationId,
     pub video_id: VideoId,
-    pub reference: ValueReference,
+    pub reference: CalibrationReference,
     pub dao_id: DaoId,
     pub group_id: GroupId,
     pub kind: CalibrationKind,

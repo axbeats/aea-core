@@ -4,15 +4,15 @@ pub trait ProposalHashMapInterface {
     type Object: ProposalHashMap;
 
     /// Retrieve a reference to the proposal hashmap by identifier
-    fn get_hashmap(&self, identifier: ValueIdentifier) -> &Self::Object;
+    fn get_hashmap(&self, identifier: CalibrationIdentifier) -> &Self::Object;
 
     /// Retrieve a mutable reference to the proposal hashmap by identifier
-    fn get_hashmap_mut(&mut self, identifier: ValueIdentifier) -> &mut Self::Object;
+    fn get_hashmap_mut(&mut self, identifier: CalibrationIdentifier) -> &mut Self::Object;
 
     /// Add an item to the hashmap
     fn add_item(
         &mut self, 
-        identifier: ValueIdentifier,
+        identifier: CalibrationIdentifier,
         key: <Self::Object as ProposalHashMap>::Key,
         value: <Self::Object as ProposalHashMap>::Value,
     ) -> Result<(), ProposalProtocolError>;
@@ -20,7 +20,7 @@ pub trait ProposalHashMapInterface {
     /// Remove an item from the hashmap
     fn remove_item(
         &mut self, 
-        identifier: ValueIdentifier,
+        identifier: CalibrationIdentifier,
         key: <Self::Object as ProposalHashMap>::Key,
     ) -> Result<<Self::Object as ProposalHashMap>::Value, ProposalProtocolError>;
 }

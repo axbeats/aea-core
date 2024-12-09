@@ -2,16 +2,15 @@ use crate::*;
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
-pub struct ValueReference {
+pub struct ChoiceReference {
     pub contract_id: ContractId,
-    pub identifier: ValueIdentifier,
+    pub identifier: ChoiceIdentifier,
 }
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
-pub enum ValueIdentifier {
+pub enum ChoiceIdentifier {
     AccountId(AccountId),
-    Video(VideoId),
-    MintStream,
-    MintInteractions,
+    Bio(AccountId),
+    GroupId(GroupId),
 }

@@ -30,7 +30,7 @@ pub struct ActionVoteChoice {
     pub governed_value_id: ValueId,
     pub voter_id: AccountId,
     pub group_id: GroupId,
-    pub option_id: OptionId,
+    pub option_id: CandidateId,
     pub weight_kind: WeightKind,
 }
 

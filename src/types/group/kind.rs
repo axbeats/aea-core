@@ -3,8 +3,8 @@ use crate::*;
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[serde(crate = "near_sdk::serde")]
 pub enum GroupKind {
-    AI(LocalGroup),
-    Elected(LocalGroup),
+    AI(GroupMembers),
+    Elected(GroupMembers),
     Followers,
     // Point(Point),
     // Region(Region),
@@ -29,8 +29,8 @@ impl GroupKind {
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub enum GroupKindInput {
-    AI(LocalGroup),
-    Elected(LocalGroup),
+    AI(GroupMembers),
+    Elected(GroupMembers),
     Followers,
     // Point(Point),
     // Region(Region),

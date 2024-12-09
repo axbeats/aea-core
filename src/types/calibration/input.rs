@@ -21,7 +21,7 @@ use crate::*;
 #[serde(crate = "near_sdk::serde")]
 pub struct CalibrationInput {
     // Calibration fields
-    pub reference: ValueReference,
+    pub reference: CalibrationReference,
     pub dao_id: DaoId,
     pub group_id: GroupId,
     pub kind: CalibrationKind,

@@ -58,3 +58,17 @@ pub fn hash_calibration_id(calibration_id: &CalibrationId) -> CryptoHash {
     hash.copy_from_slice(&env::sha256(&bytes));
     hash
 }
+
+pub fn hash_choice_account_id(choice_id: &ChoiceId, account_id: &AccountId) -> CryptoHash {
+    // Create a unique combination of ChoiceId and AccountId
+    let mut data = choice_id.to_le_bytes().to_vec();
+    data.extend(account_id.as_bytes());
+
+    // Initialize a default CryptoHash
+    let mut hash = CryptoHash::default();
+
+    // Compute the SHA-256 hash of the combined data
+    hash.copy_from_slice(&env::sha256(&data));
+
+    hash
+}
