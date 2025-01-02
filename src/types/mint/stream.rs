@@ -2,46 +2,15 @@ use crate::*;
 
 pub type MintStreamId = String;
 
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct MintStreams {
-    pub streams: UnorderedMap<MintStreamId, MintStream>,
-}
-
-impl CalibrationDeltaObject for MintStreams {
-    type Item = MintStream;
-
-    fn get_item(&self, name: &String) -> Option<Self::Item> {
-        self.streams.get(name)
-    }
-
-    fn set_item(&mut self, name: &String, item: Self::Item) {
-        self.streams.insert(name, &item);
-    }
-
-    fn items(&self) -> Vec<Self::Item> {
-        self.streams.values().collect()
-    }
-}
-
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct MintStream {
     pub id: MintStreamId,
     pub percentage: YoctoPercentage,
-    pub interactions: HashSet<MintInteractionKey>,
+    pub interactions: HashSet<MintInteractionId>,
     pub current_weights: HashMap<AccountId, u128>,
     pub carryover_negative_weights: HashMap<AccountId, u128>,
     pub last_mint_timestamp: TimestampNanoSeconds,
-}
-
-impl CalibrationItem for MintStream {
-    fn get_percentage(&self) -> YoctoPercentage {
-        self.percentage
-    }
-
-    fn set_percentage(&mut self, percentage: YoctoPercentage) {
-        self.percentage = percentage;
-    }
 }
 
 impl MintStream {
@@ -61,7 +30,7 @@ impl MintStream {
 #[serde(crate = "near_sdk::serde")]
 pub struct MintStreamInput {
     pub id: MintStreamId,
-    pub interactions: HashSet<MintInteractionKey>,
+    pub interactions: HashSet<MintInteractionId>,
     pub percentage: YoctoPercentage,
 }
 

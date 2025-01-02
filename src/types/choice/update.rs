@@ -16,7 +16,6 @@ pub struct ChoiceValueUpdate {
     pub structure: ValueStructure, // Updated to match Value struct
 }
 
-
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(crate = "near_sdk::serde")]
 pub struct ChoiceGroupUpdate {

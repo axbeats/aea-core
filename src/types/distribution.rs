@@ -30,7 +30,7 @@ impl Distribution {
         &mut self,
         increase: String,
         decrease: String,
-        adjustment_factor: AdjustmentFactor,
+        adjustment_amount: YoctoNumber,
     ) -> Result<(), Error> {
         // Find the indices of the increase and decrease entries
         let increase_index = self
@@ -50,33 +50,24 @@ impl Distribution {
             return Err(anyhow!("Increase and decrease entries must be different"));
         }
 
-        // Calculate adjustment amount based on the adjustment factor
-        let adjustment = match adjustment_factor {
-            AdjustmentFactor::Percentage(percentage) => {
-                // Calculate as a percentage of the current decrease entry's value
-                (self.percentages[decrease_index].percentage * percentage as u128) / 100
-            }
-            AdjustmentFactor::Fixed(amount) => amount,
-        };
-
         // Ensure the decrease entry has enough to adjust
-        if self.percentages[decrease_index].percentage < adjustment {
+        if self.percentages[decrease_index].percentage < adjustment_amount {
             return Err(anyhow!(
                 "Cannot decrease '{}' by {}, insufficient percentage",
                 decrease,
-                adjustment
+                adjustment_amount
             ));
         }
 
         // Apply the adjustment
         self.percentages[increase_index].percentage = self.percentages[increase_index]
             .percentage
-            .checked_add(adjustment)
+            .checked_add(adjustment_amount)
             .ok_or_else(|| anyhow!("Adding adjustment to '{}' would cause overflow", increase))?;
 
         self.percentages[decrease_index].percentage = self.percentages[decrease_index]
             .percentage
-            .checked_sub(adjustment)
+            .checked_sub(adjustment_amount)
             .ok_or_else(|| {
                 anyhow!("Subtracting adjustment from '{}' would cause underflow", decrease)
             })?;

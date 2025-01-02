@@ -1,23 +1,17 @@
-pub use self::candidate::*;
 pub use self::choice::*;
+pub use self::config::*;
 pub use self::input::*;
 pub use self::kind::*;
-pub use self::metrics::*;
-pub use self::option::*;
 pub use self::output::*;
-pub use self::reference::*;
 pub use self::update::*;
-pub use self::vote_choice::*;
+pub use self::vote::*;
 pub use self::vote_tally::*;
 
-mod candidate;
 mod choice;
+mod config;
 mod input;
 mod kind;
-mod metrics;
-mod option;
 mod output;
-mod reference;
 mod update;
-mod vote_choice;
+mod vote;
 mod vote_tally;

@@ -8,7 +8,7 @@ pub struct ProfileInput {
     pub name: String,
     pub bio: Option<String>,
     pub image: ImageHash,
-    pub video: Option<VideoHash>,
+    pub video: Option<VideoId>,
     pub public_keys: Option<PublicKeys>,
     pub link: Option<String>,
 }

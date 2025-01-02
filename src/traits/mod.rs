@@ -1,12 +1,11 @@
+pub use self::calibration::*;
 pub use self::calibration_delta::*;
 pub use self::calibration_single::*;
-pub use self::proposal::*;
-pub use self::choice_single::*;
-pub use self::choice_multiple::*;
 pub use self::choice::*;
+pub use self::target_value::*;
+
+mod calibration;
 mod calibration_delta;
 mod calibration_single;
-mod proposal;
-mod choice_single;
-mod choice_multiple;
 mod choice;
+mod target_value;

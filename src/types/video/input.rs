@@ -27,32 +27,46 @@ impl VideoInput {
 }
 
 impl VideoInput {
-    pub fn from_choice_input(input: ChoiceInput, choice_id: ChoiceId) -> Self {
+    pub fn from_value_init(init: ValueInit, title: String, description: Option<String>) -> Self {
         Self {
-            context: VideoContext::Choice(choice_id),
-            title: input.title,
-            description: input.description,
-            video: input.video,
-            image: input.image,
-            location: input.location,
+            context: VideoContext::Value(init.id),
+            title: title,
+            description: description,
+            video: init.video,
+            image: init.image,
+            location: init.location,
             permissions: VideoPermissions::vote_permissions(),
         }
     }
 }
 
-impl VideoInput {
-    pub fn from_calibration_input(input: CalibrationInput, calibration_id: CalibrationId) -> Self {
-        Self {
-            context: VideoContext::Calibration(calibration_id),
-            title: input.title,
-            description: input.description,
-            video: input.video,
-            image: input.image,
-            location: input.location,
-            permissions: VideoPermissions::vote_permissions(),
-        }
-    }
-}
+// impl VideoInput {
+//     pub fn from_choice_input(input: ChoiceInput, choice_id: ChoiceId) -> Self {
+//         Self {
+//             context: VideoContext::Choice(choice_id),
+//             title: input.title,
+//             description: input.description,
+//             video: input.video,
+//             image: input.image,
+//             location: input.location,
+//             permissions: VideoPermissions::vote_permissions(),
+//         }
+//     }
+// }
+
+// impl VideoInput {
+//     pub fn from_calibration_input(input: CalibrationInput, calibration_id: CalibrationId) -> Self {
+//         Self {
+//             context: VideoContext::Calibration(calibration_id),
+//             title: input.title,
+//             description: input.description,
+//             video: input.video,
+//             image: input.image,
+//             location: input.location,
+//             permissions: VideoPermissions::vote_permissions(),
+//         }
+//     }
+// }
 
 impl VideoInput {
     pub fn from_rule_input(input: RuleInput, rule_id: RuleId) -> Self {

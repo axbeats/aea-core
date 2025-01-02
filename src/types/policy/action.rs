@@ -30,7 +30,7 @@ pub struct ActionVoteChoice {
     pub governed_value_id: ValueId,
     pub voter_id: AccountId,
     pub group_id: GroupId,
-    pub option_id: CandidateId,
+    pub candidate: String,
     pub weight_kind: WeightKind,
 }
 
@@ -67,8 +67,8 @@ pub enum ActionInputKind {
 pub enum ActionKind {
     CreateProposal(ProposalInput),
     VoteProposal(ProposalVote, Policy, u128),
-    VoteChoice(ChoiceVote),
-    VoteCalibration(CalibrationVote),
+    VoteChoice(ChoiceVoteConfig),
+    VoteCalibration(CalibrationVoteConfig),
 }
 
 // #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]

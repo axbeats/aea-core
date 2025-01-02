@@ -4,6 +4,7 @@ use crate::*;
 #[serde(crate = "near_sdk::serde")]
 pub struct GroupInput {
     pub name: String,
+    pub description: Option<String>,
     pub kind: GroupKindInput,
     pub vote_weight: VoteWeightKind,
     pub permissions: HashMap<ProposalKindString, ProposalPermission>,

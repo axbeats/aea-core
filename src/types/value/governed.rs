@@ -1,19 +1,16 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Governed<T> {
     pub value: T,
-    pub primary_key: String,
-    pub secondary_key: String,
-    pub identifier: String,
-    pub governance_method: VoteMethod,
+    pub method: GovernanceMethod,
+    pub reference: GovernedReference,
 }
-
 
 impl<T> Governed<T>
 where
-    T: GovernedObject,
+    T: GovernedTarget,
 {
     /// Updates the governed object with the given input.
     pub fn update(&mut self, input: T::Input) -> Result<(), T::Error> {
@@ -21,10 +18,18 @@ where
     }
 }
 
-pub trait GovernedObject {
+pub trait GovernedTarget {
     type Input;
     type Error;
 
     /// Updates the governed object with the given input.
     fn update_value(&mut self, input: Self::Input) -> Result<(), Self::Error>;
+}
+
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
+#[serde(crate = "near_sdk::serde")]
+pub struct GovernedReference {
+    pub primary_key: String,
+    pub secondary_key: String,
+    pub identifier: Option<Identifier>,
 }

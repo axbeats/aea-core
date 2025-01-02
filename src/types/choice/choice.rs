@@ -6,35 +6,26 @@ pub type ChoiceId = u64;
 #[serde(crate = "near_sdk::serde")]
 pub struct Choice {
     pub id: ChoiceId,
-    pub video_id: VideoId,
+    pub value_id: GovernedValueId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
-    pub reference: ChoiceReference,
     pub kind: ChoiceKind,
     pub max_vote_options: u8,
-    pub elected_candidates: Vec<CandidateId>, // Might not need this here - Dec 2 2024
+    pub elected: Vec<String>,
     pub initiated_at: TimestampNanoSeconds,
 }
 
 impl Choice {
-    pub fn from_input(id: ChoiceId, video_id: VideoId, input: ChoiceInput) -> Self {
+    pub fn from_config(id: ChoiceId, config: ChoiceConfig) -> Self {
         Choice {
             id,
-            video_id,
-            dao_id: input.dao_id,
-            group_id: input.group_id,
-            reference: input.reference,
-            kind: input.kind,
-            elected_candidates: input.initial_candidates,
-            max_vote_options: input.max_vote_options,
+            value_id: config.value_id,
+            dao_id: config.dao_id,
+            group_id: config.group_id,
+            kind: config.kind,
+            max_vote_options: config.max_vote_options,
+            elected: config.initial_values,
             initiated_at: env::block_timestamp(),
         }
     }
-}
-
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
-pub struct ChoiceVoteCount {
-    pub option_id: CandidateId,
-    pub count: u128,
 }

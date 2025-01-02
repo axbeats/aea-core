@@ -4,7 +4,7 @@ use super::*;
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct CreateValueEvent {
-    pub value: Value,
+    pub value: GovernedValue,
     pub timestamp: u64,
 }
 

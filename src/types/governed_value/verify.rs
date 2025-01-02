@@ -2,7 +2,7 @@ use crate::*;
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
-pub enum AdjustmentFactor {
-    Percentage(Percentage),
-    Fixed(YoctoNumber),
+pub struct VerifyValueResult {
+    pub title: String,
+    pub description: Option<String>,
 }

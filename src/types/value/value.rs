@@ -101,29 +101,30 @@ pub struct Value {
     pub calling_contract: ContractId,
 }
 
-impl Value {
-    pub fn from_input(input: ValueInput, id: ValueId, choice_id: Option<ChoiceId>) -> Self {
-        // Match the vote_method_input and ensure ChoiceId is provided if necessary
-        let vote_method = match input.vote_method_input {
-            VoteMethodInput::Proposal => VoteMethod::Proposal,
-            VoteMethodInput::Choice(_, _, _) => {
-                if let Some(choice_id) = choice_id {
-                    VoteMethod::Choice(choice_id)
-                } else {
-                    panic!("ERR_CHOICE_ID: ChoiceId is required for VoteMethod::Choice");
-                }
-            },
-        };
+// impl Value {
+//     pub fn from_input(input: ValueInput, id: ValueId, choice_id: Option<ChoiceId>) -> Self {
+//         // Match the vote_method_input and ensure ChoiceId is provided if necessary
+//         let vote_method = match input.vote_method_input {
+//             VoteMethodInput::Proposal => VoteMethod::Proposal,
+//             // VoteMethodInput::Choice(_, _, _) => {
+//                 VoteMethodInput::Choice => {
+//                 if let Some(choice_id) = choice_id {
+//                     VoteMethod::Choice(choice_id)
+//                 } else {
+//                     panic!("ERR_CHOICE_ID: ChoiceId is required for VoteMethod::Choice");
+//                 }
+//             },
+//         };
 
-        // Construct the Value object based on the input fields
-        Value {
-            id,                          
-            name: input.name,     
-            description: input.description,       
-            dao_id: env::predecessor_account_id(),
-            structure: input.structure,
-            vote_method,      
-            calling_contract: input.calling_contract,
-        }
-    }
-}
+//         // Construct the Value object based on the input fields
+//         Value {
+//             id,                          
+//             name: input.name,     
+//             description: input.description,       
+//             dao_id: env::predecessor_account_id(),
+//             structure: input.structure,
+//             vote_method,      
+//             calling_contract: input.calling_contract,
+//         }
+//     }
+// }
