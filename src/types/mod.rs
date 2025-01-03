@@ -28,7 +28,9 @@ pub use self::value::*;
 pub use self::video::*;
 pub use self::vote::*;
 pub use self::weight::*;
+pub use self::algorithm::*;
 
+mod algorithm;
 mod amount;
 mod calibration;
 mod choice;
