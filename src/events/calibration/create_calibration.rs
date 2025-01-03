@@ -5,7 +5,6 @@ use super::*;
 #[serde(crate = "near_sdk::serde")]
 pub struct CreateCalibrationEvent {
     pub calibration: Calibration,
-    pub distribution: Distribution,  // Include the initial distribution in the event
 }
 
 impl CreateCalibrationEvent {

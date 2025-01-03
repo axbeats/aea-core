@@ -3,7 +3,7 @@ use super::*;
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct RemoveReviewEvent {
-    pub review: Review,
+    pub review_id: ReviewId,
 }
 
 impl RemoveReviewEvent {

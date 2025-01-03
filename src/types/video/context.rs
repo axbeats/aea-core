@@ -16,6 +16,13 @@ pub enum VideoContext {
     // Group(GroupId, VoteMethod),
 }
 
+impl Default for VideoContext {
+    fn default() -> Self {
+        VideoContext::NFT(0) // Replace with a sensible default TokenId
+    }
+}
+
+
 #[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub enum OriginalContext {

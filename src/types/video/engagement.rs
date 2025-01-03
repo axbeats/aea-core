@@ -10,7 +10,7 @@ use std::ops::AddAssign;
 // - Serialize, Deserialize: for (de)serializing the struct using Serde.
 // - Clone: to allow the struct to be cloned.
 // - Default: to allow the struct to be created with default values.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Default)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Default, Debug)]
 // Specify that Serde should use the `near_sdk::serde` crate for serialization.
 #[serde(crate = "near_sdk::serde")]
 pub struct VideoEngagement {
