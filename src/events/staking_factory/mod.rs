@@ -6,17 +6,17 @@ pub use self::create_deploy_staking::*;
 mod create_deploy_staking;
 
 // Define the event variants for staking factory events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum StakingFactoryEventKind {
     CreateDeployStaking(CreateDeployStakingEvent),
 }
 
 // Define the main StakingFactoryEvent struct
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct StakingFactoryEvent {
     pub standard: String,
     pub version: String,

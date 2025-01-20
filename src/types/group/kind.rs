@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum GroupKind {
     // Anyone
     Elected(HashSet<AccountId>),
@@ -25,8 +25,8 @@ impl GroupKind {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum GroupKindInput {
     Elected(Vec<AccountId>),
     Followers,

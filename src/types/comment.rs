@@ -9,9 +9,8 @@ pub type CommentId = u64;
 /// Each comment is uniquely identified by its `id` and is associated with a specific video (`video_id`).
 /// Comments can be made by users, and the `author` field captures the account ID of the user who made the comment.
 /// Additionally, comments can have replies, and the `next_reply_id` is used to manage and generate unique identifiers for these replies.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-// Specify that Serde should use the `near_sdk::serde` crate for serialization.
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Comment {
     pub id: CommentId,         // Unique identifier for the comment.
     pub video_id: VideoId,     // ID of the video this comment is associated with.
@@ -24,9 +23,8 @@ pub struct Comment {
 ///
 /// This struct provides a comprehensive view of a comment, including its core information, 
 /// as well as additional data such as like count and reply count.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-// Specify that Serde should use the `near_sdk::serde` crate for serialization.
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct CommentOutput {
     pub id: CommentId,         // Unique identifier for the comment.
     pub video_id: VideoId,     // ID of the video this comment is associated with.

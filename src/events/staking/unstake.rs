@@ -1,8 +1,8 @@
 use super::*;
 
 // Event for unstaking tokens
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct UnstakeEvent {
     pub account_id: AccountId,
     pub amount: u128,

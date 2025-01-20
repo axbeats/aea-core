@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProfileResults {
     pub profile_outputs: Vec<ProfileOutput>,
     pub count: u64,

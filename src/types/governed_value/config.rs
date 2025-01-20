@@ -1,8 +1,8 @@
 use crate::*;
 
 // Created after the video
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ValueConfig {
     pub id: GovernedValueId, // ContractId, FieldId, and Identifier - set by user
     pub video_id: VideoId,

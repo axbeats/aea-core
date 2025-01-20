@@ -1,7 +1,7 @@
 use super::*;
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct DeleteProposalEvent {
     pub proposal_id: u64,
     pub timestamp: u64,

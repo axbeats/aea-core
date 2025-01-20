@@ -1,8 +1,8 @@
 use super::*;
 
 // CreateChoiceEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct CreateChoiceEvent {
     pub choice: Choice,
     // pub options: Vec<(OptionId, ValueType)>,  // Include option IDs and their values

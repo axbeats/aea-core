@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct VerifyValueResult {
     pub title: String,
     pub description: Option<String>,

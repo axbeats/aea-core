@@ -3,8 +3,8 @@ use crate::*;
 pub type ProposalKindString = String;
 
 /// Kinds of proposals, doing different action.
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum ProposalKind {
     AddAccountToGroup {
         group_id: GroupId,

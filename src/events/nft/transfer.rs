@@ -1,8 +1,8 @@
 use super::*;
 
 // TransferNFTEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct TransferNFTEvent {
     pub sender_id: AccountId,
     pub receiver_id: AccountId,

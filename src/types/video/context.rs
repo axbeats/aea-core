@@ -1,9 +1,9 @@
 use crate::*;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum VideoContext {
-    NFT(TokenId),
+    NFT(VideoNFTId),
     Value(GovernedValueId),
     Proposal(ProposalId),
     // Choice(ChoiceId),
@@ -23,8 +23,8 @@ impl Default for VideoContext {
 }
 
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum OriginalContext {
     NFT(TokenId),
     Value(GovernedValueId),

@@ -12,10 +12,10 @@ mod update_value;
 mod use_value;
 
 // Define the event variants for group events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum ValueEventKind {
     CreateValue(CreateValueEvent),
     UpdateValue(UpdateValueEvent),
@@ -23,8 +23,8 @@ pub enum ValueEventKind {
     UseValue(UseValueEvent),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct ValueEvent {
     pub standard: String,
     pub version: String,

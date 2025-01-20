@@ -7,8 +7,8 @@ use std::ops::AddAssign;
 ///
 /// This struct contains various metrics that track how a proposal is engaged with by users, including view counts,
 /// comment counts, and other interactions.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct VoteEngagement {
     pub vote_count: u64,                      // Number of votes cast for this proposal
     pub view_count: u64,                      // Number of views.

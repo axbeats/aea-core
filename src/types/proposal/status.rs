@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub enum ProposalStatus {
     Initializing,
     VotingStage(VotingStage), // Voting stage with current stage and final stage
@@ -37,23 +37,23 @@ impl ProposalStatus {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct VotingStage {
     pub current_stage: u8, // 1 based index
     pub final_stage: u8, // 1 based index
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub enum GroupVoteStatus {
     Waiting,
     VoteOpen,
     VoteClosed(GroupVoteResult),
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub enum GroupVoteResult {
     Approved,
     Rejected,

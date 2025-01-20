@@ -4,8 +4,8 @@ use crate::*;
 
 pub type ReviewVoteId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ReviewVote {
     pub id: ReviewVoteId,
     pub dao_id: DaoId,
@@ -15,26 +15,26 @@ pub struct ReviewVote {
     pub group_id: GroupId,
     pub vote: ReviewVoteKind,
     pub weight: u128,
-    pub issued_at: TimestampMilliSeconds,
+    pub issued_at: TimestampNanoSeconds,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ReviewVoteInput {
     pub review_id: ReviewId,
     pub group_id: GroupId,
     pub vote: ReviewVoteKind,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Default)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, Default)]
 pub struct ReviewVoteTally {
     pub innocent_count: u128,
     pub guilty_count: u128,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum ReviewVoteKind {
     Innocent,
     Guilty,

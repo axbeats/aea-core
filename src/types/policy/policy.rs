@@ -3,8 +3,8 @@ use crate::*;
 pub type DefaultBond = u128;
 pub type AttachedBond = u128;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum ProposalPolicyKind {
     Threshold(u8),
     Quorum(u8),
@@ -45,8 +45,8 @@ impl ProposalPolicyKind {
 //     pub amendment_method: VoteMethod,
 // }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Policy {
     pub bond: u128,
     pub voting_period: u64,
@@ -82,8 +82,8 @@ impl Policy {
 }
 
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct CustomPolicy {
     pub bond: Option<u128>,
     pub voting_period: Option<u64>,
@@ -131,23 +131,23 @@ impl Default for CustomPolicy {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct CustomPolicyInput {
     pub group_id: GroupId,
     pub proposal_kind: ProposalKindString,
     pub policy_kind: ProposalPolicyKind,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum PolicyKind {
     Default(ProposalPolicyKind),
     Custom(CustomPolicyInput)
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct GroupVotePolicy {
     pub group_id: GroupId,
     pub group_size: u64,

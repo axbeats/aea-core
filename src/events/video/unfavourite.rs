@@ -1,8 +1,8 @@
 use super::*;
 
 // NftUnfavouriteVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct UnfavouriteVideoEvent {
     pub unfavouriter_id: AccountId,
     pub video_id: VideoId,

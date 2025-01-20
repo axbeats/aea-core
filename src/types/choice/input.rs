@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct ChoiceInput {
     pub group_id: GroupId,
     pub kind: ChoiceKind,

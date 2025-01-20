@@ -1,8 +1,8 @@
 use super::*;
 
 // UpdateCalibrationEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct UpdateCalibrationEvent {
     pub calibration: Calibration,
     pub timestamp: u64,

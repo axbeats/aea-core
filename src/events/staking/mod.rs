@@ -8,18 +8,18 @@ mod stake;
 mod unstake;
 
 // Define the event variants for staking events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum StakingEventKind {
     Stake(StakeEvent),
     Unstake(UnstakeEvent),
 }
 
 // Define the main StakingEvent struct
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct StakingEvent {
     pub standard: String,
     pub version: String,

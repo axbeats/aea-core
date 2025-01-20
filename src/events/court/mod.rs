@@ -20,10 +20,10 @@ mod update_review_status;
 mod vote_review;
 
 // Define the event variants for court events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum CourtEventKind {
     AddFlag(AddFlagEvent),
     CreateRule(CreateRuleEvent),
@@ -35,8 +35,8 @@ pub enum CourtEventKind {
     UpdateReviewStatus(UpdateReviewStatusEvent),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CourtEvent {
     pub standard: String,
     pub version: String,

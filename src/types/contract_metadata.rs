@@ -1,12 +1,7 @@
 use crate::*;
 
-/// Metadata for a contract on the blockchain.
-///
-/// This struct holds various metadata fields that provide information about the contract,
-/// including its version, name, symbol, icon, and references to additional resources.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-// Specify that Serde should use the `near_sdk::serde` crate for serialization.
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ContractMetadata {
     pub spec: String,                 // Required, specifies the version of the contract metadata, e.g., "contract-1.0.0".
     pub name: String,                 // Required, name of the contract, e.g., "MyContract".
@@ -17,8 +12,8 @@ pub struct ContractMetadata {
     pub reference_hash: Option<Base64VecU8>, // Optional, Base64-encoded sha256 hash of JSON from the reference field. Required if `reference` is included.
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct NFTContractMetadata {
     pub spec: String,              // required, essentially a version like "nft-1.0.0"
     pub name: String,              // required, ex. "Mosaics"
@@ -29,9 +24,8 @@ pub struct NFTContractMetadata {
     pub reference_hash: Option<Base64VecU8>, // Base64-encoded sha256 hash of JSON from reference field. Required if `reference` is included.
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Clone, Deserialize, Serialize, Debug)]
-#[borsh(crate = "near_sdk::borsh")]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct FungibleTokenMetadata {
     pub spec: String, // Should be ft-1.0.0 to indicate that a Fungible Token contract adheres to the current versions of this Metadata and the Fungible Token Core specs. This will allow consumers of the Fungible Token to know if they support the features of a given contract.
     pub name: String, // The human-readable name of the token.

@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct VideoInput {
     pub context: VideoContext,
     pub title: String,        
@@ -13,6 +13,19 @@ pub struct VideoInput {
 }
 
 impl VideoInput {
+
+    pub fn from_nft_input(input: VideoNFTInput, nft_id: VideoNFTId) -> Self {
+        Self {
+            context: VideoContext::NFT(nft_id),
+            title: input.title,
+            description: input.description,
+            video: input.video,
+            image: input.image,
+            location: input.location,
+            permissions: VideoPermissions::vote_permissions(),
+        }
+    }
+
     pub fn from_proposal_input(input: ProposalInput, proposal_id: ProposalId) -> Self {
         Self {
             context: VideoContext::Proposal(proposal_id),
@@ -24,9 +37,7 @@ impl VideoInput {
             permissions: VideoPermissions::vote_permissions(),
         }
     }
-}
 
-impl VideoInput {
     pub fn from_value_init(init: ValueInit, title: String, description: Option<String>) -> Self {
         Self {
             context: VideoContext::Value(init.id),
@@ -38,41 +49,11 @@ impl VideoInput {
             permissions: VideoPermissions::vote_permissions(),
         }
     }
-}
 
-// impl VideoInput {
-//     pub fn from_choice_input(input: ChoiceInput, choice_id: ChoiceId) -> Self {
-//         Self {
-//             context: VideoContext::Choice(choice_id),
-//             title: input.title,
-//             description: input.description,
-//             video: input.video,
-//             image: input.image,
-//             location: input.location,
-//             permissions: VideoPermissions::vote_permissions(),
-//         }
-//     }
-// }
-
-// impl VideoInput {
-//     pub fn from_calibration_input(input: CalibrationInput, calibration_id: CalibrationId) -> Self {
-//         Self {
-//             context: VideoContext::Calibration(calibration_id),
-//             title: input.title,
-//             description: input.description,
-//             video: input.video,
-//             image: input.image,
-//             location: input.location,
-//             permissions: VideoPermissions::vote_permissions(),
-//         }
-//     }
-// }
-
-impl VideoInput {
     pub fn from_rule_input(input: RuleInput, rule_id: RuleId) -> Self {
         Self {
             context: VideoContext::Rule(rule_id),
-            title: input.title,
+            title: input.name,
             description: input.description,
             video: input.video,
             image: input.image,
@@ -80,4 +61,5 @@ impl VideoInput {
             permissions: VideoPermissions::vote_permissions(),
         }
     }
+
 }

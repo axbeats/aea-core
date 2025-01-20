@@ -1,7 +1,7 @@
 use super::*;
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct UseValueEvent {
     pub value_id: u64,
     pub account_id: AccountId,

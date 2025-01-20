@@ -1,8 +1,8 @@
 use super::*;
 
 // NftDeleteVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct DeleteVideoEvent {
     pub creator_id: AccountId,
     pub video_id: VideoId,

@@ -2,8 +2,8 @@ use crate::*;
 
 pub type ChoiceVoteId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ChoiceVote {
     pub id: ChoiceVoteId,
     pub choice_id: ChoiceId, 
@@ -32,8 +32,8 @@ impl ChoiceVote {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ChoiceVoteConfig {
     pub choice_id: ChoiceId,
     pub account_id: AccountId,
@@ -56,8 +56,8 @@ impl ChoiceVoteConfig {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ChoiceVoteInput {
     pub choice_id: ChoiceId,
     pub account_id: AccountId,

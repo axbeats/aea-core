@@ -1,8 +1,8 @@
 use super::*;
 
 // RemoveGroupFromAccountEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct RemoveGroupFromAccountEvent {
     pub account_id: AccountId,
     pub group_id: GroupId,

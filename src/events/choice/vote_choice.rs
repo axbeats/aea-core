@@ -1,8 +1,8 @@
 use super::*;
 
 // VoteChoiceEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct VoteChoiceEvent {
     pub vote: ChoiceVote,
 }

@@ -12,10 +12,10 @@ mod update_calibration;
 mod vote_calibration;
 
 // Define the event variants for calibration events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum CalibrationEventKind {
     CreateCalibration(CreateCalibrationEvent),
     UpdateCalibration(UpdateCalibrationEvent),
@@ -24,8 +24,8 @@ pub enum CalibrationEventKind {
 }
 
 // Define the main CalibrationEvent struct
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CalibrationEvent {
     pub standard: String,
     pub version: String,

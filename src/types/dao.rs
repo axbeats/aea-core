@@ -2,8 +2,8 @@ use crate::*;
 
 pub type DaoId = AccountId;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct DaoInput {
     pub profile: ProfileInput,
     pub groups: Vec<GroupInput>,
@@ -11,8 +11,8 @@ pub struct DaoInput {
     pub token: Option<TokenInput>,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct DaoConfig {
     pub dao_id: DaoId,
     pub default_policy: Policy,
@@ -21,8 +21,8 @@ pub struct DaoConfig {
     pub metadata: ContractMetadata,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct DaoOutput {
     pub dao_id: DaoId,
     pub policy: Policy,

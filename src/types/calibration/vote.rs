@@ -4,8 +4,8 @@ use crate::*;
 
 pub type CalibrationVoteId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct CalibrationVote {
     pub id: CalibrationVoteId,
     pub calibration_id: CalibrationId,
@@ -36,8 +36,8 @@ impl CalibrationVote {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct CalibrationVoteConfig {
     pub calibration_id: CalibrationId,
     pub account_id: AccountId,
@@ -60,8 +60,8 @@ impl CalibrationVoteConfig {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct CalibrationVoteInput {
     pub calibration_id: CalibrationId,
     pub account_id: AccountId,
@@ -72,22 +72,22 @@ pub struct CalibrationVoteInput {
 
 
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum CalibrationVoteKind {
     Single(SingleVote),
     Delta(DeltaVote),
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum SingleVote {
     Increase(String),
     Decrease(String),
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct DeltaVote {
     pub increase: String,
     pub decrease: String,

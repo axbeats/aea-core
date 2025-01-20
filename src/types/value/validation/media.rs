@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct MediaValidation {
     pub banned_media: HashSet<MediaHash>,         // Media that are not allowed
     pub allowed_formats: Option<HashSet<String>>, // Allowed formats (e.g., "mp4", "png", "mp3")

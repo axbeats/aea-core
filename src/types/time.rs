@@ -7,8 +7,8 @@ pub type TimestampNanoSeconds = u64;
 
 pub const SECONDS_PER_DAY: u64 = 24 * 60 * 60; // 86,400
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Copy, Clone, Debug, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq, Copy)]
 pub enum TimePeriod {
     Day(Option<u64>),
     Week(Option<u64>),

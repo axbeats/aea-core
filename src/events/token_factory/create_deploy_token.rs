@@ -1,8 +1,8 @@
 use super::*;
 
 // Event for creating and deploying a token contract
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CreateDeployTokenEvent {
     pub token_id: AccountId,
     pub timestamp: u64,

@@ -6,17 +6,17 @@ pub use self::create_deploy_token::*;
 mod create_deploy_token;
 
 // Define the event variants for token factory events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum TokenFactoryEventKind {
     CreateDeployToken(CreateDeployTokenEvent),
 }
 
 // Define the main TokenFactoryEvent struct
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct TokenFactoryEvent {
     pub standard: String,
     pub version: String,

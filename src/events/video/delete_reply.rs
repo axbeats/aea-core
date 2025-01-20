@@ -1,8 +1,8 @@
 use super::*;
 
 // NftDeleteReplyCommentVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct DeleteReplyCommentVideoEvent {
     pub replier_id: AccountId,
     pub comment_id: CommentId,

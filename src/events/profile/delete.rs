@@ -1,8 +1,8 @@
 use super::*;
 
 // DeleteProfileEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct DeleteProfileEvent {
     pub account_id: AccountId,
     pub timestamp: u64,

@@ -1,8 +1,8 @@
 // Import all items from the current crate.
 use crate::*;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct VideoPermissions {
     pub allow_likes: bool,
     pub allow_comments: bool,

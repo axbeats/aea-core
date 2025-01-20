@@ -1,8 +1,8 @@
 use super::*;
 
 // RemoveCalibrationEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct RemoveCalibrationEvent {
     pub calibration_id: CalibrationId,
     pub timestamp: u64,

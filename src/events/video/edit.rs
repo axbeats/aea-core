@@ -1,8 +1,8 @@
 use super::*;
 
 // NftEditVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct EditVideoEvent {
     pub video: Video, // Not sure if I should emit entire video struct or an EditVideoEnum - Oct 30 2021
 }

@@ -1,8 +1,8 @@
 use crate::*;
 
 /// Function call arguments.
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct FunctionCall {
     pub contract_id: AccountId,
     pub method_name: String,
@@ -12,8 +12,8 @@ pub struct FunctionCall {
 }
 
 // I think this will be expired, check later and delete if so - Aug 9 2024
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ActionVoteProposal {
     pub proposal_id: ProposalId,
     pub proposal_kind: ProposalKindString,
@@ -24,8 +24,8 @@ pub struct ActionVoteProposal {
     pub current_stage: u8, // 1 based index
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ActionVoteChoice {
     pub governed_value_id: ValueId,
     pub voter_id: AccountId,
@@ -34,8 +34,8 @@ pub struct ActionVoteChoice {
     pub weight_kind: WeightKind,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Action {
     pub account_id: AccountId,
     pub dao_id: DaoId,
@@ -43,8 +43,8 @@ pub struct Action {
     pub kind: ActionKind,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ActionInput {
     pub account_id: AccountId,
     pub dao_id: DaoId,
@@ -53,8 +53,8 @@ pub struct ActionInput {
     pub kind: ActionInputKind,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum ActionInputKind {
     CreateProposal((ProposalInput, AttachedBond, DefaultBond)),
     VoteProposal((ProposalVoteInput, CurrentStage, Policy)),
@@ -62,8 +62,8 @@ pub enum ActionInputKind {
     VoteCalibration(CalibrationVoteInput),
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum ActionKind {
     CreateProposal(ProposalInput),
     VoteProposal(ProposalVote, Policy, u128),

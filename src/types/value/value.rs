@@ -89,8 +89,8 @@ pub type SubValueName = String;
 // }
 
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Value {
     pub id: ValueId,
     pub name: ValueName,

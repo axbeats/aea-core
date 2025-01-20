@@ -1,8 +1,8 @@
 use super::*;
 
 // BurnNFTEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct BurnNFTEvent {
     pub token_id: TokenId,             // Assuming TokenId is defined in your code
     pub timestamp: TimestampNanoSeconds, // Assuming TimestampNanoSeconds is defined in your code

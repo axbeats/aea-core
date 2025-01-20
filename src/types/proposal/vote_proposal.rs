@@ -4,8 +4,8 @@ use crate::*;
 
 pub type ProposalVoteId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalVote {
     pub id: ProposalVoteId,
     pub proposal_id: ProposalId,
@@ -21,17 +21,20 @@ pub struct ProposalVote {
 }
 
 /// Votes recorded in the proposal.
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
-#[borsh(use_discriminant = true)]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum Vote {
-    Approve = 0x0,
-    Reject = 0x1,
-    Spam = 0x2,
+    // Approve = 0x0,
+    // Reject = 0x1,
+    // Spam = 0x2,
+    Approve,
+    Reject,
+    Spam,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalVoteInput {
     pub proposal_id: ProposalId,
     pub proposal_kind: ProposalKindString,

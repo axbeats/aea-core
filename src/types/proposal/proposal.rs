@@ -3,8 +3,8 @@ use crate::*;
 pub type ProposalId = u64;
 pub type CurrentStage = u8; // 1 based index
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Proposal {
     pub id: u64,
     pub video_id: VideoId,

@@ -2,8 +2,8 @@ use crate::*;
 
 pub type MintStreamId = String;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct MintStream {
     pub id: MintStreamId,
     pub percentage: YoctoPercentage,
@@ -26,8 +26,8 @@ impl MintStream {
     }
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct MintStreamInput {
     pub id: MintStreamId,
     pub interactions: HashSet<MintInteractionId>,

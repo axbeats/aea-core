@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Governed<T> {
     pub value: T,
     pub method: GovernanceMethod,
@@ -26,8 +26,8 @@ pub trait GovernedTarget {
     fn update_value(&mut self, input: Self::Input) -> Result<(), Self::Error>;
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct GovernedReference {
     pub primary_key: String,
     pub secondary_key: String,

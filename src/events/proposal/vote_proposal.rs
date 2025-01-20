@@ -1,8 +1,8 @@
 use super::*;
 
 // VoteProposalEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct VoteProposalEvent {
     pub vote: ProposalVote,
 }

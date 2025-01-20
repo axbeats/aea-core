@@ -1,12 +1,13 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct GovernedValueId {
     pub contract_id: ContractId,
     pub field_id: FieldId,
     pub identifier: Option<Identifier>,
 }
+
 
 impl GovernedValueId {
     pub fn new(contract_id: ContractId, field_id: FieldId, identifier: Option<Identifier>) -> Self {
@@ -62,8 +63,8 @@ impl GovernedValueId {
 
 pub type FieldId = String;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Identifier {
     AccountId(AccountId),
     String(String),
@@ -127,8 +128,8 @@ impl Identifier {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct GovernedValue {
     pub id: GovernedValueId,
     pub video_id: VideoId,

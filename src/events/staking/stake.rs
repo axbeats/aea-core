@@ -1,8 +1,8 @@
 use super::*;
 
 // Event for staking tokens
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct StakeEvent {
     pub account_id: AccountId,
     pub amount: u128,

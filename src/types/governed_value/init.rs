@@ -1,8 +1,8 @@
 use crate::*;
 
 // Created after a successful Proposal Vote
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ValueInit {
     pub id: GovernedValueId, // ContractId, FieldId, and Identifier - set by user
     pub dao_id: DaoId,

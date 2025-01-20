@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct AccountIdValidation {
     pub allowed_accounts: Option<HashSet<AccountId>>,
     pub banned_accounts: Option<HashSet<AccountId>>, 

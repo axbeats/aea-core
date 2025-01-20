@@ -3,8 +3,8 @@ use crate::*;
 // pub type MintInteractionId = MethodName;
 // pub type MintInteractionKey = (AccountId, MethodName);
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq, PartialOrd, Ord, Eq, Hash)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq, PartialOrd, Ord, Eq, Hash)]
 pub struct MintInteractionId {
     pub caller_id: AccountId,
     pub method_name: MethodName,
@@ -34,13 +34,13 @@ impl MintInteractionId {
 pub type MintWeight = YoctoNumber;
 pub type MethodName = String;
 
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct MintInteractions {
-    pub interactions: UnorderedMap<MintInteractionId, MintInteraction>,
-}
+// #[derive(BorshDeserialize, BorshSerialize)]
+// pub struct MintInteractions {
+//     pub interactions: UnorderedMap<MintInteractionId, MintInteraction>,
+// }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct MintInteraction {
     pub id: MintInteractionId,
     pub stream_id: MintStreamId,
@@ -48,8 +48,8 @@ pub struct MintInteraction {
 }
 
 // Users replace this with their own enum
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq, Eq, Hash)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum DefaultInteractions {
     // Video
     LikeVideo,

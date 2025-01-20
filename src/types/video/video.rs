@@ -2,8 +2,8 @@ use crate::*;
 
 pub type VideoId = u64;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Video {
     pub id: VideoId,
     pub creator_id: AccountId,

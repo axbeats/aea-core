@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct FTMintInput {
     pub interactions: Vec<MintInteraction>,
     pub streams: Vec<MintStream>,

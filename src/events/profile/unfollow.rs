@@ -1,8 +1,8 @@
 use super::*;
 
 // UnfollowProfileEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct UnfollowProfileEvent {
     pub follower_id: AccountId,
     pub followed_id: AccountId,

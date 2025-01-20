@@ -1,15 +1,15 @@
 use crate::*;
 
-#[derive(Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct StakingConfig {
     pub token_id: ContractId,
     pub owner_id: AccountId,
     pub metadata: ContractMetadata,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct TokenConfig {
     pub owner_id: AccountId,
     pub mint_id: Option<AccountId>,
@@ -17,8 +17,8 @@ pub struct TokenConfig {
     pub metadata: FungibleTokenMetadata,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct TokenInput {
     pub name: String,
     pub symbol: String,
@@ -34,8 +34,8 @@ pub struct TokenInput {
 //     External(TokenId),
 // }
 
-#[derive(Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct DaoInitArgs {
     pub dao_input: DaoInput,
     pub metadata: ContractMetadata,

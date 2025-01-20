@@ -1,8 +1,8 @@
 use super::*;
 
 // UpdateProposalStatusEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct UpdateProposalStatusEvent {
     pub proposal_id: u64,
     pub status: ProposalStatus,

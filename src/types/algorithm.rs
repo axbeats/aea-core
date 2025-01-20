@@ -2,8 +2,8 @@ use crate::*;
 
 pub type AlgorithmId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Algorithm {
     pub id: AlgorithmId,
     pub name: String,
@@ -26,8 +26,8 @@ impl Algorithm {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct AlgorithmInput {
     pub name: String,
     pub stream_distribution: StreamDistribution,
@@ -36,23 +36,23 @@ pub struct AlgorithmInput {
     pub weight_distribution: WeightDistribution,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct StreamDistribution {
     pub recommended: Percentage,
     pub following: Percentage,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct FocusDistribution {
     pub entertainment: Percentage,
     pub governance: Percentage,
     pub court: Percentage,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ScoreDistribution {
     pub interest: Percentage,
     pub social: Percentage,
@@ -62,8 +62,8 @@ pub struct ScoreDistribution {
     pub bridge: Percentage,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct WeightDistribution {
     pub view: Percentage,
     pub like: Percentage,

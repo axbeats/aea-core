@@ -1,7 +1,7 @@
 use super::*;
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct RemoveFlagEvent {
     pub flag_id: FlagId,
     pub timestamp: TimestampNanoSeconds,

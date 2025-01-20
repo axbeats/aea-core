@@ -3,8 +3,8 @@ use crate::*;
 pub type GroupId = u64;
 pub type VoteOrder = u8;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Group {
     pub id: GroupId,
     pub dao_id: DaoId,

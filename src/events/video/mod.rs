@@ -35,10 +35,10 @@ mod unlike_comment;
 mod unlike_reply;
 mod view;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum VideoEventKind {
     CreateVideo(CreateVideoEvent),
     EditVideo(EditVideoEvent),
@@ -58,8 +58,8 @@ pub enum VideoEventKind {
     UnlikeReplyCommentVideo(UnlikeReplyCommentVideoEvent),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct VideoEvent {
     pub standard: String,
     pub version: String,

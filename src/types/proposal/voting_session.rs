@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalGroupVotingSession {
     pub group_id: GroupId,
     pub voting_order: u8,
@@ -10,8 +10,8 @@ pub struct ProposalGroupVotingSession {
     pub voting_period: u64,
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalGroupVotingSessionOutput {
     pub session: ProposalGroupVotingSession,
     pub vote_tally: ProposalVoteTally,

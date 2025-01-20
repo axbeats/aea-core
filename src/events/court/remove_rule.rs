@@ -1,8 +1,8 @@
 use super::*;
 
 // Event for removing a law
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct RemoveRuleEvent {
     pub rule_id: RuleId,
     pub timestamp: u64,

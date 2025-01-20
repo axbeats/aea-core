@@ -3,8 +3,8 @@ use super::*;
 // NOTE: Might want to handle this event in the values contract - Nov 7 2024
 
 // UpdateElectedOptionsEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct UpdateElectedOptionsEvent {
     pub choice_id: ChoiceId,
     pub timestamp: u64,

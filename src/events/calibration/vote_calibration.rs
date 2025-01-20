@@ -1,8 +1,8 @@
 use super::*;
 
 // VoteCalibrationEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct VoteCalibrationEvent {
     pub vote: CalibrationVote,
 }

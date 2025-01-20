@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct NumberValidation<T> {
     pub range: Option<(T, T)>,     // Minimum and maximum allowed values
     pub required_sum: Option<T>,   // The exact sum that the numbers must add up to

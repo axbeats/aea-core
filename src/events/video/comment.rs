@@ -1,8 +1,8 @@
 use super::*;
 
 // NftCommentVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CommentVideoEvent {
     pub commenter_id: AccountId,
     pub video_id: VideoId,

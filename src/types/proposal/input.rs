@@ -9,8 +9,8 @@ use crate::*;
 //     pub bond: u128,
 // }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalInput {
     // Proposal fields  
     pub dao_id: AccountId,

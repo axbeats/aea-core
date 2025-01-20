@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct VideoResults {
     pub video_outputs: Vec<VideoOutput>,
     pub count: u64,

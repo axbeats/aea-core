@@ -1,8 +1,8 @@
 use super::*;
 
 // CreateGroupEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CreateValueEvent {
     pub value: GovernedValue,
     pub timestamp: u64,

@@ -1,8 +1,8 @@
 use super::*;
 
 // FollowProfileEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct FollowProfileEvent {
     pub follower_id: AccountId,
     pub followed_id: AccountId,

@@ -3,8 +3,8 @@ use crate::*;
 pub type TokenId = u64;
 pub type ApprovalId = u32;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, PartialEq, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum TokenWeightKind {
     Linear,    // 1 vote per token
     Quadratic, // n votes per n^2 tokens
@@ -19,8 +19,8 @@ impl TokenWeightKind {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct TransferInput {
     pub token_id: Option<AccountId>, // None for $Near
     pub receiver_id: AccountId,

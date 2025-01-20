@@ -2,8 +2,8 @@ use crate::*;
 
 pub type ProposalVoteTallyId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct ProposalVoteTally {
     pub approve_count: u128,
     pub reject_count: u128,
@@ -20,8 +20,8 @@ impl Default for ProposalVoteTally {
     }
 }
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalGroupVoteTally {
     pub group_id: GroupId,
     pub tally: ProposalVoteTally,

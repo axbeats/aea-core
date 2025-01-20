@@ -1,8 +1,8 @@
 use super::*;
 
 // AddGroupToAccountEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct AddGroupToAccountEvent {
     pub account_id: AccountId,
     pub group_id: GroupId,

@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct DateValidation {
     pub min_date: Option<u64>, // Earliest allowed date (timestamp)
     pub max_date: Option<u64>, // Latest allowed date (timestamp)

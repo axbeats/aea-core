@@ -41,16 +41,16 @@ use crate::*;
 
 
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct NumbersType {
     pub elements: HashMap<String, u128>,
 }
 
 
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct WordsType {
     pub elements: HashSet<String>,
 }
@@ -59,9 +59,8 @@ pub struct WordsType {
 
 
 
-
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, Eq, Hash, PartialEq, Ord, PartialOrd)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, Eq, Hash, PartialEq, Ord, PartialOrd)]
 pub enum ValueType {
     AccountId(AccountId),
     Boolean(bool),
@@ -78,7 +77,7 @@ pub enum ValueType {
     Location(String),
     Date(u64),
     Time(u64),
-    Distribution(Distribution),
+    // Distribution(Distribution),
 }
 
 impl ValueType {

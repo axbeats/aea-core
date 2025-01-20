@@ -1,8 +1,8 @@
 use super::*;
 
 // RemoveGroupEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct RemoveGroupEvent {
     pub group_id: GroupId,
     pub timestamp: u64,

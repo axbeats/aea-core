@@ -2,8 +2,8 @@ use crate::*;
 
 pub type ChoiceId = u64;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Choice {
     pub id: ChoiceId,
     pub value_id: GovernedValueId,

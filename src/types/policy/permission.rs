@@ -2,8 +2,8 @@ use crate::*;
 
 pub type PermissionString = String;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Clone, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ProposalPermission {
     pub create: bool,
     pub vote: bool,

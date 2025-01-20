@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct LocationValidation {
     pub allowed_regions: Option<HashSet<String>>,    // Regions that are allowed
     pub disallowed_regions: Option<HashSet<String>>, // Regions that are not allowed

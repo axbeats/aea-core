@@ -1,10 +1,10 @@
 use super::*;
 
 // MintNFTEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct MintNFTEvent {
-    pub token: VideoToken, // Assuming you have a VideoToken struct
+    pub token: VideoNFT, // Assuming you have a VideoToken struct
 }
 
 impl MintNFTEvent {

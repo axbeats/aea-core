@@ -1,8 +1,8 @@
 use super::*;
 
 // NftLikeCommentVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct LikeCommentVideoEvent {
     pub liker_id: AccountId,
     pub comment_id: CommentId,

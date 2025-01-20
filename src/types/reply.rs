@@ -8,9 +8,8 @@ pub type ReplyId = u64;
 ///
 /// Each reply is associated with a specific comment (`comment_id`) and video (`video_id`).
 /// Replies can be made by users, and the `author` field captures the account ID of the user who made the reply.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-// Specify that Serde should use the `near_sdk::serde` crate for serialization.
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct Reply {
     pub id: ReplyId,           // Unique identifier for the reply.
     pub comment_id: CommentId, // ID of the comment this reply is associated with.
@@ -24,9 +23,8 @@ pub struct Reply {
 ///
 /// This struct provides a comprehensive view of a reply, including its core information,
 /// as well as additional data such as like count.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
-// Specify that Serde should use the `near_sdk::serde` crate for serialization.
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct ReplyOutput {
     pub id: ReplyId,           // Unique identifier for the reply.
     pub comment_id: CommentId, // ID of the comment this reply is associated with.

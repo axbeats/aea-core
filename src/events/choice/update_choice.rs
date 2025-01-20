@@ -1,8 +1,8 @@
 use super::*;
 
 // UpdateChoiceEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct UpdateChoiceEvent {
     pub choice: Choice,
     pub timestamp: u64,

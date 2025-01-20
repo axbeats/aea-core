@@ -1,8 +1,8 @@
 use super::*;
 
 // NftCreateVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CreateVideoEvent {
     pub video: Video,
 }

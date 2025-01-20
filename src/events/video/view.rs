@@ -1,8 +1,8 @@
 use super::*;
 
 // NftViewVideoLog
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct ViewVideoEvent {
     pub viewer_id: AccountId,
     pub video_id: VideoId,

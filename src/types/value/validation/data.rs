@@ -1,7 +1,7 @@
 use crate::*;
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq)]
 pub struct BytesValidation {
     pub allowed_file_types: Option<HashSet<String>>, // E.g., "png", "jpg"
     pub max_size: Option<u64>,                       // Maximum size in bytes

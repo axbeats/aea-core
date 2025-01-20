@@ -14,10 +14,10 @@ mod update_elected_options;
 mod vote_choice;
 
 // Define the event variants for choice events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum ChoiceEventKind {
     CreateChoice(CreateChoiceEvent),
     DeleteChoice(DeleteChoiceEvent),
@@ -26,8 +26,8 @@ pub enum ChoiceEventKind {
     VoteChoice(VoteChoiceEvent),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct ChoiceEvent {
     pub standard: String,
     pub version: String,

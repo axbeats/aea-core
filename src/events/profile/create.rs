@@ -1,8 +1,8 @@
 use super::*;
 
 // CreateProfileEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct CreateProfileEvent {
     pub profile: Profile, // Assuming you have a Profile struct
 }

@@ -1,8 +1,8 @@
 use super::*;
 
 // Event for creating and deploying a DAO
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct CreateDeployDaoEvent {
     pub dao_id: AccountId,
     pub timestamp: u64,

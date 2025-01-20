@@ -10,9 +10,8 @@ use std::ops::AddAssign;
 // - Serialize, Deserialize: for (de)serializing the struct using Serde.
 // - Clone: to allow the struct to be cloned.
 // - Default: to allow the struct to be created with default values.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Default, Debug)]
-// Specify that Serde should use the `near_sdk::serde` crate for serialization.
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, Default)]
 pub struct VideoEngagement {
     pub view_count: u64,           // Number of views.
     pub view_length_in_ms: u64,    // Total view length in milliseconds.
@@ -39,8 +38,8 @@ impl AddAssign for VideoEngagement {
 }
 
 /// Enum representing the available sort methods for videos.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Copy)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum VideoEngagementKind {
     ViewCount,
     ViewLengthInMs,
@@ -51,8 +50,8 @@ pub enum VideoEngagementKind {
     CollaborationCount,
 }
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Default)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, Default)]
 pub struct EngagementTimestamp {
     pub timestamp: u64,
     pub engagement: VideoEngagement,
@@ -62,8 +61,8 @@ pub struct EngagementTimestamp {
 ///
 /// This struct provides insights into how a particular account's engagement measures up 
 /// against the overall platform engagement on a specific day.
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, Default)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, Default)]
 pub struct EngagementRatio {
     pub account_engagement: VideoEngagement,
     pub platform_engagement: VideoEngagement,

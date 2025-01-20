@@ -1,8 +1,8 @@
 use super::*;
 
 // DeleteChoiceEvent
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json, borsh])]
+#[derive(Debug)]
 pub struct DeleteChoiceEvent {
     pub choice_id: u64,
     pub timestamp: u64,

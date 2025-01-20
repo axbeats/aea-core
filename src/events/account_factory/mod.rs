@@ -8,18 +8,18 @@ mod create_account;
 mod create_deploy_contract;
 
 // Define the event variants for profile events
-#[derive(Serialize, Deserialize, Debug)]
+#[near(serializers = [json])]
+#[derive(Debug)]
 #[serde(tag = "event", content = "data")]
 #[serde(rename_all = "snake_case")]
-#[serde(crate = "near_sdk::serde")]
 pub enum AccountFactoryEventKind {
     CreateAccount(CreateAccountEvent),
     CreateDeployContract(CreateDeployContractEvent),
 }
 
 // Define the main ProfileEvent struct
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct AccountFactoryEvent {
     pub standard: String,
     pub version: String,

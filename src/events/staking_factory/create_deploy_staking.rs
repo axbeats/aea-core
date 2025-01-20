@@ -1,8 +1,8 @@
 use super::*;
 
 // Event for creating and deploying a staking contract
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(crate = "near_sdk::serde")]
+#[near(serializers = [json])]
+#[derive(Debug)]
 pub struct CreateDeployStakingEvent {
     pub staking_id: AccountId,
     pub timestamp: u64,
