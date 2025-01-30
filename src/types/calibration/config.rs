@@ -3,7 +3,7 @@ use crate::*;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct CalibrationConfig {
-    pub value_id: GovernedValueId,
+    pub value_id: ValueId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
     pub kind: CalibrationKind,

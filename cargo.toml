@@ -8,8 +8,4 @@ crate-type = ["rlib"]
 
 [dependencies]
 near-sdk = "5.7.0"
-# near-abi = "0.4.3"
-# near-contract-standards = "5.7.0"
 hex = "0.4.2"
-dotenv = "0.15"
-lazy_static = "1.4"

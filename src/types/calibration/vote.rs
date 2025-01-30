@@ -9,7 +9,7 @@ pub type CalibrationVoteId = u64;
 pub struct CalibrationVote {
     pub id: CalibrationVoteId,
     pub calibration_id: CalibrationId,
-    pub value_id: GovernedValueId,
+    pub value_id: ValueId,
     pub account_id: AccountId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
@@ -20,7 +20,7 @@ pub struct CalibrationVote {
 }
 
 impl CalibrationVote {
-    pub fn from_config(id: CalibrationVoteId, config: CalibrationVoteConfig, value_id: GovernedValueId, adjustment_amount: YoctoNumber) -> Self {
+    pub fn from_config(id: CalibrationVoteId, config: CalibrationVoteConfig, value_id: ValueId, adjustment_amount: YoctoNumber) -> Self {
         Self {
             id,
             calibration_id: config.calibration_id,

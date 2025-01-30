@@ -72,11 +72,10 @@ pub enum ProposalKind {
         name: String,
     },
     UpdateValue {
-        value_id: ValueId,
-        data: ValueStructure,
+        value: Value,
     },
     UpdateValueVoteMethod {
-        value_id: GroupId,
+        value_id: ValueId,
         vote_method: VoteMethod,
     },
     /// Upgrade another contract, by calling method with the code from given hash from blob store.

@@ -3,7 +3,7 @@ use crate::*;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct VideoNFT {
-    pub id: VideoNFTId,
+    pub id: VideoNftId,
     pub video_id: VideoId,
     pub owner_id: AccountId,
     pub royalties: HashMap<AccountId, PercentageU32>,
@@ -13,7 +13,7 @@ pub struct VideoNFT {
 }
 
 impl VideoNFT {
-    pub fn from_input(id: TokenId, input: VideoNFTInput, video_id: VideoId) -> Self {
+    pub fn from_input(id: TokenId, input: VideoNftInput, video_id: VideoId) -> Self {
 
         // create a royalty map to store in the token
         let mut royalties = HashMap::new();

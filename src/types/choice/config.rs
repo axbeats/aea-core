@@ -3,7 +3,7 @@ use crate::*;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct ChoiceConfig {
-    pub value_id: GovernedValueId,
+    pub value_id: ValueId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
     pub kind: ChoiceKind,
@@ -36,7 +36,7 @@ impl ChoiceConfig {
     pub fn from_input(
         input: ChoiceInput, 
         dao_id: DaoId, 
-        value_id: GovernedValueId, 
+        value_id: ValueId, 
         initial_values: Vec<String>
     ) -> Self {
         Self {

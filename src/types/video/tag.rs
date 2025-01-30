@@ -5,7 +5,7 @@ use crate::*;
 ///
 /// A tag consists of a type (e.g., hashtag, account) and its content (e.g., "nature" for a hashtag).
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Ord, PartialOrd, Eq)]
 pub struct Tag {
     pub tag_type: TagType, // Type of the tag, defined by the TagType enum.
     pub content: String,   // The actual tag content, e.g., "nature" for a hashtag or "user123" for an account.
@@ -50,7 +50,7 @@ impl Tag {
 
 /// Enum representing the available types of tags and their corresponding prefixes.
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Ord, PartialOrd, Eq)]
 pub enum TagType {
     Hashtag,   // #
     Account,   // @

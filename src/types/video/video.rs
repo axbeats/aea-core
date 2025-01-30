@@ -20,7 +20,7 @@ pub struct Video {
 
 impl Video {
     pub fn from_input(id: VideoId, input: VideoInput) -> Self {
-        let creator_id = env::predecessor_account_id();
+        let creator_id = env::signer_account_id();
 
         Video {
             id,

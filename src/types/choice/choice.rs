@@ -6,7 +6,7 @@ pub type ChoiceId = u64;
 #[derive(Debug, Clone)]
 pub struct Choice {
     pub id: ChoiceId,
-    pub value_id: GovernedValueId,
+    pub value_id: ValueId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
     pub kind: ChoiceKind,

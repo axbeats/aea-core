@@ -1,5 +1,11 @@
 use crate::*;
 
+pub type TokenContractId = ContractId;
+pub type ContractId = AccountId;
+pub type StakingId = ContractId;
+
+pub const CALLBACK_GAS: Gas = Gas::from_gas(5_000_000_000_000);
+
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct ContractMetadata {

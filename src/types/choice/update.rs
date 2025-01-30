@@ -8,13 +8,13 @@ use crate::*;
 //     pub value: ValueVector,
 // }
 
-#[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
-pub struct ChoiceValueUpdate {
-    pub value_id: ValueId,
-    pub choice_id: ChoiceId,
-    pub structure: ValueStructure, // Updated to match Value struct
-}
+// #[near(serializers = [json, borsh])]
+// #[derive(Debug, Clone)]
+// pub struct ChoiceValueUpdate {
+//     pub value_id: ValueId,
+//     pub choice_id: ChoiceId,
+//     pub structure: ValueStructure, // Updated to match Value struct
+// }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]

@@ -3,7 +3,7 @@ use crate::*;
 pub trait CalibrationSingleInterface {
     fn calibrate_single(
         &mut self,
-        id: GovernedValueId,
+        id: ValueId,
         single_vote: SingleVote,
         adjustment_amount: YoctoNumber,
     );
@@ -12,7 +12,7 @@ pub trait CalibrationSingleInterface {
 pub trait CalibrationDeltaInterface {
     fn calibrate_delta(
         &mut self, 
-        id: GovernedValueId,
+        id: ValueId,
         delta_vote: DeltaVote,
         adjustment_amount: YoctoNumber,
     );

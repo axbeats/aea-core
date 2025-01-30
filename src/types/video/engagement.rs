@@ -50,6 +50,21 @@ pub enum VideoEngagementKind {
     CollaborationCount,
 }
 
+impl VideoEngagementKind {
+    pub fn extract(&self, e: &VideoEngagement) -> u64 {
+        match self {
+            VideoEngagementKind::ViewCount => e.view_count,
+            VideoEngagementKind::ViewLengthInMs => e.view_length_in_ms,
+            VideoEngagementKind::LikeCount => e.like_count,
+            VideoEngagementKind::FavouriteCount => e.favourite_count,
+            VideoEngagementKind::CommentCount => e.comment_count,
+            VideoEngagementKind::ShareCount => e.share_count,
+            VideoEngagementKind::CollaborationCount => e.collaboration_count,
+        }
+    }
+}
+
+
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, Default)]
 pub struct EngagementTimestamp {

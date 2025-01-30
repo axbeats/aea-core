@@ -10,7 +10,6 @@ pub struct VideoPermissions {
     pub allow_shares: bool,
     pub allow_collaborations: bool,
     pub allow_promoted: bool,
-
 }
 
 impl Default for VideoPermissions {

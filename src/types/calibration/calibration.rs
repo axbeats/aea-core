@@ -6,7 +6,7 @@ pub type CalibrationId = u64;
 #[derive(Debug, Clone)]
 pub struct Calibration {
     pub id: CalibrationId,
-    pub value_id: GovernedValueId,
+    pub value_id: ValueId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
     pub kind: CalibrationKind,

@@ -2,14 +2,14 @@ use crate::*;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-pub struct GovernedValueId {
+pub struct ValueId {
     pub contract_id: ContractId,
     pub field_id: FieldId,
     pub identifier: Option<Identifier>,
 }
 
 
-impl GovernedValueId {
+impl ValueId {
     pub fn new(contract_id: ContractId, field_id: FieldId, identifier: Option<Identifier>) -> Self {
         Self { 
             contract_id, 
@@ -18,7 +18,7 @@ impl GovernedValueId {
     }
 }
 
-impl GovernedValueId {
+impl ValueId {
     pub fn identifier(&self) -> Option<&Identifier> {
         self.identifier.as_ref()
     }
@@ -127,14 +127,3 @@ impl Identifier {
         }
     }
 }
-
-#[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq)]
-pub struct GovernedValue {
-    pub id: GovernedValueId,
-    pub video_id: VideoId,
-    pub dao_id: DaoId,
-    pub operator_id: Option<ContractId>,
-    pub method: VoteMethod,
-}
-

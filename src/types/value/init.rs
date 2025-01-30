@@ -4,7 +4,7 @@ use crate::*;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct ValueInit {
-    pub id: GovernedValueId, // ContractId, FieldId, and Identifier - set by user
+    pub id: ValueId, // ContractId, FieldId, and Identifier - set by user
     pub dao_id: DaoId,
     pub operator_id: Option<ContractId>,
     pub method_input: VoteMethodInput,

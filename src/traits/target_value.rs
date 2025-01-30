@@ -1,7 +1,7 @@
 use crate::*;
 
 pub trait TargetValue {
-    fn create_value(&mut self, id: GovernedValueId, method_input: VoteMethodInput) -> VerifyValueResult;
+    fn create_value(&mut self, id: ValueId, method_input: VoteMethodInput) -> VerifyValueResult;
 }
 
 // pub trait TargetValue {

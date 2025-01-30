@@ -4,7 +4,7 @@ use super::*;
 #[near(serializers = [json])]
 #[derive(Debug)]
 pub struct CreateValueEvent {
-    pub value: GovernedValue,
+    pub value: Value,
     pub timestamp: u64,
 }
 

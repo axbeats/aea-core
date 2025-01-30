@@ -1,19 +1,13 @@
-pub use self::ids::*;
+pub use self::config::*;
 pub use self::input::*;
-pub use self::governed::*;
-pub use self::structure::*;
-pub use self::types::*;
-pub use self::validation::*;
-pub use self::value_type::*;
+pub use self::init::*;
+pub use self::value_id::*;
 pub use self::value::*;
-pub use self::governance_method::*;
+pub use self::verify::*;
 
-mod governance_method;
-mod ids;
+mod config;
 mod input;
-mod governed;
-mod structure;
-mod types;
-mod validation;
-mod value_type;
+mod init;
+mod value_id;
 mod value;
+mod verify;
