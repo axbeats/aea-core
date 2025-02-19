@@ -52,8 +52,22 @@ pub fn hash_comment_id(day: &u64) -> CryptoHash {
     hash
 }
 
+pub fn hash_proposal_id(proposal_id: &ProposalId) -> CryptoHash {
+    let bytes = proposal_id.to_le_bytes();
+    let mut hash = CryptoHash::default();
+    hash.copy_from_slice(&env::sha256(&bytes));
+    hash
+}
+
 pub fn hash_calibration_id(calibration_id: &CalibrationId) -> CryptoHash {
     let bytes = calibration_id.to_le_bytes();
+    let mut hash = CryptoHash::default();
+    hash.copy_from_slice(&env::sha256(&bytes));
+    hash
+}
+
+pub fn hash_choice_id(choice_id: &ChoiceId) -> CryptoHash {
+    let bytes = choice_id.to_le_bytes();
     let mut hash = CryptoHash::default();
     hash.copy_from_slice(&env::sha256(&bytes));
     hash

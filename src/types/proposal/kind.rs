@@ -16,6 +16,9 @@ pub enum ProposalKind {
     CreateValue {
         input: ValueInput,
     },
+    DeployContract {
+        input: DeployContractInput,
+    },
     FactoryInfoUpdate {
         factory_info: FactoryInfo,
     },
@@ -80,9 +83,7 @@ pub enum ProposalKind {
     },
     /// Upgrade another contract, by calling method with the code from given hash from blob store.
     UpgradeContract {
-        receiver_id: AccountId,
-        method_name: String,
-        hash: Base58CryptoHash,
+        input: UpgradeContractInput,
     },
     /// Upgrade this contract with given hash from blob store.
     UpgradeSelf {
@@ -99,6 +100,7 @@ impl ProposalKind {
             ProposalKind::CreateGroup { .. } => "create_group",
             ProposalKind::AddAccountToGroup { .. } => "add_member_to_group",
             ProposalKind::CreateValue { .. } => "create_value",
+            ProposalKind::DeployContract { .. } => "deploy_contract",
             ProposalKind::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalKind::FunctionCall { .. } => "function_call",
             ProposalKind::RemoveGroup { .. } => "remove_group",

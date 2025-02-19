@@ -11,7 +11,7 @@ pub const CALLBACK_GAS: Gas = Gas::from_gas(5_000_000_000_000);
 pub struct ContractMetadata {
     pub spec: String,                 // Required, specifies the version of the contract metadata, e.g., "contract-1.0.0".
     pub name: String,                 // Required, name of the contract, e.g., "MyContract".
-    pub symbol: Option<String>,               // Required, symbol representing the contract, e.g., "MYC".
+    pub symbol: Option<String>,               // I need to remove this and add description - Feb 12 2025
     pub icon_hash: Option<String>,    // Optional, Hash for the icon associated with the contract.
     pub base_uri: Option<String>,     // Optional, Centralized gateway known to have reliable access to decentralized storage assets referenced by `reference` or `media` URLs.
     pub reference: Option<String>,    // Optional, URL to a JSON file with more information about the contract.
