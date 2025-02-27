@@ -6,24 +6,24 @@ pub type ProposalKindString = String;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub enum ProposalKind {
-    AddAccountToGroup { // AddElectedAccount or AddAcccountToElectedGroup
-        group_id: GroupId,
-        member_id: AccountId,
-    },
     AddManagedContract {
-        input: AddManagedContractInput,
+        input: AddManagedContractInputVideoOption,
     },
     CreateGroup {
         input: GroupInputVideoOption,
     },
-    // CreateRule {
-    //     input: RuleInputVideoOption,
-    // },
+    CreateRule {
+        input: RuleInputVideoOption,
+    },
     CreateValue {
-        input: ValueInput,
+        input: ValueInputVideoOption,
     },
     DeployContract {
         input: DeployContractInputVideoOption,
+    },
+    ElectAccount {
+        group_id: GroupId,
+        account_id: AccountId,
     },
     FactoryInfoUpdate {
         factory_info: FactoryInfo,
@@ -31,16 +31,12 @@ pub enum ProposalKind {
     FunctionCall {
         functions: Vec<FunctionCall>,
     },
-    RemoveAccountFromGroup { // RemoveElectedAccount
-        group_id: GroupId,
-        member_id: AccountId,
-    },
     RemoveGroup {
         group_id: GroupId,
     },
-    // RemoveRule {
-    //     rule_id: RuleId,
-    // },
+    RemoveRule {
+        rule_id: RuleId,
+    },
     RemoveValue {
         value_id: ValueId,
     },
@@ -49,6 +45,10 @@ pub enum ProposalKind {
     /// For `ft_transfer` and `ft_transfer_call` `memo` is the `description` of the proposal.
     Transfer {
         input: TransferInput,
+    },
+    UnelectAccount {
+        group_id: GroupId,
+        account_id: AccountId,
     },
     UpdateChoiceMetadata {
         choice_id: ChoiceId,
@@ -75,9 +75,9 @@ pub enum ProposalKind {
     UpdateDefaultPolicy {
         kind: ProposalPolicyKind,
     },
-    // UpdateRule {
-    //     rule_id: RuleId, // Need more - Feb 26 2025
-    // },
+    UpdateRule {
+        rule_id: RuleId, // Need more - Feb 26 2025
+    },
     UpdateValueName {
         value_id: ValueId,
         name: String,
@@ -94,6 +94,7 @@ pub enum ProposalKind {
         input: UpgradeContractInput,
     },
     /// Upgrade this contract with given hash from blob store.
+    /// This function removes the dao from the aea ecosystem
     UpgradeSelf {
         hash: Base58CryptoHash,
     },
@@ -105,27 +106,26 @@ impl ProposalKind {
     /// Returns label of policy for given type of proposal.
     pub fn to_policy_label(&self) -> &str {
         match self {
-            ProposalKind::AddAccountToGroup { .. } => "add_member_to_group",
             ProposalKind::AddManagedContract { .. } => "add_managed_contract",
             ProposalKind::CreateGroup { .. } => "create_group",
-            // ProposalKind::CreateRule { .. } => "create_rule",
+            ProposalKind::CreateRule { .. } => "create_rule",
             ProposalKind::CreateValue { .. } => "create_value",
             ProposalKind::DeployContract { .. } => "deploy_contract",
+            ProposalKind::ElectAccount { .. } => "elect_account",
             ProposalKind::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalKind::FunctionCall { .. } => "function_call",
-            
             ProposalKind::RemoveGroup { .. } => "remove_group",
-            ProposalKind::RemoveAccountFromGroup { .. } => "remove_member_from_group",
-            // ProposalKind::RemoveRule { .. } => "remove_rule",
+            ProposalKind::RemoveRule { .. } => "remove_rule",
             ProposalKind::RemoveValue { .. } => "remove_value",
             ProposalKind::Transfer { .. } => "transfer",
+            ProposalKind::UnelectAccount { .. } => "unelect_account",
             ProposalKind::UpdateChoiceMetadata { .. } => "update_choice",
             ProposalKind::UpdateChoiceSize { .. } => "update_choice_size",
             ProposalKind::UpdateGroupName { .. } => "update_group_name",
             ProposalKind::UpdateGroupPermissions { .. } => "update_group_permissions",
             ProposalKind::UpdateGroupVoteMethod { .. } => "update_group_vote_method",
             ProposalKind::UpdateDefaultPolicy { .. } => "update_default_policy",
-            // ProposalKind::UpdateRule { .. } => "update_rule",
+            ProposalKind::UpdateRule { .. } => "update_rule",
             ProposalKind::UpdateValueName { .. } => "update_value_name",
             ProposalKind::UpdateValue { .. } => "update_value",
             ProposalKind::UpdateValueVoteMethod { .. } => "update_value_vote_method",

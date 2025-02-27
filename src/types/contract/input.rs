@@ -67,8 +67,8 @@ impl ContractInput {
 
     pub fn from_add_managed_contract_input(
         register_input: AddManagedContractInput,
-        video_id: VideoId,
-        proposal_id: Option<ProposalId>,
+        // video_id: VideoId,
+        // proposal_id: Option<ProposalId>,
     ) -> Self {
         let dao_id = env::current_account_id();
         

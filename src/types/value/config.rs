@@ -12,14 +12,14 @@ pub struct ValueConfig {
 }
 
 impl ValueConfig {
-    pub fn from_init(init: ValueInit, video_id: VideoId) -> Self {
+    pub fn from_input(input: ValueInput, video_id: VideoId) -> Self {
         Self {
-            id: init.id,
+            id: input.id,
             video_id,
-            dao_id: init.dao_id,
-            // group_id: init.group_id,
-            operator_id: init.operator_id,
-            method_input: init.method_input,
+            dao_id: input.dao_id,
+            // group_id: input.group_id,
+            operator_id: input.operator_id,
+            method_input: input.method_input,
         }
     }
 }
