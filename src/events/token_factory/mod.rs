@@ -2,8 +2,10 @@ use super::*;
 use crate::*;
 
 pub use self::create_deploy_token::*;
+pub use self::create_deploy_ft_sale::*;
 
 mod create_deploy_token;
+mod create_deploy_ft_sale;
 
 // Define the event variants for token factory events
 #[near(serializers = [json])]
@@ -12,6 +14,7 @@ mod create_deploy_token;
 #[serde(rename_all = "snake_case")]
 pub enum TokenFactoryEventKind {
     CreateDeployToken(CreateDeployTokenEvent),
+    CreateFTSale(CreateFTSaleEvent),
 }
 
 // Define the main TokenFactoryEvent struct

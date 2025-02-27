@@ -6,13 +6,16 @@ pub type ProposalKindString = String;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub enum ProposalKind {
-    AddAccountToGroup {
+    AddAccountToGroup { // AddElectedAccount or AddAcccountToElectedGroup
         group_id: GroupId,
         member_id: AccountId,
     },
     CreateGroup {
-        input: GroupInput,
+        input: GroupInputVideoOption,
     },
+    // CreateRule {
+    //     input: RuleInputVideoOption,
+    // },
     CreateValue {
         input: ValueInput,
     },
@@ -25,19 +28,21 @@ pub enum ProposalKind {
     FunctionCall {
         functions: Vec<FunctionCall>,
     },
-    RemoveAccountFromGroup {
+    RegisterContract {
+        input: RegisterContractInput,
+    },
+    RemoveAccountFromGroup { // RemoveElectedAccount
         group_id: GroupId,
         member_id: AccountId,
     },
     RemoveGroup {
         group_id: GroupId,
     },
+    // RemoveRule {
+    //     rule_id: RuleId,
+    // },
     RemoveValue {
         value_id: ValueId,
-    },
-    /// Sets staking contract. Can only be proposed if staking contract is not set yet.
-    SetStakingContract {
-        staking_id: AccountId,
     },
     /// Transfers given amount of `token_id` from this DAO to `receiver_id`.
     /// If `msg` is not None, calls `ft_transfer_call` with given `msg`. Fails if this base token.
@@ -70,6 +75,9 @@ pub enum ProposalKind {
     UpdateDefaultPolicy {
         kind: ProposalPolicyKind,
     },
+    // UpdateRule {
+    //     rule_id: RuleId, // Need more - Feb 26 2025
+    // },
     UpdateValueName {
         value_id: ValueId,
         name: String,
@@ -99,14 +107,16 @@ impl ProposalKind {
         match self {
             ProposalKind::CreateGroup { .. } => "create_group",
             ProposalKind::AddAccountToGroup { .. } => "add_member_to_group",
+            // ProposalKind::CreateRule { .. } => "create_rule",
             ProposalKind::CreateValue { .. } => "create_value",
             ProposalKind::DeployContract { .. } => "deploy_contract",
             ProposalKind::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalKind::FunctionCall { .. } => "function_call",
+            ProposalKind::RegisterContract { .. } => "register_contract",
             ProposalKind::RemoveGroup { .. } => "remove_group",
             ProposalKind::RemoveAccountFromGroup { .. } => "remove_member_from_group",
+            // ProposalKind::RemoveRule { .. } => "remove_rule",
             ProposalKind::RemoveValue { .. } => "remove_value",
-            ProposalKind::SetStakingContract { .. } => "set_staking_contract",
             ProposalKind::Transfer { .. } => "transfer",
             ProposalKind::UpdateChoiceMetadata { .. } => "update_choice",
             ProposalKind::UpdateChoiceSize { .. } => "update_choice_size",
@@ -114,6 +124,7 @@ impl ProposalKind {
             ProposalKind::UpdateGroupPermissions { .. } => "update_group_permissions",
             ProposalKind::UpdateGroupVoteMethod { .. } => "update_group_vote_method",
             ProposalKind::UpdateDefaultPolicy { .. } => "update_default_policy",
+            // ProposalKind::UpdateRule { .. } => "update_rule",
             ProposalKind::UpdateValueName { .. } => "update_value_name",
             ProposalKind::UpdateValue { .. } => "update_value",
             ProposalKind::UpdateValueVoteMethod { .. } => "update_value_vote_method",

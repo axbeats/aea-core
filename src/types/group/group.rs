@@ -8,6 +8,7 @@ pub type VoteOrder = u8;
 pub struct Group {
     pub id: GroupId,
     pub dao_id: DaoId,
+    pub video_id: VideoId,
     pub name: String,
     pub description: Option<String>,
     pub kind: GroupKind,
@@ -26,10 +27,11 @@ impl Group {
 
 impl Group {
 
-    pub fn from_input(input: GroupInput, id: GroupId, dao_id: DaoId, staking_id: Option<StakingId>) -> Self {
+    pub fn from_input(input: GroupInput, id: GroupId, video_id: VideoId, staking_id: Option<StakingId>) -> Self {
         Group {
             id,
-            dao_id,
+            dao_id: input.dao_id,
+            video_id: video_id,
             name: input.name,
             description: input.description,
             kind: GroupKind::from_input(input.kind, staking_id),

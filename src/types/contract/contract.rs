@@ -11,7 +11,7 @@ pub struct Contract {
 }
 
 impl Contract {
-    pub fn from_deploy_input(input: ContractInput) -> Self {
+    pub fn from_input(input: ContractInput) -> Self {
         Self {
             id: input.contract_id,
             dao_id: input.dao_id,

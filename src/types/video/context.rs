@@ -8,50 +8,57 @@ use crate::*;
 #[derive(Debug, Clone)]
 #[serde(tag = "type")]
 pub enum VideoContext {
-    Nft { nft_id: VideoNftId },
-    Value { value_id: ValueId },
+    Content { nft_id: VideoNftId },
     Proposal { proposal_id: ProposalId },
+    Group { group_id: GroupId },
+    Value { value_id: ValueId },
+    Contract { contract_id: AccountId },
     Rule { rule_id: RuleId },
-    Review { review_id: ReviewId, original: OriginalContext },
+    Review { review_id: ReviewId, original: ReviewedContext },
     // Product { product_id: ProductId },
-    // Contract { contract_id: AccountId },
 }
 
 impl Default for VideoContext {
     fn default() -> Self {
-        VideoContext::Nft {nft_id: 0 } // Replace with a sensible default TokenId
+        VideoContext::Content {nft_id: 0 } // Replace with a sensible default TokenId
     }
 }
 
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub enum OriginalContext {
+pub enum ReviewedContext {
     Nft(TokenId),
-    Value(ValueId),
     Proposal(ProposalId),
+    Value(ValueId),
+    Group(GroupId),
+    Contract(AccountId),
     Rule(RuleId),
 }
 
-impl From<VideoContext> for OriginalContext {
+impl From<VideoContext> for ReviewedContext {
     fn from(context: VideoContext) -> Self {
         match context {
-            VideoContext::Nft { nft_id } => OriginalContext::Nft(nft_id),
-            VideoContext::Value { value_id } => OriginalContext::Value(value_id),
-            VideoContext::Proposal { proposal_id } => OriginalContext::Proposal(proposal_id),
-            VideoContext::Rule { rule_id } => OriginalContext::Rule(rule_id),
+            VideoContext::Content { nft_id } => ReviewedContext::Nft(nft_id),
+            VideoContext::Proposal { proposal_id } => ReviewedContext::Proposal(proposal_id),
+            VideoContext::Value { value_id } => ReviewedContext::Value(value_id),
+            VideoContext::Group { group_id } => ReviewedContext::Group(group_id),
+            VideoContext::Contract { contract_id } => ReviewedContext::Contract(contract_id),
+            VideoContext::Rule { rule_id } => ReviewedContext::Rule(rule_id),
             VideoContext::Review { .. } => panic!("Review context is not supported"),
         }
     }
  }
  
- impl From<OriginalContext> for VideoContext {
-    fn from(context: OriginalContext) -> Self {
+ impl From<ReviewedContext> for VideoContext {
+    fn from(context: ReviewedContext) -> Self {
         match context {
-            OriginalContext::Nft(token_id) => VideoContext::Nft { nft_id: token_id },
-            OriginalContext::Value(value_id) => VideoContext::Value { value_id },
-            OriginalContext::Proposal(proposal_id) => VideoContext::Proposal { proposal_id },
-            OriginalContext::Rule(rule_id) => VideoContext::Rule { rule_id },
+            ReviewedContext::Nft(token_id) => VideoContext::Content { nft_id: token_id },
+            ReviewedContext::Proposal(proposal_id) => VideoContext::Proposal { proposal_id },
+            ReviewedContext::Value(value_id) => VideoContext::Value { value_id },
+            ReviewedContext::Group(group_id) => VideoContext::Group { group_id },
+            ReviewedContext::Contract(contract_id) => VideoContext::Contract { contract_id },
+            ReviewedContext::Rule(rule_id) => VideoContext::Rule { rule_id },
         }
     }
  }

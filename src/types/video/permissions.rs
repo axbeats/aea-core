@@ -37,4 +37,15 @@ impl VideoPermissions {
             allow_promoted: false,
         }
     }
+
+    pub fn group_permissions() -> Self {
+        VideoPermissions {
+            allow_likes: false,
+            allow_comments: false,
+            allow_favourites: false,
+            allow_shares: true,
+            allow_collaborations: false,
+            allow_promoted: false,
+        }
+    }
 }

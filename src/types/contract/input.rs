@@ -52,4 +52,23 @@ impl ContractInput {
             compiler_version: upgrade_input.compiler_version,
         }
     }
+
+    pub fn from_register_contract_input(
+        register_input: RegisterContractInput,
+        video_id: VideoId,
+        proposal_id: Option<ProposalId>,
+    ) -> Self {
+        let dao_id = env::current_account_id();
+        
+        Self {
+            contract_id: register_input.contract_id,
+            dao_id,
+            video_id,
+            proposal_id,
+            wasm_hash: register_input.wasm_hash,
+            // Map source_code_link to source_link.
+            source_link: register_input.source_code_link,
+            compiler_version: register_input.compiler_version,
+        }
+    }
 }

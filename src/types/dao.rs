@@ -26,6 +26,6 @@ pub struct DaoConfig {
 pub struct DaoOutput {
     pub dao_id: DaoId,
     pub policy: Policy,
-    pub token_id: Option<TokenContractId>,
-    pub staking_id: Option<StakingId>,
+    // pub token_id: Option<TokenContractId>,
+    // pub staking_id: Option<StakingId>,
 }

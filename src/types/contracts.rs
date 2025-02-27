@@ -11,7 +11,8 @@ pub const CONTRACT_MANAGER_ID: &str = "contract_manager1.aea4.testnet";
 pub const COURT_ID: &str = "court1.aea4.testnet";
 pub const DAO_FACTORY_ID: &str = "dao1.aea4.testnet";
 pub const FT_FACTORY_ID: &str = "ft1.aea4.testnet";
-pub const FT_MINT_ID: &str = "ft_mint1.aea4.testnet";
+pub const FT_MINT_ID: &str = "mint1.aea4.testnet";
+pub const FT_SALE_FACTORY_ID: &str = "fundraise1.aea4.testnet";
 pub const GROUP_ID: &str = "group1.aea4.testnet";
 pub const HUMANITY_ID: &str = "humanity1.aea4.testnet";
 pub const MARKETPLACE_ID: &str = "marketplace1.aea4.testnet";
@@ -38,6 +39,7 @@ pub enum AeaContract {
     DaoFactory,
     FtFactory,
     FtMint,
+    FtSaleFactory,
     Group,
     Humanity,
     Marketplace,
@@ -66,6 +68,7 @@ impl AeaContract {
             AeaContract::DaoFactory => DAO_FACTORY_ID,
             AeaContract::FtFactory => FT_FACTORY_ID,
             AeaContract::FtMint => FT_MINT_ID,
+            AeaContract::FtSaleFactory => FT_SALE_FACTORY_ID,
             AeaContract::Group => GROUP_ID,
             AeaContract::Humanity => HUMANITY_ID,
             AeaContract::Marketplace => MARKETPLACE_ID,
@@ -95,6 +98,7 @@ pub fn str_to_contract_id(s: &str) -> Option<AeaContract> {
         DAO_FACTORY_ID => Some(AeaContract::DaoFactory),
         FT_FACTORY_ID => Some(AeaContract::FtFactory),
         FT_MINT_ID => Some(AeaContract::FtMint),
+        FT_SALE_FACTORY_ID => Some(AeaContract::FtSaleFactory),
         GROUP_ID => Some(AeaContract::Group),
         HUMANITY_ID => Some(AeaContract::Humanity),
         MARKETPLACE_ID => Some(AeaContract::Marketplace),

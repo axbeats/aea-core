@@ -15,7 +15,7 @@ pub struct VideoInput {
 impl VideoInput {
     pub fn from_nft_input(input: VideoNftInput, nft_id: VideoNftId) -> Self {
         Self {
-            context: VideoContext::Nft { nft_id },
+            context: VideoContext::Content { nft_id },
             title: input.title,
             description: input.description,
             video: input.video,
@@ -60,56 +60,16 @@ impl VideoInput {
             permissions: VideoPermissions::vote_permissions(),
         }
     }
+
+    pub fn from_group_input(input: GroupInput, group_id: GroupId) -> Self {
+        Self {
+            context: VideoContext::Group { group_id },
+            title: input.name,
+            description: input.description,
+            video: input.video,
+            image: input.image,
+            location: input.location,
+            permissions: VideoPermissions::group_permissions(),
+        }
+    }
  }
-
-// impl VideoInput {
-
-//     pub fn from_nft_input(input: VideoNFTInput, nft_id: VideoNFTId) -> Self {
-//         Self {
-//             context: VideoContext::NFT(nft_id),
-//             title: input.title,
-//             description: input.description,
-//             video: input.video,
-//             image: input.image,
-//             location: input.location,
-//             permissions: input.permissions,
-//         }
-//     }
-
-//     pub fn from_proposal_input(input: ProposalInput, proposal_id: ProposalId) -> Self {
-//         Self {
-//             context: VideoContext::Proposal(proposal_id),
-//             title: input.title,
-//             description: input.description,
-//             video: input.video,
-//             image: input.image,
-//             location: input.location,
-//             permissions: VideoPermissions::vote_permissions(),
-//         }
-//     }
-
-//     pub fn from_value_init(init: ValueInit, title: String, description: Option<String>) -> Self {
-//         Self {
-//             context: VideoContext::Value(init.id),
-//             title: title,
-//             description: description,
-//             video: init.video,
-//             image: init.image,
-//             location: init.location,
-//             permissions: VideoPermissions::vote_permissions(),
-//         }
-//     }
-
-//     pub fn from_rule_input(input: RuleInput, rule_id: RuleId) -> Self {
-//         Self {
-//             context: VideoContext::Rule(rule_id),
-//             title: input.name,
-//             description: input.description,
-//             video: input.video,
-//             image: input.image,
-//             location: input.location,
-//             permissions: VideoPermissions::vote_permissions(),
-//         }
-//     }
-
-// }
