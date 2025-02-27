@@ -72,4 +72,16 @@ impl VideoInput {
             permissions: VideoPermissions::group_permissions(),
         }
     }
+
+    pub fn from_contract_input(input: ContractInput) -> Self {
+        Self {
+            context: VideoContext::Contract { contract_id: input.contract_id },
+            title: input.name,
+            description: input.description,
+            video: input.video,
+            image: input.image,
+            location: input.location,
+            permissions: VideoPermissions::vote_permissions(),
+        }
+    }
  }

@@ -10,6 +10,9 @@ pub enum ProposalKind {
         group_id: GroupId,
         member_id: AccountId,
     },
+    AddManagedContract {
+        input: AddManagedContractInput,
+    },
     CreateGroup {
         input: GroupInputVideoOption,
     },
@@ -20,16 +23,13 @@ pub enum ProposalKind {
         input: ValueInput,
     },
     DeployContract {
-        input: DeployContractInput,
+        input: DeployContractInputVideoOption,
     },
     FactoryInfoUpdate {
         factory_info: FactoryInfo,
     },
     FunctionCall {
         functions: Vec<FunctionCall>,
-    },
-    RegisterContract {
-        input: RegisterContractInput,
     },
     RemoveAccountFromGroup { // RemoveElectedAccount
         group_id: GroupId,
@@ -105,14 +105,15 @@ impl ProposalKind {
     /// Returns label of policy for given type of proposal.
     pub fn to_policy_label(&self) -> &str {
         match self {
-            ProposalKind::CreateGroup { .. } => "create_group",
             ProposalKind::AddAccountToGroup { .. } => "add_member_to_group",
+            ProposalKind::AddManagedContract { .. } => "add_managed_contract",
+            ProposalKind::CreateGroup { .. } => "create_group",
             // ProposalKind::CreateRule { .. } => "create_rule",
             ProposalKind::CreateValue { .. } => "create_value",
             ProposalKind::DeployContract { .. } => "deploy_contract",
             ProposalKind::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalKind::FunctionCall { .. } => "function_call",
-            ProposalKind::RegisterContract { .. } => "register_contract",
+            
             ProposalKind::RemoveGroup { .. } => "remove_group",
             ProposalKind::RemoveAccountFromGroup { .. } => "remove_member_from_group",
             // ProposalKind::RemoveRule { .. } => "remove_rule",

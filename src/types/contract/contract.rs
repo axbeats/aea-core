@@ -11,13 +11,13 @@ pub struct Contract {
 }
 
 impl Contract {
-    pub fn from_input(input: ContractInput) -> Self {
+    pub fn from_input(input: ContractInput, video_id: VideoId) -> Self {
         Self {
             id: input.contract_id,
             dao_id: input.dao_id,
-            video_id: input.video_id,
+            video_id: video_id,
             code: ContractCode {
-                proposal_id: input.proposal_id,
+                // proposal_id: input.proposal_id,
                 wasm_hash: input.wasm_hash,
                 source_link: input.source_link,
                 compiler_version: input.compiler_version,
@@ -31,15 +31,15 @@ impl Contract {
         }
     }
 
-    pub fn upgrade_self(&mut self, input: ContractInput) -> Self {
+    pub fn upgrade_self(&mut self, input: UpgradeContractInput) -> Self {
         // Ensure that the provided identifiers match the existing contract.
         assert_eq!(self.id, input.contract_id, "ERR_CONTRACT_ID_MISMATCH");
         assert_eq!(self.dao_id, input.dao_id, "ERR_DAO_ID_MISMATCH");
-        assert_eq!(self.video_id, input.video_id, "ERR_VIDEO_ID_MISMATCH");
+        // assert_eq!(self.video_id, input.video_id, "ERR_VIDEO_ID_MISMATCH");
 
         // Create new contract code from the input.
         let new_code = ContractCode {
-            proposal_id: input.proposal_id,
+            // proposal_id: input.proposal_id,
             wasm_hash: input.wasm_hash,
             source_link: input.source_link,
             compiler_version: input.compiler_version,
