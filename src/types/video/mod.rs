@@ -1,6 +1,7 @@
 pub use self::engagement::*;
 pub use self::context::*;
 pub use self::input::*;
+pub use self::interact::*;
 pub use self::interaction::*;
 pub use self::node::*;
 pub use self::output::*;
@@ -11,12 +12,14 @@ pub use self::token::*;
 pub use self::video::*;
 pub use self::edit::*;
 pub use self::asset::*;
+pub use self::update::*;
 
 mod asset;
 mod edit;
 mod engagement;
 mod context;
 mod input;
+mod interact;
 mod interaction;
 mod node;
 mod output;
@@ -25,3 +28,4 @@ mod result;
 mod tag;
 mod token;
 mod video;
+mod update;

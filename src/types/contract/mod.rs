@@ -4,6 +4,7 @@ pub use self::contract_metadata::*;
 pub use self::deploy::*;
 pub use self::input::*;
 pub use self::register::*;
+pub use self::update::*;
 pub use self::upgrade::*;
 
 mod code;
@@ -12,4 +13,5 @@ mod contract_metadata;
 mod deploy;
 mod input;
 mod register;
+mod update;
 mod upgrade;
