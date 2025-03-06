@@ -19,7 +19,7 @@ pub struct Group {
 impl Group {
     pub fn assert_elected_members(&self) -> &HashSet<AccountId> {
         match &self.kind {
-            GroupKind::Elected(members) => members,
+            GroupKind::Elected(group) => &group.members,
             _ => panic!("ERR_NOT_ELECTED"),
         }
     }

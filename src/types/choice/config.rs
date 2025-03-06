@@ -6,7 +6,7 @@ pub struct ChoiceConfig {
     pub value_id: ValueId,
     pub dao_id: DaoId,
     pub group_id: GroupId,
-    pub kind: ChoiceKind,
+    pub kind: ChoiceSize,
     pub max_vote_options: u8,
     pub initial_values: Vec<String>,
 }
@@ -15,7 +15,7 @@ impl From<ValueConfig> for ChoiceConfig {
     fn from(config: ValueConfig) -> Self {
         let (group_id, kind, max_vote_options) = match config.method_input {
             VoteMethodInput::Choice(choice_input) => {
-                (choice_input.group_id, choice_input.kind, choice_input.max_vote_options)
+                (choice_input.group_id, choice_input.size, choice_input.max_vote_options)
             }
             _ => panic!("ValueConfig must have VoteMethodInput::Choice to convert into ChoiceConfig"),
         };
@@ -43,7 +43,7 @@ impl ChoiceConfig {
             value_id,
             dao_id,
             group_id: input.group_id,
-            kind: input.kind,
+            kind: input.size,
             max_vote_options: input.max_vote_options,
             initial_values,
         }

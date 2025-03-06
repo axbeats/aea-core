@@ -41,7 +41,7 @@ mod view;
 #[serde(rename_all = "snake_case")]
 pub enum VideoEventKind {
     CreateVideo(CreateVideoEvent),
-    EditVideo(EditVideoEvent),
+    EditVideo(UpdateVideoEvent),
     DeleteVideo(DeleteVideoEvent),
     ViewVideo(ViewVideoEvent),
     LikeVideo(LikeVideoEvent),

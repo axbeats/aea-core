@@ -1,9 +1,9 @@
 pub use self::action::*;
-pub use self::amendment::*;
+pub use self::vote_method::*;
 pub use self::permission::*;
 pub use self::policy::*;
 
 mod action;
-mod amendment;
+mod vote_method;
 mod permission;
 mod policy;

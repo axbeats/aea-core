@@ -11,10 +11,10 @@ pub use self::tag::*;
 pub use self::token::*;
 pub use self::video::*;
 pub use self::edit::*;
-pub use self::asset::*;
+pub use self::bundle::*;
 pub use self::update::*;
 
-mod asset;
+mod bundle;
 mod edit;
 mod engagement;
 mod context;

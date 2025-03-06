@@ -4,6 +4,8 @@ use crate::*;
 pub use self::add_account_to_group::*;
 pub use self::add_group_to_account::*;
 pub use self::create_group::*;
+pub use self::join_group::*;
+pub use self::leave_group::*;
 pub use self::remove_account_from_group::*;
 pub use self::remove_group_from_account::*;
 pub use self::remove_group::*;
@@ -12,6 +14,8 @@ pub use self::update_group::*;
 mod add_account_to_group;
 mod add_group_to_account;
 mod create_group;
+mod join_group;
+mod leave_group;
 mod remove_account_from_group;
 mod remove_group_from_account;
 mod remove_group;
@@ -30,6 +34,8 @@ pub enum GroupEventKind {
     RemoveAccountFromGroup(RemoveAccountFromGroupEvent),
     AddGroupToAccount(AddGroupToAccountEvent),
     RemoveGroupFromAccount(RemoveGroupFromAccountEvent),
+    JoinGroup(JoinGroupEvent),
+    LeaveGroup(LeaveGroupEvent),
 }
 
 // Define the main GroupEvent struct

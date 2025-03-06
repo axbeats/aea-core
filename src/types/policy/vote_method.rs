@@ -8,6 +8,22 @@ pub enum VoteMethod {
     Calibration(CalibrationId),
 }
 
+impl VoteMethod {
+    pub fn to_policy_label(&self) -> &'static str {
+        match self {
+            VoteMethod::Proposal => "proposal",
+            VoteMethod::Choice(_) => "choice",
+            VoteMethod::Calibration(_) => "calibration",
+        }
+    }
+}
+
+impl Default for VoteMethod {
+    fn default() -> Self {
+        VoteMethod::Proposal
+    }
+}
+
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
 pub enum VoteMethodInput {
@@ -56,28 +72,5 @@ impl VoteMethodInput {
             VoteMethodInput::Calibration(input) => input,
             _ => panic!("Expected Calibration input"),
         }
-    }
-}
-
-// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-// #[serde(crate = "near_sdk::serde")]
-// pub enum VoteMethodInput {
-//     Proposal,
-//     Choice(GroupId, VideoHash, ImageHash),
-// }
-
-impl VoteMethod {
-    pub fn to_policy_label(&self) -> &'static str {
-        match self {
-            VoteMethod::Proposal => "proposal",
-            VoteMethod::Choice(_) => "choice",
-            VoteMethod::Calibration(_) => "calibration",
-        }
-    }
-}
-
-impl Default for VoteMethod {
-    fn default() -> Self {
-        VoteMethod::Proposal
     }
 }
