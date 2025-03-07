@@ -5,7 +5,7 @@ use crate::*;
 pub enum UpdateProfileAction {
     Name(String),
     Bio(Option<String>),
-    Link(Option<VideoBundle>),
+    Link(Option<String>),
     Image(ImageHash),
     Video(VideoId),
 }
