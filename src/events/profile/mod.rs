@@ -6,12 +6,14 @@ pub use self::edit::*;
 pub use self::delete::*;
 pub use self::follow::*;
 pub use self::unfollow::*;
+pub use self::update::*;
 
 mod create;
 mod edit;
 mod delete;
 mod follow;
 mod unfollow;
+mod update;
 
 // Define the event variants for profile events
 #[near(serializers = [json])]
@@ -24,6 +26,7 @@ pub enum ProfileEventKind {
     DeleteProfile(DeleteProfileEvent),
     FollowProfile(FollowProfileEvent),
     UnfollowProfile(UnfollowProfileEvent),
+    UpdateProfile(UpdateProfileEvent),
 }
 
 // Define the main ProfileEvent struct
