@@ -18,6 +18,9 @@ pub enum ProposalKind {
     CreateValue {
         input: ValueInputVideoOption,
     },
+    CreateVideo {
+        input: VideoInput,
+    },
     DeployContract {
         input: DeployContractInputVideoOption,
     },
@@ -31,6 +34,12 @@ pub enum ProposalKind {
     FunctionCall {
         functions: Vec<FunctionCall>,
     },
+    InteractProfile {
+        action: InteractProfile,
+    },
+    InteractVideo {
+        action: InteractVideo,
+    },
     RemoveGroup {
         group_id: GroupId,
     },
@@ -39,6 +48,9 @@ pub enum ProposalKind {
     },
     RemoveValue {
         value_id: ValueId,
+    },
+    RemoveVideo {
+        video_id: VideoId,
     },
     /// Transfers given amount of `token_id` from this DAO to `receiver_id`.
     /// If `msg` is not None, calls `ft_transfer_call` with given `msg`. Fails if this base token.
@@ -50,44 +62,31 @@ pub enum ProposalKind {
         group_id: GroupId,
         account_id: AccountId,
     },
-    UpdateChoiceMetadata {
-        choice_id: ChoiceId,
-        description: Option<String>,
-        video: Option<VideoHash>,
-        image: Option<ImageHash>,
-    },
-    UpdateChoiceSize {
-        choice_id: ChoiceId,
-        size: u8,
-    },
-    UpdateGroupName {
-        group_id: GroupId,
-        name: String,
-    },
-    UpdateGroupPermissions {
-        group_id: GroupId,
-        permissions: HashMap<ProposalKindString, ProposalPermission>,
-    },
-    UpdateGroupVoteMethod {
-        group_id: GroupId,
-        vote_method: VoteMethod,
+    UpdateContract {
+        contract_id: ContractId,
+        actions: Vec<UpdateContractAction>,
     },
     UpdateDefaultPolicy {
-        kind: ProposalPolicyKind,
+        policies: Vec<ProposalPolicyKind>,
+    },
+    UpdateGroup {
+        group_id: GroupId,
+        actions: Vec<UpdateGroupAction>,
+    },
+    UpdateProfile {
+        actions: Vec<UpdateProfileAction>,
     },
     UpdateRule {
-        rule_id: RuleId, // Need more - Feb 26 2025
-    },
-    UpdateValueName {
-        value_id: ValueId,
-        name: String,
+        rule_id: RuleId,
+        actions: Vec<UpdateRuleAction>,
     },
     UpdateValue {
-        value: Value,
-    },
-    UpdateValueVoteMethod {
         value_id: ValueId,
-        vote_method: VoteMethod,
+        actions: Vec<UpdateValueAction>,
+    },
+    UpdateVideo {
+        video_id: VideoId,
+        actions: Vec<UpdateVideoAction>,
     },
     /// Upgrade another contract, by calling method with the code from given hash from blob store.
     UpgradeContract {
@@ -110,25 +109,26 @@ impl ProposalKind {
             ProposalKind::CreateGroup { .. } => "create_group",
             ProposalKind::CreateRule { .. } => "create_rule",
             ProposalKind::CreateValue { .. } => "create_value",
+            ProposalKind::CreateVideo { .. } => "create_video",
             ProposalKind::DeployContract { .. } => "deploy_contract",
             ProposalKind::ElectAccount { .. } => "elect_account",
             ProposalKind::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalKind::FunctionCall { .. } => "function_call",
+            ProposalKind::InteractProfile { .. } => "interact_profile",
+            ProposalKind::InteractVideo { .. } => "interact_video",
             ProposalKind::RemoveGroup { .. } => "remove_group",
             ProposalKind::RemoveRule { .. } => "remove_rule",
             ProposalKind::RemoveValue { .. } => "remove_value",
+            ProposalKind::RemoveVideo { .. } => "remove_video",
             ProposalKind::Transfer { .. } => "transfer",
             ProposalKind::UnelectAccount { .. } => "unelect_account",
-            ProposalKind::UpdateChoiceMetadata { .. } => "update_choice",
-            ProposalKind::UpdateChoiceSize { .. } => "update_choice_size",
-            ProposalKind::UpdateGroupName { .. } => "update_group_name",
-            ProposalKind::UpdateGroupPermissions { .. } => "update_group_permissions",
-            ProposalKind::UpdateGroupVoteMethod { .. } => "update_group_vote_method",
+            ProposalKind::UpdateContract { .. } => "update_contract",
             ProposalKind::UpdateDefaultPolicy { .. } => "update_default_policy",
+            ProposalKind::UpdateGroup { .. } => "update_group",
+            ProposalKind::UpdateProfile { .. } => "update_profile",
             ProposalKind::UpdateRule { .. } => "update_rule",
-            ProposalKind::UpdateValueName { .. } => "update_value_name",
             ProposalKind::UpdateValue { .. } => "update_value",
-            ProposalKind::UpdateValueVoteMethod { .. } => "update_value_vote_method",
+            ProposalKind::UpdateVideo { .. } => "update_video",
             ProposalKind::UpgradeContract { .. } => "upgrade_contract",
             ProposalKind::UpgradeSelf { .. } => "upgrade_self",
             ProposalKind::Vote => "vote",

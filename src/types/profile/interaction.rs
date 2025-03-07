@@ -7,3 +7,12 @@ pub struct ProfileInteraction {
     pub followed: bool,
     // pub subscribed: bool,
 }
+
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
+pub enum InteractProfile {
+    Follow(AccountId),
+    Unfollow(AccountId),
+    Subscribe(AccountId),
+    Unsubscribe(AccountId),
+}

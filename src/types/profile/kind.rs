@@ -19,13 +19,3 @@ impl fmt::Display for ProfileKind {
         }
     }
 }
-
-// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone, PartialEq)]
-// #[serde(crate = "near_sdk::serde")]
-// pub struct DaoProfileGovernance {
-//     pub name: Option<VoteMethod>,
-//     pub bio: Option<VoteMethod>,
-//     pub image: Option<VoteMethod>,
-//     pub video: Option<VoteMethod>,
-//     pub link: Option<VoteMethod>,
-// }

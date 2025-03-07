@@ -1,6 +1,5 @@
 pub use self::engagement::*;
 pub use self::input::*;
-pub use self::interact::*;
 pub use self::interaction::*;
 pub use self::keys::*;
 pub use self::kind::*;
@@ -12,7 +11,6 @@ pub use self::update::*;
 
 mod engagement;
 mod input;
-mod interact;
 mod interaction;
 mod keys;
 mod kind;
