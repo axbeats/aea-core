@@ -3,10 +3,8 @@ use crate::*;
 
 pub use self::create_account::*;
 pub use self::create_deploy_contract::*;
-pub use self::upgrade_contract::*;
 mod create_account;
 mod create_deploy_contract;
-mod upgrade_contract;
 
 // Define the event variants for profile events
 #[near(serializers = [json])]
@@ -16,7 +14,6 @@ mod upgrade_contract;
 pub enum AccountFactoryEventKind {
     CreateAccount(CreateAccountEvent),
     CreateDeployContract(CreateDeployContractEvent),
-    UpgradeContract(UpgradeContractEvent),
 }
 
 // Define the main ProfileEvent struct

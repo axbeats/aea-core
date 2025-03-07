@@ -11,7 +11,7 @@ pub struct UpgradeContractEvent {
 
 impl UpgradeContractEvent {
     pub fn emit(self) {
-        let event = AccountFactoryEvent::new(AccountFactoryEventKind::UpgradeContract(self));
+        let event = ContractEvent::new(ContractEventKind::UpgradeContract(self));
         env::log_str(&event.to_string());
     }
 }

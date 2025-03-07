@@ -8,6 +8,7 @@ pub use self::remove_flag::*;
 pub use self::remove_review::*;
 pub use self::remove_rule::*;
 pub use self::update_review_status::*;
+pub use self::update_rule::*;
 pub use self::vote_review::*;
 
 mod add_flag;
@@ -17,6 +18,7 @@ mod remove_flag;
 mod remove_review;
 mod remove_rule;
 mod update_review_status;
+mod update_rule;
 mod vote_review;
 
 // Define the event variants for court events
@@ -33,6 +35,7 @@ pub enum CourtEventKind {
     CreateReview(CreateReviewEvent),
     VoteReview(VoteReviewEvent),
     UpdateReviewStatus(UpdateReviewStatusEvent),
+    UpdateRule(UpdateRuleEvent),
 }
 
 #[near(serializers = [json])]
