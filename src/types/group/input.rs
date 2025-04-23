@@ -8,7 +8,7 @@ pub struct GroupInput {
     pub kind: GroupKindInput,
     pub vote_weight: VoteWeightKind,
     pub permissions: HashMap<ProposalKindString, ProposalPermission>,
-    pub vote_method: VoteMethod,
+    pub vote_method: VoteMethod, // This is in the wrong place, only applies to ElectedGroup - Apr 18 2025
     /// Video fields
     pub name: String,
     pub description: Option<String>,

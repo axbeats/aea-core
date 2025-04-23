@@ -10,7 +10,6 @@ pub struct Rule {
     pub dao_id: DaoId,
     pub flag_group_id: GroupId,
     pub jury_group_id: GroupId,
-    // pub required_flag_count: u64,
     pub penalty_function: Option<FunctionCall>,
     pub penalty_amount: Amount,
     pub policy: RulePolicy,

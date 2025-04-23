@@ -3,5 +3,6 @@ use crate::*;
 
 pub type MediaHash = String;
 pub type VideoHash = MediaHash;
+pub type HLSDirectoryHash = MediaHash;
 pub type ImageHash = MediaHash;
 pub type AudioHash = MediaHash;
