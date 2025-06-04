@@ -6,7 +6,7 @@ pub struct ContractInput {
     pub contract_id: ContractId,
     pub dao_id: DaoId,
     // pub proposal_id: Option<ProposalId>,
-    pub wasm_hash: CryptoHash,
+    // pub wasm_hash: CryptoHash,
     pub source_link: Option<String>,
     pub compiler_version: Option<String>,
     /// Video args
@@ -30,7 +30,7 @@ impl ContractInput {
             contract_id,
             dao_id,
             // proposal_id,
-            wasm_hash: deploy_input.wasm_hash,
+            // wasm_hash: deploy_input.wasm_hash,
             source_link: deploy_input.source_code_link,
             compiler_version: deploy_input.compiler_version,
             name: deploy_input.name,
@@ -77,7 +77,7 @@ impl ContractInput {
             dao_id,
             // video_id,
             // proposal_id,
-            wasm_hash: register_input.wasm_hash,
+            // wasm_hash: register_input.wasm_hash,
             // Map source_code_link to source_link.
             source_link: register_input.source_code_link,
             compiler_version: register_input.compiler_version,

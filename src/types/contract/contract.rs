@@ -18,7 +18,7 @@ impl Contract {
             video_id: video_id,
             code: ContractCode {
                 // proposal_id: input.proposal_id,
-                wasm_hash: input.wasm_hash,
+                // wasm_hash: input.wasm_hash,
                 source_link: input.source_link,
                 compiler_version: input.compiler_version,
                 // Start with no verification; can be updated later.
@@ -40,7 +40,7 @@ impl Contract {
         // Create new contract code from the input.
         let new_code = ContractCode {
             // proposal_id: input.proposal_id,
-            wasm_hash: input.wasm_hash,
+            // wasm_hash: input.wasm_hash,
             source_link: input.source_link,
             compiler_version: input.compiler_version,
             // New code starts with no verification.
