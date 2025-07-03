@@ -4,7 +4,7 @@ use crate::*;
 #[derive(Debug, Clone, PartialEq)]
 pub enum ProposalStatus {
     Initializing,
-    VotingStage(VotingStage), // Voting stage with current stage and final stage
+    Voting, // All groups vote simultaneously
     Approved,
     Rejected,
     Spam,
@@ -13,41 +13,26 @@ pub enum ProposalStatus {
 }
 
 impl ProposalStatus {
-    pub fn get_voting_stage(&self) -> Option<u8> {
-        if let ProposalStatus::VotingStage(voting_stage) = self {
-            Some(voting_stage.current_stage)
-        } else {
-            None
-        }
+    pub fn is_voting(&self) -> bool {
+        matches!(self, ProposalStatus::Voting)
     }
 
-    pub fn advance_stage(&mut self) {
-        if let ProposalStatus::VotingStage(voting_stage) = self {
-            if voting_stage.current_stage < voting_stage.final_stage {
-                voting_stage.current_stage += 1;
-            }   
-        }
-    }
-
-    pub fn is_final_stage(&self) -> bool {
-        match self {
-            ProposalStatus::VotingStage(voting_stage) => voting_stage.current_stage == voting_stage.final_stage,
-            _ => false,
-        }
+    pub fn is_final(&self) -> bool {
+        matches!(
+            self,
+            ProposalStatus::Approved
+                | ProposalStatus::Rejected
+                | ProposalStatus::Spam
+                | ProposalStatus::Expired
+                | ProposalStatus::Failed
+        )
     }
 }
 
-#[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq)]
-pub struct VotingStage {
-    pub current_stage: u8, // 1 based index
-    pub final_stage: u8, // 1 based index
-}
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
 pub enum GroupVoteStatus {
-    Waiting,
     VoteOpen,
     VoteClosed(GroupVoteResult),
 }

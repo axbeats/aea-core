@@ -9,13 +9,13 @@ pub type ProposalVoteId = u64;
 pub struct ProposalVote {
     pub id: ProposalVoteId,
     pub proposal_id: ProposalId,
-    pub proposal_kind: ProposalKindString,
+    pub proposal_kind: ProposalKind,
     pub voter_id: AccountId,
     pub dao_id: AccountId,
     pub group_id: GroupId,
     pub vote: Vote,
     pub weight: u128,
-    pub stage: u8, // 1 based index
+    pub stage: u8, // DEPRECATED: Always 1 in simultaneous voting system
     pub issued_at: u64,
     pub updated_at: Option<Vec<u64>>,
 }
@@ -37,7 +37,7 @@ pub enum Vote {
 #[derive(Debug, Clone)]
 pub struct ProposalVoteInput {
     pub proposal_id: ProposalId,
-    pub proposal_kind: ProposalKindString,
+    pub proposal_kind: ProposalKind,
     pub voter_id: AccountId,
     pub dao_id: AccountId,
     pub group_id: GroupId,
@@ -48,7 +48,7 @@ impl ProposalVoteInput {
     pub fn to_proposal_vote(
         &self,
         weight: u128,
-        stage: u8, // 1-based index
+        stage: u8, // DEPRECATED: Not used in simultaneous voting
         update: bool,
     ) -> ProposalVote {
         // Get the current timestamp

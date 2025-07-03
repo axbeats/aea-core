@@ -1,4 +1,5 @@
 use crate::*;
+use std::collections::{HashMap, HashSet};
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
@@ -7,8 +8,7 @@ pub struct GroupInput {
     pub dao_id: DaoId,
     pub kind: GroupKindInput,
     pub vote_weight: VoteWeightKind,
-    pub permissions: HashMap<ProposalKindString, ProposalPermission>,
-    pub vote_method: VoteMethod, // This is in the wrong place, only applies to ElectedGroup - Apr 18 2025
+    pub permissions: HashMap<ProposalKind, ProposalPermission>,
     /// Video fields
     pub name: String,
     pub description: Option<String>,
@@ -35,7 +35,6 @@ impl GroupInput {
             kind: input.kind,
             vote_weight: input.vote_weight,
             permissions: input.permissions,
-            vote_method: input.vote_method,
             // Video fields
             name: input.name,
             description: input.description,
@@ -55,13 +54,98 @@ impl GroupInput {
             kind: input.kind,
             vote_weight: input.vote_weight,
             permissions: input.permissions,
-            vote_method: input.vote_method,
             // Video fields
             name: input.name,
             description: input.description,
             video: bundle.video,
             image: bundle.image,
             location: input.location,
+        }
+    }
+
+    /// Generate example permissions for a group
+    fn example_permissions() -> HashMap<ProposalKind, ProposalPermission> {
+        let mut permissions = HashMap::new();
+        permissions.insert(
+            ProposalKind::Admin,
+            ProposalPermission {
+                create: true,
+                vote: true,
+                custom_policy: None,
+            },
+        );
+        permissions.insert(
+            ProposalKind::Technical,
+            ProposalPermission {
+                create: true,
+                vote: true,
+                custom_policy: None,
+            },
+        );
+        permissions.insert(
+            ProposalKind::Operations,
+            ProposalPermission {
+                create: true,
+                vote: true,
+                custom_policy: None,
+            },
+        );
+        permissions
+    }
+
+    /// Generate an example Followers group
+    pub fn example_followers() -> Self {
+        Self {
+            dao_id: "example-dao.near".parse().unwrap(),
+            kind: GroupKindInput::Followers,
+            vote_weight: VoteWeightKind::Single,
+            permissions: Self::example_permissions(),
+            name: "Followers".to_string(),
+            description: Some("All followers of the DAO".to_string()),
+            video: "QmExampleVideoHash".to_string(),
+            image: "QmExampleImageHash".to_string(),
+            location: None,
+        }
+    }
+
+    /// Generate an example Token group
+    pub fn example_token() -> Self {
+        Self {
+            dao_id: "example-dao.near".parse().unwrap(),
+            kind: GroupKindInput::Token,
+            vote_weight: VoteWeightKind::Token((
+                "staking.example-dao.near".parse().unwrap(),
+                WeightFormula::Linear
+            )),
+            permissions: Self::example_permissions(),
+            name: "Token Holders".to_string(),
+            description: Some("Token holders with staked tokens".to_string()),
+            video: "QmExampleVideoHash".to_string(),
+            image: "QmExampleImageHash".to_string(),
+            location: None,
+        }
+    }
+
+    /// Generate an example Elected group
+    pub fn example_elected() -> Self {
+        let mut members = HashSet::new();
+        members.insert("alice.near".parse().unwrap());
+        members.insert("bob.near".parse().unwrap());
+        members.insert("charlie.near".parse().unwrap());
+        
+        Self {
+            dao_id: "example-dao.near".parse().unwrap(),
+            kind: GroupKindInput::Elected(ElectedGroup {
+                members,
+                choice_id: 1, // Example choice ID
+            }),
+            vote_weight: VoteWeightKind::Single,
+            permissions: Self::example_permissions(),
+            name: "Council".to_string(),
+            description: Some("Elected council members".to_string()),
+            video: "QmExampleVideoHash".to_string(),
+            image: "QmExampleImageHash".to_string(),
+            location: None,
         }
     }
 }
@@ -73,8 +157,7 @@ pub struct GroupInputVideoOption {
     pub dao_id: DaoId,
     pub kind: GroupKindInput,
     pub vote_weight: VoteWeightKind,
-    pub permissions: HashMap<ProposalKindString, ProposalPermission>,
-    pub vote_method: VoteMethod,
+    pub permissions: HashMap<ProposalKind, ProposalPermission>,
     /// Video fields
     pub name: String,
     pub description: Option<String>,

@@ -11,3 +11,18 @@ pub struct ProfileInput {
     pub public_keys: Option<PublicKeys>,
     pub link: Option<String>,
 }
+
+impl ProfileInput {
+    /// Generate an example ProfileInput for a DAO
+    pub fn example() -> Self {
+        Self {
+            username: "example-dao".to_string(),
+            kind: ProfileKind::Dao,
+            name: "Example DAO".to_string(),
+            bio: Some("A community-driven organization for collaborative decision making".to_string()),
+            image: "QmExampleImageHash123456789".to_string(),
+            public_keys: None,
+            link: Some("https://example-dao.near.social".to_string()),
+        }
+    }
+}

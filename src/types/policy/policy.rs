@@ -79,6 +79,18 @@ impl Policy {
 
         self
     }
+
+    /// Generate an example Policy with typical DAO settings
+    pub fn example() -> Self {
+        Self {
+            bond: 1_000_000_000_000_000_000_000_000, // 1 NEAR
+            voting_period: 259_200_000_000_000, // 3 days in nanoseconds
+            threshold: 60, // 60% approval needed
+            early_threshold: Some(75), // 75% for early approval
+            quorum: 20, // 20% participation required
+            early_quorum: Some(10), // 10% for early quorum
+        }
+    }
 }
 
 
@@ -135,7 +147,7 @@ impl Default for CustomPolicy {
 #[derive(Debug, Clone)]
 pub struct CustomPolicyInput {
     pub group_id: GroupId,
-    pub proposal_kind: ProposalKindString,
+    pub proposal_kind: ProposalKind,
     pub policy_kind: ProposalPolicyKind,
 }
 
@@ -151,7 +163,7 @@ pub enum PolicyKind {
 pub struct GroupVotePolicy {
     pub group_id: GroupId,
     pub group_size: u64,
-    pub proposal_kind: ProposalKindString,
+    pub proposal_kind: ProposalKind,
     pub voting_period: u64,
     pub threshold: u8,
     pub early_threshold: Option<u8>,

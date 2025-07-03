@@ -7,6 +7,5 @@ pub type PermissionString = String;
 pub struct ProposalPermission {
     pub create: bool,
     pub vote: bool,
-    pub order: Option<VoteOrder>,
     pub custom_policy: Option<CustomPolicy>,
 }

@@ -18,6 +18,39 @@ pub struct RuleInput {
     pub location: Option<String>,
 }
 
+impl RuleInput {
+    /// Generate an example RuleInput
+    pub fn example() -> Self {
+        Self {
+            dao_id: "example-dao.near".parse().unwrap(),
+            flag_group_id: 0, // Followers group
+            jury_group_id: 1, // Council group
+            penalty_function: Some(FunctionCall {
+                contract_id: "penalty.example-dao.near".parse().unwrap(),
+                method_name: "apply_penalty".to_string(),
+                args: near_sdk::json_types::Base64VecU8::from(vec![]),
+                deposit: near_sdk::json_types::U128(0),
+                gas: near_sdk::json_types::U64(30_000_000_000_000),
+            }),
+            penalty_amount: Amount {
+                token_id: "token.example-dao.near".parse().unwrap(),
+                amount: 100,
+            },
+            policy: RulePolicy {
+                flag_threshold: 300, // 3% threshold (PercentageU32 is in basis points)
+                flag_quorum: 10, // Need 10 flags minimum
+                review_threshold: 6000, // 60% approval needed (in basis points)
+                review_quorum: Quorum::Percentage(20), // 20% of jury must participate
+            },
+            name: "No Spam".to_string(),
+            description: Some("Prohibits spam content in the DAO".to_string()),
+            video: "QmExampleVideoHash".to_string(),
+            image: "QmExampleImageHash".to_string(),
+            location: None,
+        }
+    }
+}
+
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct RuleInputVideoOption {

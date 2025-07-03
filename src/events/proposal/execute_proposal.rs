@@ -5,7 +5,7 @@ use super::*;
 pub struct ExecuteProposalEvent {
     pub proposal_id: u64,
     pub dao_id: AccountId,
-    pub kind: ProposalKind,
+    pub action: ProposalAction,
     pub timestamp: u64,
 }
 

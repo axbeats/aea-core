@@ -11,7 +11,7 @@ pub struct Proposal {
     pub dao_id: AccountId,
     pub proposer_id: AccountId,
     pub proposer_group_id: GroupId,
-    pub kind: ProposalKind,
+    pub action: ProposalAction,
     pub voting_sessions: Vec<ProposalGroupVotingSession>,
     pub status: ProposalStatus,
     pub submission_time: TimestampNanoSeconds,
@@ -26,7 +26,7 @@ impl Proposal {
             dao_id: input.dao_id,
             proposer_id: env::predecessor_account_id(),
             proposer_group_id: input.group_id,
-            kind: input.kind,
+            action: input.action,
             status: ProposalStatus::Initializing, // Will update later 
             voting_sessions: Vec::new(), // Will update later
             submission_time: env::block_timestamp(),
@@ -36,30 +36,49 @@ impl Proposal {
 }
 
 impl Proposal {
-
-    pub fn get_current_voting_group(&self) -> GroupId {
-        self.voting_sessions[self.status.get_voting_stage().unwrap() as usize - 1].group_id.clone()
+    // Get all groups that can currently vote (all groups vote simultaneously)
+    pub fn get_voting_groups(&self) -> Vec<GroupId> {
+        self.voting_sessions
+            .iter()
+            .filter(|session| matches!(session.status, GroupVoteStatus::VoteOpen))
+            .map(|session| session.group_id.clone())
+            .collect()
     }
 
-    // Method to advance the proposal stage and update the current and next group's voting status
-    pub fn advance_stage(&mut self, new_status: GroupVoteStatus) {
-        // Find the current voting session by checking the group status
-        if let Some(current_index) = self.voting_sessions.iter().position(|session| session.status == GroupVoteStatus::VoteOpen) {
-            // Update the current group's voting status
-            if let Some(current_session) = self.voting_sessions.get_mut(current_index) {
-                current_session.status = new_status;
-            }
+    // Check if all groups have finished voting
+    pub fn all_groups_voted(&self) -> bool {
+        self.voting_sessions
+            .iter()
+            .all(|session| matches!(session.status, GroupVoteStatus::VoteClosed(_)))
+    }
 
-            // Move to the next group in the voting order, if there is one
-            if let Some(next_session) = self.voting_sessions.get_mut(current_index + 1) {
-                // Set the next group's voting status to `VotingOpen` and update the start time
-                next_session.status = GroupVoteStatus::VoteOpen;
-                next_session.start_time = Some(env::block_timestamp());
-            } else {
-                // If no next session, the voting has completed
-                self.status.advance_stage();  // Possibly set to final or complete status here
-            }
+    // Check if all groups approved the proposal
+    pub fn all_groups_approved(&self) -> bool {
+        self.voting_sessions
+            .iter()
+            .all(|session| matches!(session.status, GroupVoteStatus::VoteClosed(GroupVoteResult::Approved)))
+    }
+
+    // Check if any group rejected the proposal
+    pub fn any_group_rejected(&self) -> bool {
+        self.voting_sessions
+            .iter()
+            .any(|session| matches!(session.status, GroupVoteStatus::VoteClosed(GroupVoteResult::Rejected)))
+    }
+
+    // Check if any group marked as spam
+    pub fn any_group_spam(&self) -> bool {
+        self.voting_sessions
+            .iter()
+            .any(|session| matches!(session.status, GroupVoteStatus::VoteClosed(GroupVoteResult::Spam)))
+    }
+
+    // Update a specific group's voting status
+    pub fn update_group_status(&mut self, group_id: &GroupId, new_status: GroupVoteStatus) {
+        if let Some(session) = self.voting_sessions
+            .iter_mut()
+            .find(|session| session.group_id == *group_id) {
+            session.status = new_status;
         }
     }
-
 }

@@ -1,7 +1,6 @@
 use crate::*;
 
 pub type GroupId = u64;
-pub type VoteOrder = u8;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
@@ -13,7 +12,7 @@ pub struct Group {
     pub description: Option<String>,
     pub kind: GroupKind,
     pub vote_weight: VoteWeightKind,
-    pub permissions: HashMap<ProposalKindString, ProposalPermission>,
+    pub permissions: HashMap<ProposalKind, ProposalPermission>,
 }
 
 impl Group {

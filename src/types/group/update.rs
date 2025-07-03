@@ -6,7 +6,6 @@ pub enum UpdateGroupAction {
     Name(String),
     Description(String),
     VideoBundle(VideoBundle),
-    CustomPolicy(ProposalKindString, Option<CustomPolicy>),
-    Permission(ProposalKindString, ProposalPermission),
-    VoteMethod(VoteMethodInput),
+    CustomPolicy(ProposalKind, Option<CustomPolicy>),
+    Permission(ProposalKind, ProposalPermission),
 }

@@ -1,6 +1,7 @@
 pub use self::engagement::*;
 pub use self::input::*;
 pub use self::interaction::*;
+pub use self::action::*;
 pub use self::kind::*;
 pub use self::output::*;
 pub use self::status::*;
@@ -12,6 +13,7 @@ pub use self::voting_session::*;
 mod engagement;
 mod input;
 mod interaction;
+mod action;
 mod kind;
 mod output;
 mod status;

@@ -18,6 +18,23 @@ pub struct ContractInput {
 }
 
 impl ContractInput {
+    /// Generate an example ContractInput
+    pub fn example() -> Self {
+        Self {
+            contract_id: "token.example-dao.near".parse().unwrap(),
+            dao_id: "example-dao.near".parse().unwrap(),
+            source_link: Some("https://github.com/example-dao/token-contract".to_string()),
+            compiler_version: Some("rustc 1.70.0".to_string()),
+            name: "DAO Token Contract".to_string(),
+            description: Some("Fungible token contract for DAO governance".to_string()),
+            video: "QmExampleVideoHash".to_string(),
+            image: "QmExampleImageHash".to_string(),
+            location: None,
+        }
+    }
+}
+
+impl ContractInput {
     pub fn from_deploy_contract_input(
         deploy_input: DeployContractInput,
         contract_id: ContractId,

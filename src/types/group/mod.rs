@@ -6,6 +6,7 @@ pub use self::kind::*;
 pub use self::members::*;
 pub use self::output::*;
 pub use self::update::*;
+pub use self::region::*;
 
 mod composite;
 mod elected;
@@ -15,3 +16,4 @@ mod kind;
 mod members;
 mod output;
 mod update;
+mod region;

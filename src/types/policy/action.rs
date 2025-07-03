@@ -11,19 +11,6 @@ pub struct FunctionCall {
     pub gas: U64,
 }
 
-// I think this will be expired, check later and delete if so - Aug 9 2024
-#[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
-pub struct ActionVoteProposal {
-    pub proposal_id: ProposalId,
-    pub proposal_kind: ProposalKindString,
-    pub voter_id: AccountId,
-    pub group_id: GroupId,
-    pub vote: Vote,
-    pub weight_kind: WeightKind,
-    pub current_stage: u8, // 1 based index
-}
-
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct ActionVoteChoice {
@@ -57,7 +44,7 @@ pub struct ActionInput {
 #[derive(Debug, Clone)]
 pub enum ActionInputKind {
     CreateProposal((ProposalInput, AttachedBond, DefaultBond)),
-    VoteProposal((ProposalVoteInput, CurrentStage, Policy)),
+    VoteProposal((ProposalVoteInput, CurrentStage, Policy)), // CurrentStage is deprecated - always 1
     VoteChoice(ChoiceVoteInput),
     VoteCalibration(CalibrationVoteInput),
 }
