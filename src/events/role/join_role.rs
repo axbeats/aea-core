@@ -1,23 +1,23 @@
 use super::*;
 
-// JoinGroupEvent
+// JoinRoleEvent
 #[near(serializers = [json, borsh])]
 #[derive(Debug)]
-pub struct JoinGroupEvent {
-    pub group_id: GroupId,
+pub struct JoinRoleEvent {
+    pub role_id: RoleId,
     pub account_id: AccountId,
     pub timestamp: u64,
 }
 
-impl JoinGroupEvent {
+impl JoinRoleEvent {
     pub fn emit(self) {
-        let event = GroupEvent::new(GroupEventKind::JoinGroup(self));
+        let event = RoleEvent::new(RoleEventKind::JoinRole(self));
         env::log_str(&event.to_string());
     }
 }
 
-impl EventKind for JoinGroupEvent {
+impl EventKind for JoinRoleEvent {
     fn event_kind(&self) -> &str {
-        "join_group"
+        "join_role"
     }
 }

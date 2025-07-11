@@ -4,7 +4,7 @@ use crate::*;
 #[derive(Debug, Clone, PartialEq)]
 pub enum ProposalStatus {
     Initializing,
-    Voting, // All groups vote simultaneously
+    Voting, // All roles vote simultaneously
     Approved,
     Rejected,
     Spam,
@@ -32,14 +32,14 @@ impl ProposalStatus {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub enum GroupVoteStatus {
+pub enum RoleVoteStatus {
     VoteOpen,
-    VoteClosed(GroupVoteResult),
+    VoteClosed(RoleVoteResult),
 }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub enum GroupVoteResult {
+pub enum RoleVoteResult {
     Approved,
     Rejected,
     Spam,

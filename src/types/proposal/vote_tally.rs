@@ -22,7 +22,7 @@ impl Default for ProposalVoteTally {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct ProposalGroupVoteTally {
-    pub group_id: GroupId,
+pub struct ProposalRoleVoteTally {
+    pub role_id: RoleId,
     pub tally: ProposalVoteTally,
 }

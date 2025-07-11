@@ -2,9 +2,13 @@ use crate::*;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd)]
-pub enum ProposalKind {
-    Admin,
-    Technical,
-    Operations,
-    Social,
+pub enum ProposalAbility {
+    Role,
+    Policy,
+    Task,
+    Profile,
+    Video,
+    Code,
+    Value,
+    Court,
 }

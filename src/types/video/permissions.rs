@@ -38,7 +38,7 @@ impl VideoPermissions {
         }
     }
 
-    pub fn group_permissions() -> Self {
+    pub fn role_permissions() -> Self {
         VideoPermissions {
             allow_likes: false,
             allow_comments: false,

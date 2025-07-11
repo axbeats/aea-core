@@ -10,9 +10,9 @@ pub struct Proposal {
     pub video_id: VideoId,
     pub dao_id: AccountId,
     pub proposer_id: AccountId,
-    pub proposer_group_id: GroupId,
+    pub proposer_role_id: RoleId,
     pub action: ProposalAction,
-    pub voting_sessions: Vec<ProposalGroupVotingSession>,
+    pub voting_sessions: Vec<ProposalRoleVotingSession>,
     pub status: ProposalStatus,
     pub submission_time: TimestampNanoSeconds,
     pub bond: u128,
@@ -25,7 +25,7 @@ impl Proposal {
             video_id,
             dao_id: input.dao_id,
             proposer_id: env::predecessor_account_id(),
-            proposer_group_id: input.group_id,
+            proposer_role_id: input.role_id,
             action: input.action,
             status: ProposalStatus::Initializing, // Will update later 
             voting_sessions: Vec::new(), // Will update later
@@ -36,48 +36,48 @@ impl Proposal {
 }
 
 impl Proposal {
-    // Get all groups that can currently vote (all groups vote simultaneously)
-    pub fn get_voting_groups(&self) -> Vec<GroupId> {
+    // Get all roles that can currently vote (all roles vote simultaneously)
+    pub fn get_voting_roles(&self) -> Vec<RoleId> {
         self.voting_sessions
             .iter()
-            .filter(|session| matches!(session.status, GroupVoteStatus::VoteOpen))
-            .map(|session| session.group_id.clone())
+            .filter(|session| matches!(session.status, RoleVoteStatus::VoteOpen))
+            .map(|session| session.role_id.clone())
             .collect()
     }
 
-    // Check if all groups have finished voting
-    pub fn all_groups_voted(&self) -> bool {
+    // Check if all roles have finished voting
+    pub fn all_roles_voted(&self) -> bool {
         self.voting_sessions
             .iter()
-            .all(|session| matches!(session.status, GroupVoteStatus::VoteClosed(_)))
+            .all(|session| matches!(session.status, RoleVoteStatus::VoteClosed(_)))
     }
 
-    // Check if all groups approved the proposal
-    pub fn all_groups_approved(&self) -> bool {
+    // Check if all roles approved the proposal
+    pub fn all_roles_approved(&self) -> bool {
         self.voting_sessions
             .iter()
-            .all(|session| matches!(session.status, GroupVoteStatus::VoteClosed(GroupVoteResult::Approved)))
+            .all(|session| matches!(session.status, RoleVoteStatus::VoteClosed(RoleVoteResult::Approved)))
     }
 
-    // Check if any group rejected the proposal
-    pub fn any_group_rejected(&self) -> bool {
+    // Check if any role rejected the proposal
+    pub fn any_role_rejected(&self) -> bool {
         self.voting_sessions
             .iter()
-            .any(|session| matches!(session.status, GroupVoteStatus::VoteClosed(GroupVoteResult::Rejected)))
+            .any(|session| matches!(session.status, RoleVoteStatus::VoteClosed(RoleVoteResult::Rejected)))
     }
 
-    // Check if any group marked as spam
-    pub fn any_group_spam(&self) -> bool {
+    // Check if any role marked as spam
+    pub fn any_role_spam(&self) -> bool {
         self.voting_sessions
             .iter()
-            .any(|session| matches!(session.status, GroupVoteStatus::VoteClosed(GroupVoteResult::Spam)))
+            .any(|session| matches!(session.status, RoleVoteStatus::VoteClosed(RoleVoteResult::Spam)))
     }
 
-    // Update a specific group's voting status
-    pub fn update_group_status(&mut self, group_id: &GroupId, new_status: GroupVoteStatus) {
+    // Update a specific role's voting status
+    pub fn update_role_status(&mut self, role_id: &RoleId, new_status: RoleVoteStatus) {
         if let Some(session) = self.voting_sessions
             .iter_mut()
-            .find(|session| session.group_id == *group_id) {
+            .find(|session| session.role_id == *role_id) {
             session.status = new_status;
         }
     }

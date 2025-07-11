@@ -9,7 +9,7 @@ pub struct ChoiceVote {
     pub choice_id: ChoiceId, 
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub voted_options: HashSet<String>,
     pub weight: u128,
     pub issued_at: u64,
@@ -23,7 +23,7 @@ impl ChoiceVote {
             choice_id: input.choice_id,
             account_id: input.account_id,
             dao_id: input.dao_id,
-            group_id: input.group_id,
+            role_id: input.role_id,
             voted_options: input.voted_options.into_iter().collect(), // Convert Vec to HashSet
             weight: input.weight,
             issued_at: env::block_timestamp(),
@@ -38,7 +38,7 @@ pub struct ChoiceVoteConfig {
     pub choice_id: ChoiceId,
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub voted_options: Vec<String>,
     pub weight: u128,
 }
@@ -49,7 +49,7 @@ impl ChoiceVoteConfig {
             choice_id: input.choice_id,
             account_id: input.account_id,
             dao_id: input.dao_id,
-            group_id: input.group_id,
+            role_id: input.role_id,
             voted_options: input.voted_options.into_iter().collect(), // Convert Vec to HashSet
             weight,
         }
@@ -62,6 +62,7 @@ pub struct ChoiceVoteInput {
     pub choice_id: ChoiceId,
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub voted_options: Vec<String>,
+    pub user_location: Option<Point>,  // User's coordinates for region verification
 }

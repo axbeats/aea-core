@@ -4,8 +4,8 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub struct RuleInput {
     pub dao_id: DaoId,
-    pub flag_group_id: GroupId,
-    pub jury_group_id: GroupId,
+    pub flag_role_id: RoleId,
+    pub jury_role_id: RoleId,
     // pub required_flag_count: u64,
     pub penalty_function: Option<FunctionCall>,
     pub penalty_amount: Amount,
@@ -23,8 +23,8 @@ impl RuleInput {
     pub fn example() -> Self {
         Self {
             dao_id: "example-dao.near".parse().unwrap(),
-            flag_group_id: 0, // Followers group
-            jury_group_id: 1, // Council group
+            flag_role_id: 0, // Followers role
+            jury_role_id: 1, // Council role
             penalty_function: Some(FunctionCall {
                 contract_id: "penalty.example-dao.near".parse().unwrap(),
                 method_name: "apply_penalty".to_string(),
@@ -55,8 +55,8 @@ impl RuleInput {
 #[derive(Debug, Clone)]
 pub struct RuleInputVideoOption {
     pub dao_id: DaoId,
-    pub flag_group_id: GroupId,
-    pub jury_group_id: GroupId,
+    pub flag_role_id: RoleId,
+    pub jury_role_id: RoleId,
     // pub required_flag_count: u64,
     pub penalty_function: Option<FunctionCall>,
     pub penalty_amount: Amount,
@@ -82,8 +82,8 @@ impl RuleInput {
         };
         Self {
             dao_id: input.dao_id,
-            flag_group_id: input.flag_group_id,
-            jury_group_id: input.jury_group_id,
+            flag_role_id: input.flag_role_id,
+            jury_role_id: input.jury_role_id,
             // required_flag_count: input.required_flag_count,
             penalty_function: input.penalty_function,
             penalty_amount: input.penalty_amount,
@@ -102,8 +102,8 @@ impl RuleInput {
 
         Self {
             dao_id: input.dao_id,
-            flag_group_id: input.flag_group_id,
-            jury_group_id: input.jury_group_id,
+            flag_role_id: input.flag_role_id,
+            jury_role_id: input.jury_role_id,
             // required_flag_count: input.required_flag_count,
             penalty_function: input.penalty_function,
             penalty_amount: input.penalty_amount,

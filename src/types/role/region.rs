@@ -9,7 +9,7 @@ pub struct Point {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub struct RegionGroup {
+pub struct RegionRole {
     pub members: HashSet<AccountId>,
     pub active_count: u64,
     pub boundaries: Vec<Point>, // List of points defining the polygon
@@ -20,15 +20,15 @@ pub struct RegionGroup {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub struct RegionGroupInput {
+pub struct RegionRoleInput {
     pub boundaries: Vec<Point>,
     pub name: String,
     pub osm_place_id: Option<u64>,
     pub osm_type: Option<String>,
 }
 
-impl RegionGroup {
-    pub fn from_input(input: RegionGroupInput) -> Self {
+impl RegionRole {
+    pub fn from_input(input: RegionRoleInput) -> Self {
         Self {
             members: HashSet::new(),
             active_count: 0,

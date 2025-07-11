@@ -1,6 +1,6 @@
 use super::*;
 
-// CreateGroupEvent
+// CreateValueEvent
 #[near(serializers = [json])]
 #[derive(Debug)]
 pub struct CreateValueEvent {

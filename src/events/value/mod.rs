@@ -11,7 +11,7 @@ mod delete_value;
 mod update_value;
 mod use_value;
 
-// Define the event variants for group events
+// Define the event variants for value events
 #[near(serializers = [json])]
 #[derive(Debug)]
 #[serde(tag = "event", content = "data")]

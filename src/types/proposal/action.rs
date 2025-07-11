@@ -8,8 +8,8 @@ pub enum ProposalAction {
     AddManagedContract {
         input: AddManagedContractInputVideoOption,
     },
-    CreateGroup {
-        input: GroupInputVideoOption,
+    CreateRole {
+        input: RoleInputVideoOption,
     },
     CreateRule {
         input: RuleInputVideoOption,
@@ -23,9 +23,6 @@ pub enum ProposalAction {
     DeployContract {
         input: DeployContractInputVideoOption,
     },
-    FactoryInfoUpdate {
-        factory_info: FactoryInfo,
-    },
     FunctionCall {
         functions: Vec<FunctionCall>,
     },
@@ -35,8 +32,8 @@ pub enum ProposalAction {
     InteractVideo {
         action: InteractVideo,
     },
-    RemoveGroup {
-        group_id: GroupId,
+    RemoveRole {
+        role_id: RoleId,
     },
     RemoveRule {
         rule_id: RuleId,
@@ -60,9 +57,9 @@ pub enum ProposalAction {
     UpdateDefaultPolicy {
         policies: Vec<ProposalPolicyKind>,
     },
-    UpdateGroup {
-        group_id: GroupId,
-        actions: Vec<UpdateGroupAction>,
+    UpdateRole {
+        role_id: RoleId,
+        actions: Vec<UpdateRoleAction>,
     },
     UpdateProfile {
         actions: Vec<UpdateProfileAction>,
@@ -97,23 +94,22 @@ impl ProposalAction {
     pub fn to_policy_label(&self) -> &str {
         match self {
             ProposalAction::AddManagedContract { .. } => "add_managed_contract",
-            ProposalAction::CreateGroup { .. } => "create_group",
+            ProposalAction::CreateRole { .. } => "create_role",
             ProposalAction::CreateRule { .. } => "create_rule",
             ProposalAction::CreateValue { .. } => "create_value",
             ProposalAction::CreateVideo { .. } => "create_video",
             ProposalAction::DeployContract { .. } => "deploy_contract",
-            ProposalAction::FactoryInfoUpdate { .. } => "factory_info_update",
             ProposalAction::FunctionCall { .. } => "function_call",
             ProposalAction::InteractProfile { .. } => "interact_profile",
             ProposalAction::InteractVideo { .. } => "interact_video",
-            ProposalAction::RemoveGroup { .. } => "remove_group",
+            ProposalAction::RemoveRole { .. } => "remove_role",
             ProposalAction::RemoveRule { .. } => "remove_rule",
             ProposalAction::RemoveValue { .. } => "remove_value",
             ProposalAction::RemoveVideo { .. } => "remove_video",
             ProposalAction::Transfer { .. } => "transfer",
             ProposalAction::UpdateContract { .. } => "update_contract",
             ProposalAction::UpdateDefaultPolicy { .. } => "update_default_policy",
-            ProposalAction::UpdateGroup { .. } => "update_group",
+            ProposalAction::UpdateRole { .. } => "update_role",
             ProposalAction::UpdateProfile { .. } => "update_profile",
             ProposalAction::UpdateRule { .. } => "update_rule",
             ProposalAction::UpdateValue { .. } => "update_value",
@@ -124,41 +120,44 @@ impl ProposalAction {
         }
     }
 
-    /// Maps each ProposalAction to its corresponding ProposalKind category
-    pub fn to_proposal_kind(&self) -> ProposalKind {
+    /// Maps each ProposalAction to its corresponding ProposalAbility category
+    pub fn to_ability(&self) -> ProposalAbility {
         match self {
-            // Admin actions - manage groups, policies, and rules
-            ProposalAction::CreateGroup { .. } => ProposalKind::Admin,
-            ProposalAction::RemoveGroup { .. } => ProposalKind::Admin,
-            ProposalAction::UpdateGroup { .. } => ProposalKind::Admin,
-            ProposalAction::UpdateDefaultPolicy { .. } => ProposalKind::Admin,
-            ProposalAction::CreateRule { .. } => ProposalKind::Admin,
-            ProposalAction::UpdateRule { .. } => ProposalKind::Admin,
-            ProposalAction::RemoveRule { .. } => ProposalKind::Admin,
-            ProposalAction::FactoryInfoUpdate { .. } => ProposalKind::Admin,
+            // Admin actions - manage roles, policies, and rules
+            ProposalAction::CreateRole { .. } => ProposalAbility::Role,
+            ProposalAction::RemoveRole { .. } => ProposalAbility::Role,
+            ProposalAction::UpdateRole { .. } => ProposalAbility::Role,
+
+            ProposalAction::UpdateDefaultPolicy { .. } => ProposalAbility::Policy,
+
+            ProposalAction::CreateRule { .. } => ProposalAbility::Court,
+            ProposalAction::UpdateRule { .. } => ProposalAbility::Court,
+            ProposalAction::RemoveRule { .. } => ProposalAbility::Court,
             
             // Technical actions - manage contracts and values
-            ProposalAction::DeployContract { .. } => ProposalKind::Technical,
-            ProposalAction::UpgradeContract { .. } => ProposalKind::Technical,
-            ProposalAction::UpgradeSelf { .. } => ProposalKind::Technical,
-            ProposalAction::AddManagedContract { .. } => ProposalKind::Technical,
-            ProposalAction::UpdateContract { .. } => ProposalKind::Technical,
-            ProposalAction::CreateValue { .. } => ProposalKind::Technical,
-            ProposalAction::UpdateValue { .. } => ProposalKind::Technical,
-            ProposalAction::RemoveValue { .. } => ProposalKind::Technical,
+            ProposalAction::DeployContract { .. } => ProposalAbility::Code,
+            ProposalAction::UpgradeContract { .. } => ProposalAbility::Code,
+            ProposalAction::UpgradeSelf { .. } => ProposalAbility::Code,
+            ProposalAction::AddManagedContract { .. } => ProposalAbility::Code,
+            ProposalAction::UpdateContract { .. } => ProposalAbility::Code,
+
+            ProposalAction::CreateValue { .. } => ProposalAbility::Value,
+            ProposalAction::UpdateValue { .. } => ProposalAbility::Value,
+            ProposalAction::RemoveValue { .. } => ProposalAbility::Value,
             
             // Operations actions - execute functions and transfers
-            ProposalAction::FunctionCall { .. } => ProposalKind::Operations,
-            ProposalAction::Transfer { .. } => ProposalKind::Operations,
+            ProposalAction::FunctionCall { .. } => ProposalAbility::Task,
+            ProposalAction::Transfer { .. } => ProposalAbility::Task,
             
             // Social actions - manage videos and profiles
-            ProposalAction::CreateVideo { .. } => ProposalKind::Social,
-            ProposalAction::UpdateVideo { .. } => ProposalKind::Social,
-            ProposalAction::RemoveVideo { .. } => ProposalKind::Social,
-            ProposalAction::InteractVideo { .. } => ProposalKind::Social,
-            ProposalAction::UpdateProfile { .. } => ProposalKind::Social,
-            ProposalAction::InteractProfile { .. } => ProposalKind::Social,
-            ProposalAction::Vote => ProposalKind::Social,
+            ProposalAction::CreateVideo { .. } => ProposalAbility::Video,
+            ProposalAction::UpdateVideo { .. } => ProposalAbility::Video,
+            ProposalAction::RemoveVideo { .. } => ProposalAbility::Video,
+            ProposalAction::InteractVideo { .. } => ProposalAbility::Video,
+
+            ProposalAction::UpdateProfile { .. } => ProposalAbility::Profile,
+            ProposalAction::InteractProfile { .. } => ProposalAbility::Profile,
+            ProposalAction::Vote => ProposalAbility::Profile,
         }
     }
 }

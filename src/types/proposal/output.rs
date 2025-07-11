@@ -4,6 +4,6 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub struct ProposalOutput {
     pub proposal: Proposal,
-    pub group_voting_session_outputs: Vec<ProposalGroupVotingSessionOutput>,
+    pub role_voting_session_outputs: Vec<ProposalRoleVotingSessionOutput>,
     pub user_votes: Vec<ProposalVote>,
 }

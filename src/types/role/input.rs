@@ -3,12 +3,12 @@ use std::collections::{HashMap, HashSet};
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct GroupInput {
-    /// Group fields
+pub struct RoleInput {
+    /// Role fields
     pub dao_id: DaoId,
-    pub kind: GroupKindInput,
+    pub kind: RoleKindInput,
     pub vote_weight: VoteWeightKind,
-    pub permissions: HashMap<ProposalKind, ProposalPermission>,
+    pub permissions: HashMap<ProposalAbility, ProposalPermission>,
     /// Video fields
     pub name: String,
     pub description: Option<String>,
@@ -17,9 +17,9 @@ pub struct GroupInput {
     pub location: Option<String>,
 }
 
-impl GroupInput {
+impl RoleInput {
     pub fn from_video_option(
-        input: GroupInputVideoOption,
+        input: RoleInputVideoOption,
         proposal_video: VideoHash,
         proposal_image: ImageHash,
     ) -> Self {
@@ -30,7 +30,7 @@ impl GroupInput {
         };
 
         Self {
-            // Group fields
+            // Role fields
             dao_id: input.dao_id,
             kind: input.kind,
             vote_weight: input.vote_weight,
@@ -44,12 +44,12 @@ impl GroupInput {
         }
     }
 
-    pub fn unwrap_video_option(input: GroupInputVideoOption) -> Self {
+    pub fn unwrap_video_option(input: RoleInputVideoOption) -> Self {
 
         let bundle = input.video_bundle.unwrap();
 
         Self {
-            // Group fields
+            // Role fields
             dao_id: input.dao_id,
             kind: input.kind,
             vote_weight: input.vote_weight,
@@ -63,11 +63,11 @@ impl GroupInput {
         }
     }
 
-    /// Generate example permissions for a group
-    fn example_permissions() -> HashMap<ProposalKind, ProposalPermission> {
+    /// Generate example permissions for a role
+    fn example_permissions() -> HashMap<ProposalAbility, ProposalPermission> {
         let mut permissions = HashMap::new();
         permissions.insert(
-            ProposalKind::Admin,
+            ProposalAbility::Role,
             ProposalPermission {
                 create: true,
                 vote: true,
@@ -75,7 +75,7 @@ impl GroupInput {
             },
         );
         permissions.insert(
-            ProposalKind::Technical,
+            ProposalAbility::Code,
             ProposalPermission {
                 create: true,
                 vote: true,
@@ -83,7 +83,7 @@ impl GroupInput {
             },
         );
         permissions.insert(
-            ProposalKind::Operations,
+            ProposalAbility::Task,
             ProposalPermission {
                 create: true,
                 vote: true,
@@ -93,11 +93,11 @@ impl GroupInput {
         permissions
     }
 
-    /// Generate an example Followers group
+    /// Generate an example Followers role
     pub fn example_followers() -> Self {
         Self {
             dao_id: "example-dao.near".parse().unwrap(),
-            kind: GroupKindInput::Followers,
+            kind: RoleKindInput::Followers,
             vote_weight: VoteWeightKind::Single,
             permissions: Self::example_permissions(),
             name: "Followers".to_string(),
@@ -108,11 +108,11 @@ impl GroupInput {
         }
     }
 
-    /// Generate an example Token group
+    /// Generate an example Token role
     pub fn example_token() -> Self {
         Self {
             dao_id: "example-dao.near".parse().unwrap(),
-            kind: GroupKindInput::Token,
+            kind: RoleKindInput::Token,
             vote_weight: VoteWeightKind::Token((
                 "staking.example-dao.near".parse().unwrap(),
                 WeightFormula::Linear
@@ -126,7 +126,7 @@ impl GroupInput {
         }
     }
 
-    /// Generate an example Elected group
+    /// Generate an example Elected role
     pub fn example_elected() -> Self {
         let mut members = HashSet::new();
         members.insert("alice.near".parse().unwrap());
@@ -135,7 +135,7 @@ impl GroupInput {
         
         Self {
             dao_id: "example-dao.near".parse().unwrap(),
-            kind: GroupKindInput::Elected(ElectedGroup {
+            kind: RoleKindInput::Elected(ElectedRole {
                 members,
                 choice_id: 1, // Example choice ID
             }),
@@ -152,12 +152,12 @@ impl GroupInput {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct GroupInputVideoOption {
-    /// Group fields
+pub struct RoleInputVideoOption {
+    /// Role fields
     pub dao_id: DaoId,
-    pub kind: GroupKindInput,
+    pub kind: RoleKindInput,
     pub vote_weight: VoteWeightKind,
-    pub permissions: HashMap<ProposalKind, ProposalPermission>,
+    pub permissions: HashMap<ProposalAbility, ProposalPermission>,
     /// Video fields
     pub name: String,
     pub description: Option<String>,

@@ -4,6 +4,6 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub struct ProposalInteraction {
     pub can_vote: bool,
-    pub vote_count: Vec<(GroupId, [u128; 3])>,
+    pub vote_count: Vec<(RoleId, [u128; 3])>,
     pub dao_id: AccountId,
 }

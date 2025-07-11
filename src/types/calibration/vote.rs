@@ -12,7 +12,7 @@ pub struct CalibrationVote {
     pub value_id: ValueId,
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub kind: CalibrationVoteKind,
     pub weight: Weight,
     pub adjustment_amount: YoctoNumber,
@@ -27,7 +27,7 @@ impl CalibrationVote {
             value_id,
             account_id: config.account_id,
             dao_id: config.dao_id,
-            group_id: config.group_id,
+            role_id: config.role_id,
             kind: config.kind,
             weight: config.weight,
             adjustment_amount,
@@ -42,7 +42,7 @@ pub struct CalibrationVoteConfig {
     pub calibration_id: CalibrationId,
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub kind: CalibrationVoteKind,
     pub weight: u128,
 }
@@ -53,7 +53,7 @@ impl CalibrationVoteConfig {
             calibration_id: input.calibration_id,
             account_id: input.account_id,
             dao_id: input.dao_id,
-            group_id: input.group_id,
+            role_id: input.role_id,
             kind: input.kind,
             weight,
         }
@@ -66,8 +66,9 @@ pub struct CalibrationVoteInput {
     pub calibration_id: CalibrationId,
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub kind: CalibrationVoteKind,
+    pub user_location: Option<Point>,  // User's coordinates for region verification
 }
 
 

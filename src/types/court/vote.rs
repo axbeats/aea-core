@@ -12,7 +12,7 @@ pub struct ReviewVote {
     pub rule_id: RuleId,
     pub review_id: ReviewId,
     pub account_id: AccountId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub vote: ReviewVoteKind,
     pub weight: u128,
     pub issued_at: TimestampNanoSeconds,
@@ -22,7 +22,7 @@ pub struct ReviewVote {
 #[derive(Debug, Clone)]
 pub struct ReviewVoteInput {
     pub review_id: ReviewId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub vote: ReviewVoteKind,
 }
 

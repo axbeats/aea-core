@@ -61,15 +61,15 @@ impl VideoInput {
         }
     }
 
-    pub fn from_group_input(input: GroupInput, group_id: GroupId) -> Self {
+    pub fn from_role_input(input: RoleInput, role_id: RoleId) -> Self {
         Self {
-            context: VideoContext::Group { group_id },
+            context: VideoContext::Role { role_id },
             title: input.name,
             description: input.description,
             video: input.video,
             image: input.image,
             location: input.location,
-            permissions: VideoPermissions::group_permissions(),
+            permissions: VideoPermissions::role_permissions(),
         }
     }
 

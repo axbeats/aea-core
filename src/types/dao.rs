@@ -8,7 +8,7 @@ pub type DaoId = AccountId;
 pub struct DaoInput {
     pub profile: ProfileInput,
     pub default_policy: Policy,
-    pub groups: Vec<GroupInput>,
+    pub roles: Vec<RoleInput>,
     pub contracts: Vec<ContractInput>,
     pub rules: Vec<RuleInput>,
 }
@@ -19,10 +19,10 @@ impl DaoInput {
         Self {
             profile: ProfileInput::example(),
             default_policy: Policy::example(),
-            groups: vec![
-                GroupInput::example_followers(),
-                GroupInput::example_token(),
-                GroupInput::example_elected(),
+            roles: vec![
+                RoleInput::example_followers(),
+                RoleInput::example_token(),
+                RoleInput::example_elected(),
             ],
             contracts: vec![ContractInput::example()],
             rules: vec![RuleInput::example()],
@@ -45,7 +45,7 @@ impl DaoInput {
 pub enum DaoSetupPhase {
     Init,
     Profile,
-    Groups,
+    Roles,
     Contracts,
     Rules,
     Active,

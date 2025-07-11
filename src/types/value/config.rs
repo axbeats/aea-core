@@ -17,7 +17,6 @@ impl ValueConfig {
             id: input.id,
             video_id,
             dao_id: input.dao_id,
-            // group_id: input.group_id,
             operator_id: input.operator_id,
             method_input: input.method_input,
         }

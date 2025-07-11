@@ -2,30 +2,30 @@ use crate::*;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub struct GroupMembers {
+pub struct RoleMembers {
     pub members: Vec<AccountId>,
     pub update_method: VoteMethod,
 }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub enum PotentialGroupKind {
+pub enum PotentialRoleKind {
     Followers,
     Subscribers,
 }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct GroupInfo {
+pub struct RoleInfo {
     pub is_member: bool,
-    pub group_size: u64,
+    pub role_size: u64,
 }
 
-// This struct is an evolution of GroupInfo, but GroupInfo also has lightweight purpose - Sep 6 2024
+// This struct is an evolution of RoleInfo, but RoleInfo also has lightweight purpose - Sep 6 2024
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct GroupMembership {
+pub struct RoleMembership {
     pub members: Vec<AccountId>,
-    pub group_size: u64,
+    pub role_size: u64,
     pub is_member: bool,
 }

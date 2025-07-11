@@ -9,13 +9,12 @@ pub type ProposalVoteId = u64;
 pub struct ProposalVote {
     pub id: ProposalVoteId,
     pub proposal_id: ProposalId,
-    pub proposal_kind: ProposalKind,
+    pub ability: ProposalAbility,
     pub voter_id: AccountId,
     pub dao_id: AccountId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub vote: Vote,
     pub weight: u128,
-    pub stage: u8, // DEPRECATED: Always 1 in simultaneous voting system
     pub issued_at: u64,
     pub updated_at: Option<Vec<u64>>,
 }
@@ -37,18 +36,18 @@ pub enum Vote {
 #[derive(Debug, Clone)]
 pub struct ProposalVoteInput {
     pub proposal_id: ProposalId,
-    pub proposal_kind: ProposalKind,
+    pub ability: ProposalAbility,
     pub voter_id: AccountId,
     pub dao_id: AccountId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub vote: Vote,
+    pub user_location: Option<Point>,  // User's coordinates for region verification
 }
 
 impl ProposalVoteInput {
     pub fn to_proposal_vote(
         &self,
         weight: u128,
-        stage: u8, // DEPRECATED: Not used in simultaneous voting
         update: bool,
     ) -> ProposalVote {
         // Get the current timestamp
@@ -65,13 +64,12 @@ impl ProposalVoteInput {
         ProposalVote {
             id: 0, // Will set later
             proposal_id: self.proposal_id.clone(),
-            proposal_kind: self.proposal_kind.clone(),
+            ability: self.ability.clone(),
             voter_id: self.voter_id.clone(),
             dao_id: self.dao_id.clone(),
-            group_id: self.group_id.clone(),
+            role_id: self.role_id.clone(),
             vote: self.vote.clone(),
             weight,
-            stage,
             issued_at: current_time,
             updated_at,
         }

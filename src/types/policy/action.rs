@@ -16,7 +16,7 @@ pub struct FunctionCall {
 pub struct ActionVoteChoice {
     pub governed_value_id: ValueId,
     pub voter_id: AccountId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub candidate: String,
     pub weight_kind: WeightKind,
 }
@@ -26,7 +26,7 @@ pub struct ActionVoteChoice {
 pub struct Action {
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
+    pub role_id: RoleId,
     pub kind: ActionKind,
 }
 
@@ -35,16 +35,16 @@ pub struct Action {
 pub struct ActionInput {
     pub account_id: AccountId,
     pub dao_id: DaoId,
-    pub group_id: GroupId,
-    // pub default_policy: Policy,
+    pub role_id: RoleId,
     pub kind: ActionInputKind,
+    pub location: Option<Point>,  // User's coordinates for region verification
 }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub enum ActionInputKind {
     CreateProposal((ProposalInput, AttachedBond, DefaultBond)),
-    VoteProposal((ProposalVoteInput, CurrentStage, Policy)), // CurrentStage is deprecated - always 1
+    VoteProposal((ProposalVoteInput, Policy)),
     VoteChoice(ChoiceVoteInput),
     VoteCalibration(CalibrationVoteInput),
 }
@@ -57,27 +57,3 @@ pub enum ActionKind {
     VoteChoice(ChoiceVoteConfig),
     VoteCalibration(CalibrationVoteConfig),
 }
-
-// #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, Debug, Clone)]
-// #[serde(crate = "near_sdk::serde")]
-// pub enum ActionVote {
-//     Proposal(ActionVoteProposal),
-//     Choice(ActionVoteChoice),
-// }
-
-// impl ActionVote {
-
-//     pub fn voter_id(&self) -> &AccountId {
-//         match self {
-//             ActionVote::Proposal(proposal) => &proposal.voter_id,
-//             ActionVote::Choice(choice) => &choice.voter_id,
-//         }
-//     }
-
-//     pub fn group_id(&self) -> &GroupId {
-//         match self {
-//             ActionVote::Proposal(proposal) => &proposal.group_id,
-//             ActionVote::Choice(choice) => &choice.group_id,
-//         }
-//     }
-// }

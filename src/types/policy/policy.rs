@@ -146,8 +146,8 @@ impl Default for CustomPolicy {
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct CustomPolicyInput {
-    pub group_id: GroupId,
-    pub proposal_kind: ProposalKind,
+    pub role_id: RoleId,
+    pub ability: ProposalAbility,
     pub policy_kind: ProposalPolicyKind,
 }
 
@@ -160,10 +160,10 @@ pub enum PolicyKind {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, PartialEq)]
-pub struct GroupVotePolicy {
-    pub group_id: GroupId,
-    pub group_size: u64,
-    pub proposal_kind: ProposalKind,
+pub struct RoleVotePolicy {
+    pub role_id: RoleId,
+    pub role_size: u64,
+    pub ability: ProposalAbility,
     pub voting_period: u64,
     pub threshold: u8,
     pub early_threshold: Option<u8>,
