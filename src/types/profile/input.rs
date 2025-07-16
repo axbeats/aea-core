@@ -1,7 +1,8 @@
 use crate::*;
+use aea_macros::Generable;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct ProfileInput {
     pub username: String,
     pub kind: ProfileKind,
@@ -10,6 +11,12 @@ pub struct ProfileInput {
     pub image: ImageHash,
     pub public_keys: Option<PublicKeys>,
     pub link: Option<String>,
+}
+
+impl Default for ProfileInput {
+    fn default() -> Self {
+        Self::example()
+    }
 }
 
 impl ProfileInput {

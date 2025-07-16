@@ -2,7 +2,7 @@ use crate::*;
 use std::collections::{HashMap, HashSet};
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct RoleInput {
     /// Role fields
     pub dao_id: DaoId,
@@ -15,6 +15,12 @@ pub struct RoleInput {
     pub video: VideoHash,
     pub image: ImageHash,
     pub location: Option<String>,
+}
+
+impl Default for RoleInput {
+    fn default() -> Self {
+        Self::example_followers()
+    }
 }
 
 impl RoleInput {

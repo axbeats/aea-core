@@ -1,10 +1,11 @@
 use crate::*;
 use near_sdk::serde_json::{self, Value};
+use aea_macros::Generable;
 
 pub type DaoId = AccountId;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct DaoInput {
     pub profile: ProfileInput,
     pub default_policy: Policy,
@@ -13,9 +14,8 @@ pub struct DaoInput {
     pub rules: Vec<RuleInput>,
 }
 
-impl DaoInput {
-    /// Generate a complete example DaoInput for documentation and testing
-    pub fn example() -> Self {
+impl Default for DaoInput {
+    fn default() -> Self {
         Self {
             profile: ProfileInput::example(),
             default_policy: Policy::example(),
@@ -27,16 +27,6 @@ impl DaoInput {
             contracts: vec![ContractInput::example()],
             rules: vec![RuleInput::example()],
         }
-    }
-
-    /// Generate JSON representation of the example
-    pub fn example_json() -> Value {
-        serde_json::to_value(Self::example()).unwrap()
-    }
-
-    /// Generate a pretty-printed JSON string of the example
-    pub fn example_json_string() -> String {
-        serde_json::to_string_pretty(&Self::example()).unwrap()
     }
 }
 

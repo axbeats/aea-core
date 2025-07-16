@@ -26,7 +26,7 @@ impl RoleKind {
 }
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub enum RoleKindInput {
     Followers,
     Subscribers,
@@ -34,4 +34,10 @@ pub enum RoleKindInput {
     Token,
     Region(RegionRoleInput),
     Agent(AccountId),  // AI agent account ID
+}
+
+impl Default for RoleKindInput {
+    fn default() -> Self {
+        Self::Followers
+    }
 }

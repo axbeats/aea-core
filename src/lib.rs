@@ -1,6 +1,7 @@
 use near_sdk::{AccountId, env, Gas, NearToken, near, CryptoHash};
 use near_sdk::json_types::{Base58CryptoHash, Base64VecU8, U128, U64};
 use std::collections::{HashMap, HashSet};
+use aea_macros::Generable;
 
 pub use crate::events::*;
 pub use crate::functions::*;

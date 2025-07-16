@@ -1,7 +1,7 @@
 use crate::*;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct ContractInput {
     pub contract_id: ContractId,
     pub dao_id: DaoId,
@@ -15,6 +15,12 @@ pub struct ContractInput {
     pub video: VideoHash,
     pub image: ImageHash,
     pub location: Option<String>,
+}
+
+impl Default for ContractInput {
+    fn default() -> Self {
+        Self::example()
+    }
 }
 
 impl ContractInput {

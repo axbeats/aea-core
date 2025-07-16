@@ -1,7 +1,7 @@
 use crate::*;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash, Ord, PartialOrd, Generable)]
 pub enum ProposalAbility {
     Role,
     Policy,
@@ -11,4 +11,10 @@ pub enum ProposalAbility {
     Code,
     Value,
     Court,
+}
+
+impl Default for ProposalAbility {
+    fn default() -> Self {
+        Self::Role
+    }
 }

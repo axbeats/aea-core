@@ -1,4 +1,5 @@
 use crate::*;
+use aea_macros::Generable;
 
 pub type DefaultBond = u128;
 pub type AttachedBond = u128;
@@ -46,7 +47,7 @@ impl ProposalPolicyKind {
 // }
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct Policy {
     pub bond: u128,
     pub voting_period: u64,
@@ -54,6 +55,12 @@ pub struct Policy {
     pub early_threshold: Option<u8>,
     pub quorum: u8,
     pub early_quorum: Option<u8>,
+}
+
+impl Default for Policy {
+    fn default() -> Self {
+        Self::example()
+    }
 }
 
 impl Policy {
@@ -95,7 +102,7 @@ impl Policy {
 
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct CustomPolicy {
     pub bond: Option<u128>,
     pub voting_period: Option<u64>,
@@ -103,6 +110,19 @@ pub struct CustomPolicy {
     pub early_threshold: Option<u8>,
     pub quorum: Option<u8>,
     pub early_quorum: Option<u8>,
+}
+
+impl Default for CustomPolicy {
+    fn default() -> Self {
+        Self {
+            bond: None,
+            voting_period: None,
+            threshold: None,
+            early_threshold: None,
+            quorum: None,
+            early_quorum: None,
+        }
+    }
 }
 
 impl CustomPolicy {
@@ -125,20 +145,6 @@ impl CustomPolicy {
             early_threshold: self.early_threshold,
             quorum: self.quorum.expect("CustomPolicy is not complete: missing quorum"),
             early_quorum: self.early_quorum,
-        }
-    }
-}
-
-
-impl Default for CustomPolicy {
-    fn default() -> Self {
-        CustomPolicy {
-            bond: None,
-            voting_period: None,
-            threshold: None,
-            early_threshold: None,
-            quorum: None,
-            early_quorum: None,
         }
     }
 }

@@ -1,3 +1,4 @@
+pub use self::agent::*;
 pub use self::algorithm::*;
 pub use self::amount::*;
 pub use self::calibration::*;
@@ -29,6 +30,7 @@ pub use self::value::*;
 pub use self::video::*;
 pub use self::weight::*;
 
+mod agent;
 mod algorithm;
 mod amount;
 mod calibration;

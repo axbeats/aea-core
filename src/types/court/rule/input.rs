@@ -1,7 +1,7 @@
 use crate::*;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct RuleInput {
     pub dao_id: DaoId,
     pub flag_role_id: RoleId,
@@ -16,6 +16,12 @@ pub struct RuleInput {
     pub video: VideoHash,
     pub image: ImageHash,
     pub location: Option<String>,
+}
+
+impl Default for RuleInput {
+    fn default() -> Self {
+        Self::example()
+    }
 }
 
 impl RuleInput {

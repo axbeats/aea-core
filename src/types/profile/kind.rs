@@ -1,13 +1,20 @@
 use std::fmt;
+use aea_macros::Generable;
 
 use crate::*;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Generable)]
 pub enum ProfileKind {
     Personal,
     Business,
     Dao,
+}
+
+impl Default for ProfileKind {
+    fn default() -> Self {
+        ProfileKind::Personal
+    }
 }
 
 impl fmt::Display for ProfileKind {

@@ -14,11 +14,17 @@ pub enum WeightKind {
 }
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub enum VoteWeightKind {
     Single,   // 1 vote per account
     Token((StakingId, WeightFormula)),    // votes per tokens    // I also have StakingId saved in RoleKind::Token (might be a way to amalgomate) - Aug 13 2024
     Follower(WeightFormula), // votes per followers
+}
+
+impl Default for VoteWeightKind {
+    fn default() -> Self {
+        Self::Single
+    }
 }
 
 #[near(serializers = [json, borsh])]
