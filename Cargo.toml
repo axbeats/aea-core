@@ -9,4 +9,5 @@ crate-type = ["rlib"]
 [dependencies]
 near-sdk = "5.7.0"
 hex = "0.4.2"
-aea-macros = { path = "../aea-macros" }
+# aea-macros = { path = "../aea-macros" }
+aea-macros = { git = "https://github.com/axbeats/aea-macros", branch = "main" }

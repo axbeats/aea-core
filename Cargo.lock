@@ -20,6 +20,7 @@ dependencies = [
 [[package]]
 name = "aea-macros"
 version = "0.1.0"
+source = "git+https://github.com/axbeats/aea-macros?branch=main#3133c2e6dc23384180392fdca5bcd188f35acdde"
 dependencies = [
  "proc-macro2",
  "quote",
