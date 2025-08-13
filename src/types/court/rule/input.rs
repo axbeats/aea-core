@@ -1,4 +1,5 @@
 use crate::*;
+use near_sdk::json_types::U128;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, Generable)]
@@ -40,7 +41,7 @@ impl RuleInput {
             }),
             penalty_amount: Amount {
                 token_id: "token.example-dao.near".parse().unwrap(),
-                amount: 100,
+                amount: U128(100),
             },
             policy: RulePolicy {
                 flag_threshold: 300, // 3% threshold (PercentageU32 is in basis points)

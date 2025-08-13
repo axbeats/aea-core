@@ -1,4 +1,5 @@
 use crate::*;
+use near_sdk::json_types::U128;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
@@ -7,7 +8,7 @@ pub struct ProposalInput {
     pub dao_id: AccountId,
     pub role_id: RoleId,
     pub action: ProposalAction,
-    pub bond: u128,
+    pub bond: U128,
     // Video fields
     pub title: String,        
     pub description: Option<String>,           

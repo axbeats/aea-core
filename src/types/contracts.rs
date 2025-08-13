@@ -9,7 +9,7 @@ pub const CALIBRATION_ID: &str = "calibration1.aea4.testnet";
 pub const CHOICE_ID: &str = "choice1.aea4.testnet";
 pub const CONTRACT_MANAGER_ID: &str = "contract_manager1.aea4.testnet";
 pub const COURT_ID: &str = "court1.aea4.testnet";
-pub const DAO_FACTORY_ID: &str = "dao1.aea4.testnet";
+pub const DAO_FACTORY_ID: &str = "dao3.aea4.testnet";
 pub const FT_FACTORY_ID: &str = "ft1.aea4.testnet";
 pub const FT_MINT_ID: &str = "mint1.aea4.testnet";
 pub const FT_SALE_FACTORY_ID: &str = "fundraise1.aea4.testnet";
@@ -24,6 +24,7 @@ pub const STAKING_FACTORY_ID: &str = "staking1.aea4.testnet";
 pub const TOKEN_ID: &str = "aea1.ft1.aea4.testnet";
 pub const VALUE_ID: &str = "value1.aea4.testnet";
 pub const VIDEO_ID: &str = "video2.aea4.testnet";
+pub const TEST_ID: &str = "test5.aea4.testnet";
 
 /// Enum of all recognized contract IDs. Each variant corresponds to a constant above.
 #[derive(Debug, Clone)]
@@ -51,6 +52,7 @@ pub enum AeaContract {
     Token,
     Value,
     Video,
+    Test,
 }
 
 impl AeaContract {
@@ -80,6 +82,7 @@ impl AeaContract {
             AeaContract::Token => TOKEN_ID,
             AeaContract::Value => VALUE_ID,
             AeaContract::Video => VIDEO_ID,
+            AeaContract::Test => TEST_ID,
         }
     }
 }
@@ -110,6 +113,7 @@ pub fn str_to_contract_id(s: &str) -> Option<AeaContract> {
         TOKEN_ID => Some(AeaContract::Token),
         VALUE_ID => Some(AeaContract::Value),
         VIDEO_ID => Some(AeaContract::Video),
+        TEST_ID => Some(AeaContract::Test),
         _ => None,
     }
 }

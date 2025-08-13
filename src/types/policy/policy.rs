@@ -1,8 +1,9 @@
 use crate::*;
 use aea_macros::Generable;
+use near_sdk::json_types::U128;
 
-pub type DefaultBond = u128;
-pub type AttachedBond = u128;
+pub type DefaultBond = U128;
+pub type AttachedBond = U128;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
@@ -11,7 +12,7 @@ pub enum ProposalPolicyKind {
     Quorum(u8),
     EarlyThreshold(u8),
     EarlyQuorum(u8),
-    Bond(u128),
+    Bond(U128),
     VotingPeriod(u64),
 }
 
@@ -49,7 +50,7 @@ impl ProposalPolicyKind {
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, Generable)]
 pub struct Policy {
-    pub bond: u128,
+    pub bond: U128,
     pub voting_period: u64,
     pub threshold: u8,
     pub early_threshold: Option<u8>,
@@ -90,7 +91,7 @@ impl Policy {
     /// Generate an example Policy with typical DAO settings
     pub fn example() -> Self {
         Self {
-            bond: 1_000_000_000_000_000_000_000_000, // 1 NEAR
+            bond: U128(1_000_000_000_000_000_000_000_000), // 1 NEAR
             voting_period: 259_200_000_000_000, // 3 days in nanoseconds
             threshold: 60, // 60% approval needed
             early_threshold: Some(75), // 75% for early approval
@@ -104,7 +105,7 @@ impl Policy {
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone, Generable)]
 pub struct CustomPolicy {
-    pub bond: Option<u128>,
+    pub bond: Option<U128>,
     pub voting_period: Option<u64>,
     pub threshold: Option<u8>,
     pub early_threshold: Option<u8>,

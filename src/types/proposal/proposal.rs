@@ -1,4 +1,5 @@
 use crate::*;
+use near_sdk::json_types::U128;
 
 pub type ProposalId = u64;
 pub type CurrentStage = u8; // 1 based index
@@ -15,7 +16,7 @@ pub struct Proposal {
     pub voting_sessions: Vec<ProposalRoleVotingSession>,
     pub status: ProposalStatus,
     pub submission_time: TimestampNanoSeconds,
-    pub bond: u128,
+    pub bond: U128,
 }
 
 impl Proposal {
@@ -30,7 +31,7 @@ impl Proposal {
             status: ProposalStatus::Initializing, // Will update later 
             voting_sessions: Vec::new(), // Will update later
             submission_time: env::block_timestamp(),
-            bond: 0,
+            bond: U128(0),
         }
     }
 }
