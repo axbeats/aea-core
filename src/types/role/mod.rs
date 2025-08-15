@@ -6,6 +6,8 @@ pub use self::kind::*;
 pub use self::members::*;
 pub use self::update::*;
 pub use self::region::*;
+pub use self::token::*;
+pub use self::user_role_info::*;
 
 mod composite;
 mod elected;
@@ -15,3 +17,5 @@ mod kind;
 mod members;
 mod update;
 mod region;
+mod token;
+mod user_role_info;

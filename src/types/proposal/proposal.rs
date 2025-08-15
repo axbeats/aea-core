@@ -1,5 +1,6 @@
 use crate::*;
 use near_sdk::json_types::U128;
+use std::collections::HashMap;
 
 pub type ProposalId = u64;
 pub type CurrentStage = u8; // 1 based index
@@ -11,9 +12,8 @@ pub struct Proposal {
     pub video_id: VideoId,
     pub dao_id: AccountId,
     pub proposer_id: AccountId,
-    pub proposer_role_id: RoleId,
     pub action: ProposalAction,
-    pub voting_sessions: Vec<ProposalRoleVotingSession>,
+    pub voting_roles: HashMap<RoleId, Policy>,  // Roles that can vote and their policies
     pub status: ProposalStatus,
     pub submission_time: TimestampNanoSeconds,
     pub bond: U128,
@@ -25,61 +25,40 @@ impl Proposal {
             id,
             video_id,
             dao_id: input.dao_id,
-            proposer_id: env::predecessor_account_id(),
-            proposer_role_id: input.role_id,
+            proposer_id: input.proposer_id,
             action: input.action,
             status: ProposalStatus::Initializing, // Will update later 
-            voting_sessions: Vec::new(), // Will update later
+            voting_roles: HashMap::new(), // Will be populated from policy contract
             submission_time: env::block_timestamp(),
-            bond: U128(0),
+            bond: input.bond,
         }
     }
 }
 
 impl Proposal {
-    // Get all roles that can currently vote (all roles vote simultaneously)
+    // Get all roles that can vote
     pub fn get_voting_roles(&self) -> Vec<RoleId> {
-        self.voting_sessions
-            .iter()
-            .filter(|session| matches!(session.status, RoleVoteStatus::VoteOpen))
-            .map(|session| session.role_id.clone())
-            .collect()
+        self.voting_roles.keys().cloned().collect()
     }
 
-    // Check if all roles have finished voting
-    pub fn all_roles_voted(&self) -> bool {
-        self.voting_sessions
-            .iter()
-            .all(|session| matches!(session.status, RoleVoteStatus::VoteClosed(_)))
+    // Check if a specific role can vote
+    pub fn can_role_vote(&self, role_id: &RoleId) -> bool {
+        self.voting_roles.contains_key(role_id)
     }
 
-    // Check if all roles approved the proposal
-    pub fn all_roles_approved(&self) -> bool {
-        self.voting_sessions
-            .iter()
-            .all(|session| matches!(session.status, RoleVoteStatus::VoteClosed(RoleVoteResult::Approved)))
+    // Get policy for a specific role
+    pub fn get_role_policy(&self, role_id: &RoleId) -> Option<&Policy> {
+        self.voting_roles.get(role_id)
     }
 
-    // Check if any role rejected the proposal
-    pub fn any_role_rejected(&self) -> bool {
-        self.voting_sessions
-            .iter()
-            .any(|session| matches!(session.status, RoleVoteStatus::VoteClosed(RoleVoteResult::Rejected)))
-    }
-
-    // Check if any role marked as spam
-    pub fn any_role_spam(&self) -> bool {
-        self.voting_sessions
-            .iter()
-            .any(|session| matches!(session.status, RoleVoteStatus::VoteClosed(RoleVoteResult::Spam)))
-    }
-
-    // Update a specific role's voting status
-    pub fn update_role_status(&mut self, role_id: &RoleId, new_status: RoleVoteStatus) {
-        if let Some(session) = self.voting_sessions
-            .iter_mut()
-            .find(|session| session.role_id == *role_id) {
-            session.status = new_status;
+    // Check if voting period has ended for a role
+    pub fn is_voting_expired(&self, role_id: &RoleId) -> bool {
+        if let Some(policy) = self.voting_roles.get(role_id) {
+            let current_time = env::block_timestamp();
+            let voting_end = self.submission_time + policy.voting_period;
+            current_time > voting_end
+        } else {
+            true // If role not found, consider voting expired
         }
     }
 }

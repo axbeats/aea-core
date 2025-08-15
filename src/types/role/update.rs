@@ -6,6 +6,5 @@ pub enum UpdateRoleAction {
     Name(String),
     Description(String),
     VideoBundle(VideoBundle),
-    CustomPolicy(ProposalAbility, Option<CustomPolicy>),
     Permission(ProposalAbility, ProposalPermission),
 }

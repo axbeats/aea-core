@@ -7,7 +7,6 @@ pub struct RoleInput {
     /// Role fields
     pub dao_id: DaoId,
     pub kind: RoleKindInput,
-    pub vote_weight: VoteWeightKind,
     pub permissions: HashMap<ProposalAbility, ProposalPermission>,
     /// Video fields
     pub name: String,
@@ -39,7 +38,6 @@ impl RoleInput {
             // Role fields
             dao_id: input.dao_id,
             kind: input.kind,
-            vote_weight: input.vote_weight,
             permissions: input.permissions,
             // Video fields
             name: input.name,
@@ -58,7 +56,6 @@ impl RoleInput {
             // Role fields
             dao_id: input.dao_id,
             kind: input.kind,
-            vote_weight: input.vote_weight,
             permissions: input.permissions,
             // Video fields
             name: input.name,
@@ -77,7 +74,6 @@ impl RoleInput {
             ProposalPermission {
                 create: true,
                 vote: true,
-                custom_policy: None,
             },
         );
         permissions.insert(
@@ -85,7 +81,6 @@ impl RoleInput {
             ProposalPermission {
                 create: true,
                 vote: true,
-                custom_policy: None,
             },
         );
         permissions.insert(
@@ -93,7 +88,6 @@ impl RoleInput {
             ProposalPermission {
                 create: true,
                 vote: true,
-                custom_policy: None,
             },
         );
         permissions
@@ -104,7 +98,6 @@ impl RoleInput {
         Self {
             dao_id: "example-dao.near".parse().unwrap(),
             kind: RoleKindInput::Followers,
-            vote_weight: VoteWeightKind::Single,
             permissions: Self::example_permissions(),
             name: "Followers".to_string(),
             description: Some("All followers of the DAO".to_string()),
@@ -118,11 +111,9 @@ impl RoleInput {
     pub fn example_token() -> Self {
         Self {
             dao_id: "example-dao.near".parse().unwrap(),
-            kind: RoleKindInput::Token,
-            vote_weight: VoteWeightKind::Token((
-                "staking.example-dao.near".parse().unwrap(),
-                WeightFormula::Linear
-            )),
+            kind: RoleKindInput::Token(TokenRoleInput {
+                weight_formula: WeightFormula::Linear,
+            }),
             permissions: Self::example_permissions(),
             name: "Token Holders".to_string(),
             description: Some("Token holders with staked tokens".to_string()),
@@ -145,7 +136,6 @@ impl RoleInput {
                 members,
                 choice_id: 1, // Example choice ID
             }),
-            vote_weight: VoteWeightKind::Single,
             permissions: Self::example_permissions(),
             name: "Council".to_string(),
             description: Some("Elected council members".to_string()),
@@ -162,7 +152,6 @@ pub struct RoleInputVideoOption {
     /// Role fields
     pub dao_id: DaoId,
     pub kind: RoleKindInput,
-    pub vote_weight: VoteWeightKind,
     pub permissions: HashMap<ProposalAbility, ProposalPermission>,
     /// Video fields
     pub name: String,

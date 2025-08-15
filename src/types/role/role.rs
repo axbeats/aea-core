@@ -11,7 +11,6 @@ pub struct Role {
     pub name: String,
     pub description: Option<String>,
     pub kind: RoleKind,
-    pub vote_weight: VoteWeightKind,
     pub permissions: HashMap<ProposalAbility, ProposalPermission>,
 }
 
@@ -34,7 +33,6 @@ impl Role {
             name: input.name,
             description: input.description,
             kind: RoleKind::from_input(input.kind, staking_id),
-            vote_weight: input.vote_weight,
             permissions: input.permissions,
         }
     }

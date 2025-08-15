@@ -17,6 +17,7 @@ pub const ROLE_ID: &str = "role1.aea4.testnet";
 pub const HUMANITY_ID: &str = "humanity1.aea4.testnet";
 pub const MARKETPLACE_ID: &str = "marketplace1.aea4.testnet";
 pub const NFT_ID: &str = "nft1.aea4.testnet";
+pub const POLICY_ID: &str = "policy1.aea4.testnet";
 pub const PRODUCT_ID: &str = "product1.aea4.testnet";
 pub const PROFILE_ID: &str = "profile2.aea4.testnet";
 pub const PROPOSAL_ID: &str = "proposal1.aea4.testnet";
@@ -45,6 +46,7 @@ pub enum AeaContract {
     Humanity,
     Marketplace,
     Nft,
+    Policy,
     Product,
     Profile,
     Proposal,
@@ -75,6 +77,7 @@ impl AeaContract {
             AeaContract::Humanity => HUMANITY_ID,
             AeaContract::Marketplace => MARKETPLACE_ID,
             AeaContract::Nft => NFT_ID,
+            AeaContract::Policy => POLICY_ID,
             AeaContract::Product => PRODUCT_ID,
             AeaContract::Profile => PROFILE_ID,
             AeaContract::Proposal => PROPOSAL_ID,
@@ -106,6 +109,7 @@ pub fn str_to_contract_id(s: &str) -> Option<AeaContract> {
         HUMANITY_ID => Some(AeaContract::Humanity),
         MARKETPLACE_ID => Some(AeaContract::Marketplace),
         NFT_ID => Some(AeaContract::Nft),
+        POLICY_ID => Some(AeaContract::Policy),
         PRODUCT_ID => Some(AeaContract::Product),
         PROFILE_ID => Some(AeaContract::Profile),
         PROPOSAL_ID => Some(AeaContract::Proposal),

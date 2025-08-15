@@ -7,7 +7,6 @@ pub type PermissionString = String;
 pub struct ProposalPermission {
     pub create: bool,
     pub vote: bool,
-    pub custom_policy: Option<CustomPolicy>,
 }
 
 impl Default for ProposalPermission {
@@ -15,7 +14,6 @@ impl Default for ProposalPermission {
         Self {
             create: true,
             vote: true,
-            custom_policy: None,
         }
     }
 }

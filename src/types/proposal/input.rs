@@ -6,7 +6,7 @@ use near_sdk::json_types::U128;
 pub struct ProposalInput {
     // Proposal fields  
     pub dao_id: AccountId,
-    pub role_id: RoleId,
+    pub proposer_id: AccountId,  // Account creating the proposal
     pub action: ProposalAction,
     pub bond: U128,
     // Video fields
