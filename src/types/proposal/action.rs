@@ -5,8 +5,8 @@ use crate::*;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub enum ProposalAction {
-    AddManagedContract {
-        input: AddManagedContractInputVideoOption,
+    AddCustomPolicy {
+        input: CustomPolicyInput,
     },
     CreateRole {
         input: RoleInputVideoOption,
@@ -32,6 +32,15 @@ pub enum ProposalAction {
     InteractVideo {
         action: InteractVideo,
     },
+    RegisterContract {
+        input: RegisterContractInputVideoOption,
+    },
+    RemoveContract {
+        contract_id: ContractId,
+    },
+    RemoveCustomPolicy {
+        input: CustomPolicyInput,
+    },
     RemoveRole {
         role_id: RoleId,
     },
@@ -53,6 +62,9 @@ pub enum ProposalAction {
     UpdateContract {
         contract_id: ContractId,
         actions: Vec<UpdateContractAction>,
+    },
+    UpdateCustomPolicy {
+        input: CustomPolicyInput,
     },
     UpdateDefaultPolicy {
         policies: Vec<ProposalPolicyKind>,
@@ -80,11 +92,6 @@ pub enum ProposalAction {
     UpgradeContract {
         input: UpgradeContractInput,
     },
-    /// Upgrade this contract with given hash from blob store.
-    /// This function removes the dao from the aea ecosystem
-    UpgradeSelf {
-        hash: Base58CryptoHash,
-    },
     /// Just a signaling vote, with no execution.
     Vote,
 }
@@ -93,7 +100,7 @@ impl ProposalAction {
     /// Returns label of policy for given type of proposal.
     pub fn to_policy_label(&self) -> &str {
         match self {
-            ProposalAction::AddManagedContract { .. } => "add_managed_contract",
+            ProposalAction::AddCustomPolicy { .. } => "add_custom_policy",
             ProposalAction::CreateRole { .. } => "create_role",
             ProposalAction::CreateRule { .. } => "create_rule",
             ProposalAction::CreateValue { .. } => "create_value",
@@ -102,12 +109,16 @@ impl ProposalAction {
             ProposalAction::FunctionCall { .. } => "function_call",
             ProposalAction::InteractProfile { .. } => "interact_profile",
             ProposalAction::InteractVideo { .. } => "interact_video",
+            ProposalAction::RegisterContract { .. } => "register_contract",
+            ProposalAction::RemoveContract { .. } => "remove_contract",
+            ProposalAction::RemoveCustomPolicy { .. } => "remove_custom_policy",
             ProposalAction::RemoveRole { .. } => "remove_role",
             ProposalAction::RemoveRule { .. } => "remove_rule",
             ProposalAction::RemoveValue { .. } => "remove_value",
             ProposalAction::RemoveVideo { .. } => "remove_video",
             ProposalAction::Transfer { .. } => "transfer",
             ProposalAction::UpdateContract { .. } => "update_contract",
+            ProposalAction::UpdateCustomPolicy { .. } => "update_custom_policy",
             ProposalAction::UpdateDefaultPolicy { .. } => "update_default_policy",
             ProposalAction::UpdateRole { .. } => "update_role",
             ProposalAction::UpdateProfile { .. } => "update_profile",
@@ -115,7 +126,6 @@ impl ProposalAction {
             ProposalAction::UpdateValue { .. } => "update_value",
             ProposalAction::UpdateVideo { .. } => "update_video",
             ProposalAction::UpgradeContract { .. } => "upgrade_contract",
-            ProposalAction::UpgradeSelf { .. } => "upgrade_self",
             ProposalAction::Vote => "vote",
         }
     }
@@ -129,6 +139,9 @@ impl ProposalAction {
             ProposalAction::UpdateRole { .. } => ProposalAbility::Role,
 
             ProposalAction::UpdateDefaultPolicy { .. } => ProposalAbility::Policy,
+            ProposalAction::AddCustomPolicy { .. } => ProposalAbility::Policy,
+            ProposalAction::RemoveCustomPolicy { .. } => ProposalAbility::Policy,
+            ProposalAction::UpdateCustomPolicy { .. } => ProposalAbility::Policy,
 
             ProposalAction::CreateRule { .. } => ProposalAbility::Court,
             ProposalAction::UpdateRule { .. } => ProposalAbility::Court,
@@ -137,9 +150,9 @@ impl ProposalAction {
             // Technical actions - manage contracts and values
             ProposalAction::DeployContract { .. } => ProposalAbility::Code,
             ProposalAction::UpgradeContract { .. } => ProposalAbility::Code,
-            ProposalAction::UpgradeSelf { .. } => ProposalAbility::Code,
-            ProposalAction::AddManagedContract { .. } => ProposalAbility::Code,
+            ProposalAction::RegisterContract { .. } => ProposalAbility::Code,
             ProposalAction::UpdateContract { .. } => ProposalAbility::Code,
+            ProposalAction::RemoveContract { .. } => ProposalAbility::Code,
 
             ProposalAction::CreateValue { .. } => ProposalAbility::Value,
             ProposalAction::UpdateValue { .. } => ProposalAbility::Value,

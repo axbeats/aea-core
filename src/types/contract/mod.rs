@@ -6,6 +6,7 @@ pub use self::input::*;
 pub use self::register::*;
 pub use self::update::*;
 pub use self::upgrade::*;
+pub use self::wasm::*;
 
 mod code;
 mod contract;
@@ -15,3 +16,4 @@ mod input;
 mod register;
 mod update;
 mod upgrade;
+mod wasm;

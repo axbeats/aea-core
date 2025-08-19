@@ -7,6 +7,6 @@ pub struct UpgradeContractInput {
     pub contract_id: ContractId,
     pub method_name: String,
     pub wasm_hash: CryptoHash,
-    pub source_link: Option<String>,
+    pub repository_url: Option<String>,
     pub compiler_version: Option<String>,
 }

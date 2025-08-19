@@ -29,6 +29,7 @@ pub use self::token::*;
 pub use self::value::*;
 pub use self::video::*;
 pub use self::weight::*;
+pub use self::function::*;
 
 mod agent;
 mod algorithm;
@@ -61,3 +62,4 @@ mod token;
 mod value;
 mod video;
 mod weight;
+mod function;

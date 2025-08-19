@@ -5,9 +5,7 @@ use crate::*;
 pub struct ContractInput {
     pub contract_id: ContractId,
     pub dao_id: DaoId,
-    // pub proposal_id: Option<ProposalId>,
-    // pub wasm_hash: CryptoHash,
-    pub source_link: Option<String>,
+    pub repository_url: Option<String>,
     pub compiler_version: Option<String>,
     /// Video args
     pub name: String,
@@ -29,7 +27,7 @@ impl ContractInput {
         Self {
             contract_id: "token.example-dao.near".parse().unwrap(),
             dao_id: "example-dao.near".parse().unwrap(),
-            source_link: Some("https://github.com/example-dao/token-contract".to_string()),
+            repository_url: Some("https://github.com/example-dao/token-contract".to_string()),
             compiler_version: Some("rustc 1.70.0".to_string()),
             name: "DAO Token Contract".to_string(),
             description: Some("Fungible token contract for DAO governance".to_string()),
@@ -54,7 +52,7 @@ impl ContractInput {
             dao_id,
             // proposal_id,
             // wasm_hash: deploy_input.wasm_hash,
-            source_link: deploy_input.source_code_link,
+            repository_url: deploy_input.source_code_link,
             compiler_version: deploy_input.compiler_version,
             name: deploy_input.name,
             description: deploy_input.description,
@@ -89,7 +87,7 @@ impl ContractInput {
     // }
 
     pub fn from_add_managed_contract_input(
-        register_input: AddManagedContractInput,
+        register_input: RegisterContractInput,
         // video_id: VideoId,
         // proposal_id: Option<ProposalId>,
     ) -> Self {
@@ -102,7 +100,7 @@ impl ContractInput {
             // proposal_id,
             // wasm_hash: register_input.wasm_hash,
             // Map source_code_link to source_link.
-            source_link: register_input.source_code_link,
+            repository_url: register_input.repository_url,
             compiler_version: register_input.compiler_version,
             name: register_input.name,
             description: register_input.description,

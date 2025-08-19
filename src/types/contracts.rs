@@ -7,7 +7,7 @@ pub const AUDIO_ID: &str = "audio1.aea4.testnet";
 pub const BUSINESS_FACTORY_ID: &str = "business1.aea4.testnet";
 pub const CALIBRATION_ID: &str = "calibration1.aea4.testnet";
 pub const CHOICE_ID: &str = "choice1.aea4.testnet";
-pub const CONTRACT_MANAGER_ID: &str = "contract_manager1.aea4.testnet";
+pub const CONTRACT_REGISTRY_ID: &str = "contract_registry1.aea4.testnet";
 pub const COURT_ID: &str = "court1.aea4.testnet";
 pub const DAO_FACTORY_ID: &str = "dao3.aea4.testnet";
 pub const FT_FACTORY_ID: &str = "ft1.aea4.testnet";
@@ -36,7 +36,7 @@ pub enum AeaContract {
     BusinessFactory,
     Calibration,
     Choice,
-    ContractManager,
+    ContractRegistry,
     Court,
     DaoFactory,
     FtFactory,
@@ -67,7 +67,7 @@ impl AeaContract {
             AeaContract::BusinessFactory => BUSINESS_FACTORY_ID,
             AeaContract::Calibration => CALIBRATION_ID,
             AeaContract::Choice => CHOICE_ID,
-            AeaContract::ContractManager => CONTRACT_MANAGER_ID,
+            AeaContract::ContractRegistry => CONTRACT_REGISTRY_ID,
             AeaContract::Court => COURT_ID,
             AeaContract::DaoFactory => DAO_FACTORY_ID,
             AeaContract::FtFactory => FT_FACTORY_ID,
@@ -99,7 +99,7 @@ pub fn str_to_contract_id(s: &str) -> Option<AeaContract> {
         BUSINESS_FACTORY_ID => Some(AeaContract::BusinessFactory),
         CALIBRATION_ID => Some(AeaContract::Calibration),
         CHOICE_ID => Some(AeaContract::Choice),
-        CONTRACT_MANAGER_ID => Some(AeaContract::ContractManager),
+        CONTRACT_REGISTRY_ID => Some(AeaContract::ContractRegistry),
         COURT_ID => Some(AeaContract::Court),
         DAO_FACTORY_ID => Some(AeaContract::DaoFactory),
         FT_FACTORY_ID => Some(AeaContract::FtFactory),
