@@ -1,5 +1,5 @@
-pub mod dao_actions;
+pub mod actions;
 pub mod chat_response;
 
-pub use dao_actions::*;
+pub use actions::*;
 pub use chat_response::*;

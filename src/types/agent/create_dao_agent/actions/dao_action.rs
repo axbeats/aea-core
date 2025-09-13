@@ -60,23 +60,18 @@ impl DaoAction {
             
             // Role actions
             "AddRole" => {
-                let role_name = obj.get("role_name")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'role_name' field".to_string())?
-                    .to_string();
-                let role_kind = obj.get("role_kind")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'role_kind' field".to_string())?
-                    .to_string();
-                let vote_weight = obj.get("vote_weight")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'vote_weight' field".to_string())?
-                    .to_string();
-                let vote_method = obj.get("vote_method")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'vote_method' field".to_string())?
-                    .to_string();
-                Ok(DaoAction::Role(RoleAction::AddRole { role_name, role_kind, vote_weight, vote_method }))
+                // For flat JSON, still accept the role as a nested object
+                let role = obj.get("role")
+                    .ok_or_else(|| "Missing 'role' field".to_string())?;
+                let role_input: crate::RoleInput = serde_json::from_value(role.clone())
+                    .map_err(|e| format!("Failed to parse RoleInput: {}", e))?;
+                Ok(DaoAction::Role(RoleAction::AddRole { role: role_input }))
+            },
+            "RemoveRole" => {
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                Ok(DaoAction::Role(RoleAction::RemoveRole { role_index }))
             },
             "UpdateRoleName" => {
                 let role_index = obj.get("role_index")
@@ -112,11 +107,21 @@ impl DaoAction {
                 let role_index = obj.get("role_index")
                     .and_then(|v| v.as_u64())
                     .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
-                let contract_id = obj.get("contract_id")
+                let proposal_ability = obj.get("proposal_ability")
                     .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'contract_id' field".to_string())?
+                    .ok_or_else(|| "Missing 'proposal_ability' field".to_string())?
                     .to_string();
-                Ok(DaoAction::Role(RoleAction::AddCreatePermissions { role_index, contract_id }))
+                Ok(DaoAction::Role(RoleAction::AddCreatePermissions { role_index, proposal_ability }))
+            },
+            "RemoveCreatePermissions" => {
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                let proposal_ability = obj.get("proposal_ability")
+                    .and_then(|v| v.as_str())
+                    .ok_or_else(|| "Missing 'proposal_ability' field".to_string())?
+                    .to_string();
+                Ok(DaoAction::Role(RoleAction::RemoveCreatePermissions { role_index, proposal_ability }))
             },
             "AddVotePermissions" => {
                 let role_index = obj.get("role_index")
@@ -147,6 +152,40 @@ impl DaoAction {
                     .ok_or_else(|| "Missing 'agent_account_id' field".to_string())?
                     .to_string();
                 Ok(DaoAction::Role(RoleAction::UpdateAgentAccount { role_index, agent_account_id }))
+            },
+            "UpdateRegion" => {
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                let region_input = obj.get("region_input")
+                    .ok_or_else(|| "Missing 'region_input' field".to_string())?;
+                let region_input: crate::RegionRoleInput = serde_json::from_value(region_input.clone())
+                    .map_err(|e| format!("Failed to parse region_input: {}", e))?;
+                Ok(DaoAction::Role(RoleAction::UpdateRegion { role_index, region_input }))
+            },
+            "AddElectedMembers" => {
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                let members = obj.get("members")
+                    .and_then(|v| v.as_array())
+                    .ok_or_else(|| "Missing 'members' field".to_string())?
+                    .iter()
+                    .filter_map(|v| v.as_str().map(String::from))
+                    .collect();
+                Ok(DaoAction::Role(RoleAction::AddElectedMembers { role_index, members }))
+            },
+            "RemoveElectedMembers" => {
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                let members = obj.get("members")
+                    .and_then(|v| v.as_array())
+                    .ok_or_else(|| "Missing 'members' field".to_string())?
+                    .iter()
+                    .filter_map(|v| v.as_str().map(String::from))
+                    .collect();
+                Ok(DaoAction::Role(RoleAction::RemoveElectedMembers { role_index, members }))
             },
             
             // Token actions
@@ -198,6 +237,16 @@ impl DaoAction {
                     .ok_or_else(|| "Missing 'new_price' field".to_string())?
                     .to_string();
                 Ok(DaoAction::Token(TokenAction::UpdateTokenSalePrice { role_index, new_price }))
+            },
+            "UpdateTokenSalePaymentCurrency" => {
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                let new_currency = obj.get("new_currency")
+                    .and_then(|v| v.as_str())
+                    .ok_or_else(|| "Missing 'new_currency' field".to_string())?
+                    .to_string();
+                Ok(DaoAction::Token(TokenAction::UpdateTokenSalePaymentCurrency { role_index, new_currency }))
             },
             "UpdateTokenSaleDeadline" => {
                 let role_index = obj.get("role_index")
@@ -268,15 +317,11 @@ impl DaoAction {
             
             // Rule actions
             "AddRule" => {
-                let name = obj.get("name")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'name' field".to_string())?
-                    .to_string();
-                let description = obj.get("description")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'description' field".to_string())?
-                    .to_string();
-                Ok(DaoAction::Rule(RuleAction::AddRule { name, description }))
+                let rule = obj.get("rule")
+                    .ok_or_else(|| "Missing 'rule' field".to_string())?;
+                let rule: RuleInput = serde_json::from_value(rule.clone())
+                    .map_err(|e| format!("Failed to parse rule: {}", e))?;
+                Ok(DaoAction::Rule(RuleAction::AddRule { rule }))
             },
             "UpdateRuleName" => {
                 let rule_index = obj.get("rule_index")
@@ -288,22 +333,110 @@ impl DaoAction {
                     .to_string();
                 Ok(DaoAction::Rule(RuleAction::UpdateRuleName { rule_index, new_name }))
             },
-            
-            // Contract actions
-            "AddContract" => {
-                let name = obj.get("name")
+            "UpdateRuleDescription" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let new_description = obj.get("new_description")
                     .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'name' field".to_string())?
+                    .ok_or_else(|| "Missing 'new_description' field".to_string())?
                     .to_string();
-                let description = obj.get("description")
-                    .and_then(|v| v.as_str())
-                    .ok_or_else(|| "Missing 'description' field".to_string())?
-                    .to_string();
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleDescription { rule_index, new_description }))
+            },
+            "UpdateRuleFlagRole" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleFlagRole { rule_index, role_index }))
+            },
+            "UpdateRuleFlagThreshold" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let new_threshold = obj.get("new_threshold")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'new_threshold' field".to_string())? as u32;
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleFlagThreshold { rule_index, new_threshold }))
+            },
+            "UpdateRuleFlagQuorum" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let new_quorum = obj.get("new_quorum")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'new_quorum' field".to_string())? as u32;
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleFlagQuorum { rule_index, new_quorum }))
+            },
+            "UpdateRuleReviewRole" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let role_index = obj.get("role_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'role_index' field".to_string())? as usize;
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleReviewRole { rule_index, role_index }))
+            },
+            "UpdateRuleReviewThreshold" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let new_threshold = obj.get("new_threshold")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'new_threshold' field".to_string())? as u32;
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleReviewThreshold { rule_index, new_threshold }))
+            },
+            "UpdateRuleReviewQuorum" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let new_quorum = obj.get("new_quorum")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'new_quorum' field".to_string())? as u32;
+                Ok(DaoAction::Rule(RuleAction::UpdateRuleReviewQuorum { rule_index, new_quorum }))
+            },
+            "UpdateRulePenaltyContractId" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
                 let contract_id = obj.get("contract_id")
                     .and_then(|v| v.as_str())
                     .ok_or_else(|| "Missing 'contract_id' field".to_string())?
                     .to_string();
-                Ok(DaoAction::Contract(ContractAction::AddContract { name, description, contract_id }))
+                Ok(DaoAction::Rule(RuleAction::UpdateRulePenaltyContractId { rule_index, contract_id }))
+            },
+            "UpdateRulePenaltyFunctionName" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                let function_name = obj.get("function_name")
+                    .and_then(|v| v.as_str())
+                    .ok_or_else(|| "Missing 'function_name' field".to_string())?
+                    .to_string();
+                Ok(DaoAction::Rule(RuleAction::UpdateRulePenaltyFunctionName { rule_index, function_name }))
+            },
+            "RemoveRule" => {
+                let rule_index = obj.get("rule_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'rule_index' field".to_string())? as usize;
+                Ok(DaoAction::Rule(RuleAction::RemoveRule { rule_index }))
+            },
+            
+            // Contract actions
+            "AddContract" => {
+                let contract = obj.get("contract")
+                    .ok_or_else(|| "Missing 'contract' field".to_string())?;
+                let contract: ContractInput = serde_json::from_value(contract.clone())
+                    .map_err(|e| format!("Failed to parse contract: {}", e))?;
+                Ok(DaoAction::Contract(ContractAction::AddContract { contract }))
+            },
+            "RemoveContract" => {
+                let contract_index = obj.get("contract_index")
+                    .and_then(|v| v.as_u64())
+                    .ok_or_else(|| "Missing 'contract_index' field".to_string())? as usize;
+                Ok(DaoAction::Contract(ContractAction::RemoveContract { contract_index }))
             },
             "UpdateContractName" => {
                 let contract_index = obj.get("contract_index")
@@ -345,13 +478,16 @@ impl DaoAction {
                 },
             },
             DaoAction::Role(action) => match action {
-                RoleAction::AddRole { role_name, role_kind, vote_weight, vote_method } => {
+                RoleAction::AddRole { role } => {
                     serde_json::json!({
                         "action_type": "AddRole",
-                        "role_name": role_name,
-                        "role_kind": role_kind,
-                        "vote_weight": vote_weight,
-                        "vote_method": vote_method
+                        "role": role
+                    })
+                },
+                RoleAction::RemoveRole { role_index } => {
+                    serde_json::json!({
+                        "action_type": "RemoveRole",
+                        "role_index": role_index
                     })
                 },
                 RoleAction::UpdateRoleName { role_index, new_name } => {
@@ -389,9 +525,11 @@ impl DaoAction {
                 }
             },
             DaoAction::Role(action) => match action {
-                RoleAction::AddRole { role_name, role_kind, vote_weight, vote_method } => {
-                    format!("Create new role '{}' (type: {}, vote weight: {}, method: {})", 
-                        role_name, role_kind, vote_weight, vote_method)
+                RoleAction::AddRole { role } => {
+                    format!("Create new role '{}'", role.name)
+                }
+                RoleAction::RemoveRole { role_index } => {
+                    format!("Remove role at index {}", role_index)
                 }
                 RoleAction::UpdateRoleName { role_index, new_name } => {
                     format!("Update role {} name to '{}'", role_index, new_name)
@@ -402,8 +540,11 @@ impl DaoAction {
                 RoleAction::UpdateRoleKind { role_index, new_kind } => {
                     format!("Update role {} type to {:?}", role_index, new_kind)
                 }
-                RoleAction::AddCreatePermissions { role_index, contract_id } => {
-                    format!("Give role {} permission to create contracts on '{}'", role_index, contract_id)
+                RoleAction::AddCreatePermissions { role_index, proposal_ability } => {
+                    format!("Give role {} permission to create '{}' proposals", role_index, proposal_ability)
+                }
+                RoleAction::RemoveCreatePermissions { role_index, proposal_ability } => {
+                    format!("Remove role {} permission to create '{}' proposals", role_index, proposal_ability)
                 }
                 RoleAction::AddVotePermissions { role_index, proposal_ability } => {
                     format!("Give role {} permission to vote on '{}' proposals", role_index, proposal_ability)
@@ -413,6 +554,15 @@ impl DaoAction {
                 }
                 RoleAction::UpdateAgentAccount { role_index, agent_account_id } => {
                     format!("Update agent account for role {} to '{}'", role_index, agent_account_id)
+                }
+                RoleAction::UpdateRegion { role_index, region_input } => {
+                    format!("Update region for role {} to '{}'", role_index, region_input.name)
+                }
+                RoleAction::AddElectedMembers { role_index, members } => {
+                    format!("Add {} members to elected role {}", members.len(), role_index)
+                }
+                RoleAction::RemoveElectedMembers { role_index, members } => {
+                    format!("Remove {} members from elected role {}", members.len(), role_index)
                 }
             },
             DaoAction::Token(action) => match action {
@@ -430,6 +580,9 @@ impl DaoAction {
                 }
                 TokenAction::UpdateTokenSalePrice { role_index, new_price } => {
                     format!("Update token sale price for role {} to {:?}", role_index, new_price)
+                }
+                TokenAction::UpdateTokenSalePaymentCurrency { role_index, new_currency } => {
+                    format!("Update token sale payment currency for role {} to {}", role_index, new_currency)
                 }
                 TokenAction::UpdateTokenSaleDeadline { role_index, deadline_days, deadline_hours, deadline_minutes } => {
                     format!("Update token sale deadline for role {} to {} days, {} hours, {} minutes", 
@@ -463,8 +616,8 @@ impl DaoAction {
                 }
             },
             DaoAction::Rule(action) => match action {
-                RuleAction::AddRule { name, description } => {
-                    format!("Add new rule '{}': {}", name, description)
+                RuleAction::AddRule { rule } => {
+                    format!("Add new rule '{}': {}", rule.name, rule.description.as_deref().unwrap_or(""))
                 }
                 RuleAction::UpdateRuleName { rule_index, new_name } => {
                     format!("Update rule {} name to '{}'", rule_index, new_name)
@@ -496,10 +649,19 @@ impl DaoAction {
                 RuleAction::UpdateRulePenaltyFunctionName { rule_index, function_name } => {
                     format!("Set penalty function for rule {} to '{}'", rule_index, function_name)
                 }
+                RuleAction::RemoveRule { rule_index } => {
+                    format!("Remove rule at index {}", rule_index)
+                }
             },
             DaoAction::Contract(action) => match action {
-                ContractAction::AddContract { name, description, contract_id } => {
-                    format!("Add new contract '{}' ({}): {}", name, contract_id, description)
+                ContractAction::AddContract { contract } => {
+                    format!("Add new contract '{}' ({}): {}", 
+                        contract.name, 
+                        contract.contract_id, 
+                        contract.description.as_deref().unwrap_or(""))
+                }
+                ContractAction::RemoveContract { contract_index } => {
+                    format!("Remove contract at index {}", contract_index)
                 }
                 ContractAction::UpdateContractName { contract_index, new_name } => {
                     format!("Update contract {} name to '{}'", contract_index, new_name)
@@ -510,8 +672,8 @@ impl DaoAction {
                 ContractAction::UpdateContractId { contract_index, new_contract_id } => {
                     format!("Update contract {} ID to '{}'", contract_index, new_contract_id)
                 }
-                ContractAction::UpdateContractSourceLink { contract_index, new_source_link } => {
-                    format!("Update contract {} source link to '{}'", contract_index, new_source_link)
+                ContractAction::UpdateContractRepositoryUrl { contract_index, new_source_link } => {
+                    format!("Update contract {} repository URL to '{}'", contract_index, new_source_link)
                 }
             }
         }
@@ -542,12 +704,13 @@ impl DaoAction {
             DaoAction::Rule(RuleAction::UpdateRuleReviewThreshold { .. }) |
             DaoAction::Rule(RuleAction::UpdateRuleReviewQuorum { .. }) |
             DaoAction::Contract(ContractAction::UpdateContractId { .. }) |
-            DaoAction::Contract(ContractAction::UpdateContractSourceLink { .. }) => RiskLevel::Medium,
+            DaoAction::Contract(ContractAction::UpdateContractRepositoryUrl { .. }) => RiskLevel::Medium,
 
             DaoAction::Profile(ProfileAction::UpdateUsername { .. }) |
             DaoAction::Token(TokenAction::UpdateTotalSupply { .. }) |
             DaoAction::Token(TokenAction::UpdateDecimals { .. }) |
             DaoAction::Role(RoleAction::UpdateAgentAccount { .. }) |
+            DaoAction::Role(RoleAction::UpdateRegion { .. }) |
             DaoAction::Rule(RuleAction::AddRule { .. }) |
             DaoAction::Rule(RuleAction::UpdateRulePenaltyContractId { .. }) |
             DaoAction::Rule(RuleAction::UpdateRulePenaltyFunctionName { .. }) |
@@ -555,217 +718,6 @@ impl DaoAction {
 
             _ => RiskLevel::Medium,
         }
-    }
-}
-
-/// Actions that can be performed on the DAO profile
-#[near(serializers = [json, borsh])]
-#[serde(tag = "action", content = "params")]
-#[derive(Debug, Clone, Generable)]
-pub enum ProfileAction {
-    #[guide = "Change the unique identifier for the DAO"]
-    UpdateUsername { 
-        #[guide = "Must be 3-32 characters, lowercase letters and numbers only"]
-        new_username: String 
-    },
-    #[guide = "Update the display name of the DAO"]
-    UpdateName { 
-        #[guide = "Human-readable name, up to 50 characters"]
-        new_name: String 
-    },
-    #[guide = "Update the description of the DAO's purpose"]
-    UpdateBio { 
-        #[guide = "Optional description of what the DAO does"]
-        new_bio: Option<String> 
-    },
-}
-
-impl Default for ProfileAction {
-    fn default() -> Self {
-        Self::UpdateUsername { new_username: "".to_string() }
-    }
-}
-
-/// Actions that can be performed on DAO roles
-#[near(serializers = [json, borsh])]
-#[serde(tag = "action", content = "params")]
-#[derive(Debug, Clone, Generable)]
-pub enum RoleAction {
-    #[guide = "Create a new role for governance participation"]
-    AddRole {
-        #[guide = "Display name for the role"]
-        role_name: String,
-        #[guide = "Type of role: Followers, Subscribers, Token, Elected, Region, or Agent"]
-        #[constraints = "enum:Followers,Subscribers,Token,Elected,Region,Agent"]
-        role_kind: String,
-        #[guide = "How votes are weighted: Single or Token"]
-        #[constraints = "enum:Single,Token"]
-        vote_weight: String,
-        #[guide = "Voting method: Proposal, Choice, or Calibration"]
-        #[constraints = "enum:Proposal,Choice,Calibration"]
-        vote_method: String,
-    },
-    #[guide = "Rename an existing role"]
-    UpdateRoleName { 
-        #[guide = "Zero-based index of the role to update"]
-        role_index: usize, 
-        #[guide = "New display name for the role"]
-        new_name: String 
-    },
-    #[guide = "Update the description of a role"]
-    UpdateRoleDescription { 
-        role_index: usize, 
-        #[guide = "Detailed explanation of the role's purpose"]
-        new_description: String 
-    },
-    #[guide = "Change the type of an existing role"]
-    UpdateRoleKind { 
-        role_index: usize, 
-        #[constraints = "enum:Followers,Subscribers,Token,Elected,Region,Agent"]
-        new_kind: String
-    },
-    #[guide = "Grant permission to create contracts to a role"]
-    AddCreatePermissions { 
-        role_index: usize, 
-        #[guide = "Contract ID that the role can create instances of"]
-        contract_id: String 
-    },
-    #[guide = "Grant voting permission on a proposal type to a role"]
-    AddVotePermissions { 
-        role_index: usize, 
-        #[guide = "Proposal ability: Role, Policy, Task, Profile, Video, Code, Value, or Court"]
-        #[constraints = "enum:Role,Policy,Task,Profile,Video,Code,Value,Court"]
-        proposal_ability: String
-    },
-    #[guide = "Remove voting permission on a proposal type from a role"]
-    RemoveVotePermissions { 
-        role_index: usize, 
-        proposal_ability: String
-    },
-    #[guide = "Set the NEAR account for an Agent role"]
-    UpdateAgentAccount { 
-        role_index: usize, 
-        #[guide = "NEAR account ID for the autonomous agent"]
-        agent_account_id: String 
-    },
-}
-
-impl Default for RoleAction {
-    fn default() -> Self {
-        Self::AddRole {
-            role_name: "".to_string(),
-            role_kind: "".to_string(),
-            vote_weight: "".to_string(),
-            vote_method: "".to_string(),
-        }
-    }
-}
-
-/// Actions that can be performed on token configuration
-#[near(serializers = [json, borsh])]
-#[serde(tag = "action", content = "params")]
-#[derive(Debug, Clone, Generable)]
-pub enum TokenAction {
-    #[guide = "Change the name of a token-based role's token"]
-    UpdateTokenName { 
-        role_index: usize, 
-        #[guide = "Full name of the token (e.g., 'DAO Governance Token')"]
-        new_name: String 
-    },
-    #[guide = "Change the symbol of a token"]
-    UpdateTokenSymbol { 
-        role_index: usize, 
-        #[guide = "Short symbol, typically 3-5 uppercase letters"]
-        #[constraints = "max_length:10"]
-        new_symbol: String 
-    },
-    #[guide = "Set the total supply of tokens"]
-    UpdateTotalSupply { 
-        role_index: usize, 
-        #[guide = "Total number of tokens to mint (as string to avoid serialization issues)"]
-        #[example = "1000000"]
-        new_supply: String
-    },
-    #[guide = "Set decimal places for token display"]
-    UpdateDecimals { 
-        role_index: usize, 
-        #[guide = "Number of decimal places (typically 18 for NEAR compatibility)"]
-        #[constraints = "min:0,max:24"]
-        new_decimals: u8 
-    },
-    #[guide = "Set the price for token sales"]
-    UpdateTokenSalePrice { 
-        role_index: usize, 
-        #[guide = "Price per token in NEAR (as string)"]
-        #[example = "0.1"]
-        new_price: String
-    },
-    #[guide = "Set the deadline for token sales"]
-    UpdateTokenSaleDeadline { 
-        role_index: usize, 
-        #[guide = "Days until deadline"]
-        deadline_days: u32,
-        #[guide = "Additional hours"]
-        deadline_hours: u32,
-        #[guide = "Additional minutes"]
-        deadline_minutes: u32 
-    },
-}
-
-impl Default for TokenAction {
-    fn default() -> Self {
-        Self::UpdateTokenName { role_index: 0, new_name: "".to_string() }
-    }
-}
-
-/// Actions that can be performed on DAO policy
-#[near(serializers = [json, borsh])]
-#[serde(tag = "action", content = "params")]
-#[derive(Debug, Clone, Generable)]
-pub enum PolicyAction {
-    #[guide = "Set the percentage of votes needed to pass a proposal"]
-    UpdateThreshold { 
-        #[guide = "Percentage from 50 to 100"]
-        #[constraints = "min:50,max:100"]
-        new_threshold: u8 
-    },
-    #[guide = "Set early approval threshold for quick decisions"]
-    UpdateEarlyThreshold { 
-        #[guide = "Optional higher threshold for early approval"]
-        new_early_threshold: Option<u8> 
-    },
-    #[guide = "Set minimum participation percentage"]
-    UpdateQuorum { 
-        #[guide = "Percentage from 1 to 100"]
-        #[constraints = "min:1,max:100"]
-        new_quorum: u8 
-    },
-    #[guide = "Set early quorum for quick decisions"]
-    UpdateEarlyQuorum { 
-        new_early_quorum: Option<u8> 
-    },
-    #[guide = "Set how long voting remains open"]
-    UpdateVotingPeriod { 
-        #[guide = "Number of days"]
-        days: u32, 
-        #[guide = "Additional hours"]
-        hours: u32, 
-        #[guide = "Additional minutes"]
-        minutes: u32 
-    },
-    #[guide = "Set the cost to create a proposal"]
-    UpdateBond { 
-        #[guide = "Amount required to create a proposal (as string)"]
-        #[example = "1"]
-        new_bond: String,
-        #[guide = "Currency for the bond"]
-        currency: BondCurrency 
-    },
-}
-
-impl Default for PolicyAction {
-    fn default() -> Self {
-        Self::UpdateThreshold { new_threshold: 50 }
     }
 }
 
@@ -784,117 +736,6 @@ pub enum BondCurrency {
 impl Default for BondCurrency {
     fn default() -> Self {
         Self::Near
-    }
-}
-
-/// Actions that can be performed on DAO rules
-#[near(serializers = [json, borsh])]
-#[serde(tag = "action", content = "params")]
-#[derive(Debug, Clone, Generable)]
-pub enum RuleAction {
-    #[guide = "Create a new community rule"]
-    AddRule {
-        #[guide = "Short name for the rule"]
-        #[constraints = "max_length:50"]
-        name: String,
-        #[guide = "Detailed description of what behavior this rule governs"]
-        description: String,
-    },
-    UpdateRuleName { 
-        rule_index: usize, 
-        new_name: String 
-    },
-    UpdateRuleDescription { 
-        rule_index: usize, 
-        new_description: String 
-    },
-    #[guide = "Set which role can flag violations of this rule"]
-    UpdateRuleFlagRole { 
-        rule_index: usize, 
-        #[guide = "Index of the role that can flag violations"]
-        role_index: usize 
-    },
-    #[guide = "Set threshold for flagging violations"]
-    UpdateRuleFlagThreshold { 
-        rule_index: usize, 
-        #[guide = "Threshold in basis points (1000 = 10%)"]
-        #[example = "1000"]
-        new_threshold: u32
-    },
-    UpdateRuleFlagQuorum { 
-        rule_index: usize, 
-        new_quorum: u32 
-    },
-    #[guide = "Set which role reviews flagged violations"]
-    UpdateRuleReviewRole { 
-        rule_index: usize, 
-        role_index: usize 
-    },
-    UpdateRuleReviewThreshold { 
-        rule_index: usize, 
-        new_threshold: u32
-    },
-    UpdateRuleReviewQuorum { 
-        rule_index: usize, 
-        new_quorum: u32 
-    },
-    #[guide = "Set contract that handles penalties"]
-    UpdateRulePenaltyContractId { 
-        rule_index: usize, 
-        #[guide = "NEAR account ID of the penalty contract"]
-        contract_id: String 
-    },
-    #[guide = "Set function to call for penalties"]
-    UpdateRulePenaltyFunctionName { 
-        rule_index: usize, 
-        #[guide = "Name of the contract method to invoke"]
-        function_name: String 
-    },
-}
-
-impl Default for RuleAction {
-    fn default() -> Self {
-        Self::AddRule { name: "".to_string(), description: "".to_string() }
-    }
-}
-
-/// Actions that can be performed on DAO contracts
-#[near(serializers = [json, borsh])]
-#[serde(tag = "action", content = "params")]
-#[derive(Debug, Clone, Generable)]
-pub enum ContractAction {
-    #[guide = "Register a new contract with the DAO"]
-    AddContract {
-        #[guide = "Display name for the contract"]
-        name: String,
-        #[guide = "What this contract does"]
-        description: String,
-        #[guide = "NEAR account ID where contract is deployed"]
-        contract_id: String,
-    },
-    UpdateContractName { 
-        contract_index: usize, 
-        new_name: String 
-    },
-    UpdateContractDescription { 
-        contract_index: usize, 
-        new_description: String 
-    },
-    UpdateContractId { 
-        contract_index: usize, 
-        new_contract_id: String 
-    },
-    #[guide = "Set link to contract source code"]
-    UpdateContractSourceLink { 
-        contract_index: usize, 
-        #[guide = "URL to GitHub or other repository"]
-        new_source_link: String 
-    },
-}
-
-impl Default for ContractAction {
-    fn default() -> Self {
-        Self::AddContract { name: "".to_string(), description: "".to_string(), contract_id: "".to_string() }
     }
 }
 

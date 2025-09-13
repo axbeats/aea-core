@@ -1,4 +1,5 @@
 use crate::*;
+use crate::types::config::FTSaleInput;
 use std::collections::{HashMap, HashSet};
 
 #[near(serializers = [json, borsh])]
@@ -113,6 +114,12 @@ impl RoleInput {
             dao_id: "example-dao.near".parse().unwrap(),
             kind: RoleKindInput::Token(TokenRoleInput {
                 weight_formula: WeightFormula::Linear,
+                name: "Example Token".to_string(),
+                symbol: "EXT".to_string(),
+                icon: String::new(),
+                total_supply: 1000000,
+                decimals: 24,
+                sale: FTSaleInput::default(),
             }),
             permissions: Self::example_permissions(),
             name: "Token Holders".to_string(),

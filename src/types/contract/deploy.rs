@@ -21,7 +21,7 @@ pub struct DeployContractInput {
     pub init_method_name: String,
     pub init_args: Option<String>,
     pub initial_balance: YoctoAmount,
-    pub source_code_link: Option<String>,
+    pub repository_url: Option<String>,
     pub compiler_version: Option<String>,
     /// Video args
     pub name: String,
@@ -41,7 +41,7 @@ pub struct DeployContractInputVideoOption {
     pub init_method_name: String,
     pub init_args: Option<String>,
     pub initial_balance: YoctoAmount,
-    pub source_code_link: Option<String>,
+    pub repository_url: Option<String>,
     pub compiler_version: Option<String>,
     /// Video args
     pub name: String,
@@ -70,7 +70,7 @@ impl DeployContractInput {
             init_method_name: input.init_method_name,
             init_args: input.init_args,
             initial_balance: input.initial_balance,
-            source_code_link: input.source_code_link,
+            repository_url: input.repository_url,
             compiler_version: input.compiler_version,
             // Video fields
             name: input.name,
@@ -93,7 +93,7 @@ impl DeployContractInput {
             init_method_name: input.init_method_name,
             init_args: input.init_args,
             initial_balance: input.initial_balance,
-            source_code_link: input.source_code_link,
+            repository_url: input.repository_url,
             compiler_version: input.compiler_version,
             // Video fields
             name: input.name,

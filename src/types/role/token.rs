@@ -1,4 +1,5 @@
 use crate::*;
+use crate::types::config::FTSaleInput;
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
@@ -51,12 +52,24 @@ impl Default for TokenRole {
 #[derive(Debug, Clone, Generable)]
 pub struct TokenRoleInput {
     pub weight_formula: WeightFormula,
+    pub name: String,
+    pub symbol: String,
+    pub icon: String,
+    pub total_supply: u128,
+    pub decimals: u8,
+    pub sale: FTSaleInput,
 }
 
 impl Default for TokenRoleInput {
     fn default() -> Self {
         Self {
             weight_formula: WeightFormula::Linear,
+            name: String::new(),
+            symbol: String::new(),
+            icon: String::new(),
+            total_supply: 0,
+            decimals: 24,
+            sale: FTSaleInput::default(),
         }
     }
 }

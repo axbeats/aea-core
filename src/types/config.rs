@@ -35,13 +35,25 @@ pub struct DaoInitArgs {
 }
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub struct FTSaleInput {
     pub owner_id: AccountId,
     pub sale_ft_id: ContractId,
     pub payment_ft_id: ContractId,
     pub price_per_token: U128,
     pub tokens_for_sale: U128,
+}
+
+impl Default for FTSaleInput {
+    fn default() -> Self {
+        Self {
+            owner_id: "dao.near".parse().unwrap(),
+            sale_ft_id: "token.near".parse().unwrap(),
+            payment_ft_id: "near".parse().unwrap(),
+            price_per_token: U128(0),
+            tokens_for_sale: U128(0),
+        }
+    }
 }
 
 #[near(serializers = [json, borsh])]

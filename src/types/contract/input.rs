@@ -52,7 +52,7 @@ impl ContractInput {
             dao_id,
             // proposal_id,
             // wasm_hash: deploy_input.wasm_hash,
-            repository_url: deploy_input.source_code_link,
+            repository_url: deploy_input.repository_url,
             compiler_version: deploy_input.compiler_version,
             name: deploy_input.name,
             description: deploy_input.description,
@@ -61,30 +61,6 @@ impl ContractInput {
             location: deploy_input.location,
         }
     }
-
-    // I THINK I NEED TO RE ARCHITECT THIS - Feb 26 2025
-    // pub fn from_upgrade_contract_input(
-    //     upgrade_input: UpgradeContractInput,
-    //     video_id: VideoId,
-    //     proposal_id: Option<ProposalId>,
-    // ) -> Self {
-    //     // Assume the current account is the DAO.
-    //     let dao_id = env::current_account_id();
-        
-    //     Self {
-    //         contract_id: upgrade_input.contract_id,
-    //         dao_id,
-    //         proposal_id,
-    //         wasm_hash: upgrade_input.wasm_hash,
-    //         source_link: upgrade_input.source_code_link,
-    //         compiler_version: upgrade_input.compiler_version,
-    //         name: upgrade_input.name,
-    //         description: upgrade_input.description,
-    //         video: upgrade_input.video,
-    //         image: upgrade_input.image,
-    //         location: upgrade_input.location,
-    //     }
-    // }
 
     pub fn from_add_managed_contract_input(
         register_input: RegisterContractInput,
