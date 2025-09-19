@@ -47,9 +47,9 @@ pub struct FTSaleInput {
 impl Default for FTSaleInput {
     fn default() -> Self {
         Self {
-            owner_id: "dao.near".parse().unwrap(),
-            sale_ft_id: "token.near".parse().unwrap(),
-            payment_ft_id: "near".parse().unwrap(),
+            owner_id: "dao.near".parse().expect("Invalid default owner_id"),
+            sale_ft_id: "token.near".parse().expect("Invalid default sale_ft_id"),
+            payment_ft_id: "near".parse().expect("Invalid default payment_ft_id"),
             price_per_token: U128(0),
             tokens_for_sale: U128(0),
         }

@@ -117,7 +117,7 @@ impl RoleInput {
                 name: "Example Token".to_string(),
                 symbol: "EXT".to_string(),
                 icon: String::new(),
-                total_supply: 1000000,
+                total_supply: U128(1000000),
                 decimals: 24,
                 sale: FTSaleInput::default(),
             }),

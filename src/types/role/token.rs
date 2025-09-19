@@ -55,7 +55,7 @@ pub struct TokenRoleInput {
     pub name: String,
     pub symbol: String,
     pub icon: String,
-    pub total_supply: u128,
+    pub total_supply: U128,
     pub decimals: u8,
     pub sale: FTSaleInput,
 }
@@ -67,7 +67,7 @@ impl Default for TokenRoleInput {
             name: String::new(),
             symbol: String::new(),
             icon: String::new(),
-            total_supply: 0,
+            total_supply: U128(0),
             decimals: 24,
             sale: FTSaleInput::default(),
         }
