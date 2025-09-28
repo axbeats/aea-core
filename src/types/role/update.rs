@@ -5,6 +5,6 @@ use crate::*;
 pub enum UpdateRoleAction {
     Name(String),
     Description(String),
-    VideoBundle(VideoBundle),
+    VideoMedia(VideoMedia),
     Permission(ProposalAbility, ProposalPermission),
 }

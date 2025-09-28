@@ -16,7 +16,7 @@ pub const FT_SALE_FACTORY_ID: &str = "fundraise1.aea4.testnet";
 pub const ROLE_ID: &str = "role1.aea4.testnet";
 pub const HUMANITY_ID: &str = "humanity1.aea4.testnet";
 pub const MARKETPLACE_ID: &str = "marketplace1.aea4.testnet";
-pub const NFT_ID: &str = "nft1.aea4.testnet";
+pub const NFT_ID: &str = "nft2.aea4.testnet";
 pub const POLICY_ID: &str = "policy1.aea4.testnet";
 pub const PRODUCT_ID: &str = "product1.aea4.testnet";
 pub const PROFILE_ID: &str = "profile2.aea4.testnet";
@@ -24,7 +24,7 @@ pub const PROPOSAL_ID: &str = "proposal1.aea4.testnet";
 pub const STAKING_FACTORY_ID: &str = "staking1.aea4.testnet";
 pub const TOKEN_ID: &str = "aea1.ft1.aea4.testnet";
 pub const VALUE_ID: &str = "value1.aea4.testnet";
-pub const VIDEO_ID: &str = "video2.aea4.testnet";
+pub const VIDEO_ID: &str = "video3.aea4.testnet";
 pub const TEST_ID: &str = "test5.aea4.testnet";
 
 /// Enum of all recognized contract IDs. Each variant corresponds to a constant above.

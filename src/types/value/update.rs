@@ -5,7 +5,6 @@ use crate::*;
 pub enum UpdateValueAction {
     Name(String),
     Description(String),
-    VideoBundle(VideoBundle),
-    Content(String), // Can this also be a vec? - Feb 28 2025
+    VideoMedia(VideoMedia),
     VoteMethod(VoteMethod),
 }

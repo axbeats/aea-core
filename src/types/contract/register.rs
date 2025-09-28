@@ -10,9 +10,7 @@ pub struct RegisterContractInput {
     pub compiler_version: Option<String>,
     pub name: String,
     pub description: Option<String>,
-    pub video: VideoHash,
-    pub image: ImageHash,
-    pub location: Option<String>,
+    pub video_media: VideoMedia,
 }
 
 #[near(serializers = [json, borsh])]
@@ -25,21 +23,15 @@ pub struct RegisterContractInputVideoOption {
     pub compiler_version: Option<String>,
     pub name: String,
     pub description: Option<String>,
-    pub video_bundle: Option<VideoBundle>,
-    pub location: Option<String>,
+    pub video_media: Option<VideoMedia>,
 }
 
 impl RegisterContractInput {
     pub fn from_video_option(
         input: RegisterContractInputVideoOption,
-        proposal_video: VideoHash,
-        proposal_image: ImageHash,
+        proposal_video: VideoMedia,
     ) -> Self {
-        let (video, image) = if let Some(bundle) = input.video_bundle {
-            (bundle.video, bundle.image)
-        } else {
-            (proposal_video, proposal_image)
-        };
+        let video = input.video_media.unwrap_or(proposal_video);
 
         Self {
             dao_id: input.dao_id,
@@ -49,16 +41,11 @@ impl RegisterContractInput {
             compiler_version: input.compiler_version,
             name: input.name,
             description: input.description,
-            video,
-            image,
-            location: input.location,
+            video_media: video,
         }
     }
 
     pub fn unwrap_video_option(input: RegisterContractInputVideoOption) -> Self {
-
-        let bundle = input.video_bundle.unwrap();
-
         Self {
             dao_id: input.dao_id,
             contract_id: input.contract_id,
@@ -67,9 +54,7 @@ impl RegisterContractInput {
             compiler_version: input.compiler_version,
             name: input.name,
             description: input.description,
-            video: bundle.video,
-            image: bundle.image,
-            location: input.location,
+            video_media: input.video_media.unwrap(),
         }
     }
 }

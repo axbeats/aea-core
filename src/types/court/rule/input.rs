@@ -14,9 +14,7 @@ pub struct RuleInput {
     // Video fields
     pub name: String,
     pub description: Option<String>,
-    pub video: VideoHash,
-    pub image: ImageHash,
-    pub location: Option<String>,
+    pub video_media: VideoMedia,
 }
 
 impl Default for RuleInput {
@@ -51,9 +49,15 @@ impl RuleInput {
             },
             name: "No Spam".to_string(),
             description: Some("Prohibits spam content in the DAO".to_string()),
-            video: "QmExampleVideoHash".to_string(),
-            image: "QmExampleImageHash".to_string(),
-            location: None,
+            video_media: VideoMedia {
+                hash: "QmExampleVideoHash".to_string(),
+                ipfs_hash: Some("QmExampleIpfsHash".to_string()),
+                streaming_url: "https://cloudflarestream.com/example-video-id/manifest/video.m3u8".to_string(),
+                file_size: 1024000,
+                duration: 60,
+                resolution: VideoResolution { width: 1920, height: 1080 },
+                thumbnail_timestamp: 1,
+            },
         }
     }
 }
@@ -71,22 +75,17 @@ pub struct RuleInputVideoOption {
     // Video fields
     pub name: String,
     pub description: Option<String>,
-    pub video_bundle: Option<VideoBundle>,
-    pub location: Option<String>,
+    pub video_media: Option<VideoMedia>,
 }
 
 impl RuleInput {
 
     pub fn from_video_option(
         input: RuleInputVideoOption,
-        proposal_video: VideoHash,
-        proposal_image: ImageHash,
+        proposal_video: VideoMedia,
     ) -> Self {
-        let (video, image) = if let Some(bundle) = input.video_bundle {
-            (bundle.video, bundle.image)
-        } else {
-            (proposal_video, proposal_image)
-        };
+        let video = input.video_media.unwrap_or(proposal_video);
+
         Self {
             dao_id: input.dao_id,
             flag_role_id: input.flag_role_id,
@@ -97,16 +96,11 @@ impl RuleInput {
             policy: input.policy,
             name: input.name,
             description: input.description,
-            video,
-            image,
-            location: input.location,
+            video_media: video,
         }
     }
 
     pub fn unwrap_video_option(input: RuleInputVideoOption) -> Self {
-
-        let video_bundle = input.video_bundle.unwrap();
-
         Self {
             dao_id: input.dao_id,
             flag_role_id: input.flag_role_id,
@@ -117,9 +111,7 @@ impl RuleInput {
             policy: input.policy,
             name: input.name,
             description: input.description,
-            video: video_bundle.video,
-            image: video_bundle.image,
-            location: None,
+            video_media: input.video_media.unwrap(),
         }
     }
 }

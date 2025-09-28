@@ -5,5 +5,5 @@ use crate::*;
 pub enum UpdateContractAction {
     Name(String),
     Description(String),
-    VideoBundle(VideoBundle),
+    VideoMedia(VideoMedia),
 }

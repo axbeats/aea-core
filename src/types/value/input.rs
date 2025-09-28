@@ -9,9 +9,7 @@ pub struct ValueInput {
     pub operator_id: Option<ContractId>,
     pub method_input: VoteMethodInput,
     /// Video Args, note the target contract sets the name and description
-    pub video: VideoHash,
-    pub image: ImageHash,
-    pub location: Option<String>,
+    pub video_media: VideoMedia,
 }
 
 #[near(serializers = [json, borsh])]
@@ -23,39 +21,32 @@ pub struct ValueInputVideoOption {
     pub operator_id: Option<ContractId>,
     pub method_input: VoteMethodInput,
     /// Video Args, note the target contract sets the name and description
-    pub video_bundle: Option<VideoBundle>,
-    pub location: Option<String>,
+    pub video_media: Option<VideoMedia>,
 }
 
 impl ValueInput {
     pub fn from_video_option(
         input: ValueInputVideoOption,
-        proposal_video: VideoHash,
-        proposal_image: ImageHash,
+        proposal_video: VideoMedia,
     ) -> Self {
+        let video_media = input.video_media.unwrap_or(proposal_video);
+
         Self {
             id: input.id,
             dao_id: input.dao_id,
             operator_id: input.operator_id,
             method_input: input.method_input,
-            video: proposal_video,
-            image: proposal_image,
-            location: input.location,
+            video_media,
         }
     }
 
     pub fn unwrap_video_option(input: ValueInputVideoOption) -> Self {
-
-        let bundle = input.video_bundle.unwrap();
-
         Self {
             id: input.id,
             dao_id: input.dao_id,
             operator_id: input.operator_id,
             method_input: input.method_input,
-            video: bundle.video,
-            image: bundle.image,
-            location: input.location,
+            video_media: input.video_media.unwrap(),
         }
     }
 }

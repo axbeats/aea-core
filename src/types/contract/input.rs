@@ -10,9 +10,7 @@ pub struct ContractInput {
     /// Video args
     pub name: String,
     pub description: Option<String>,
-    pub video: VideoHash,
-    pub image: ImageHash,
-    pub location: Option<String>,
+    pub video_media: VideoMedia,
 }
 
 impl Default for ContractInput {
@@ -31,9 +29,15 @@ impl ContractInput {
             compiler_version: Some("rustc 1.70.0".to_string()),
             name: "DAO Token Contract".to_string(),
             description: Some("Fungible token contract for DAO governance".to_string()),
-            video: "QmExampleVideoHash".to_string(),
-            image: "QmExampleImageHash".to_string(),
-            location: None,
+            video_media: VideoMedia {
+                hash: "QmExampleVideoHash".to_string(),
+                ipfs_hash: Some("QmExampleIpfsHash".to_string()),
+                streaming_url: "https://cloudflarestream.com/example-video-id/manifest/video.m3u8".to_string(),
+                file_size: 1024000,
+                duration: 60,
+                resolution: VideoResolution { width: 1920, height: 1080 },
+                thumbnail_timestamp: 1,
+            },
         }
     }
 }
@@ -56,9 +60,7 @@ impl ContractInput {
             compiler_version: deploy_input.compiler_version,
             name: deploy_input.name,
             description: deploy_input.description,
-            video: deploy_input.video,
-            image: deploy_input.image,
-            location: deploy_input.location,
+            video_media: deploy_input.video_media,
         }
     }
 
@@ -80,9 +82,7 @@ impl ContractInput {
             compiler_version: register_input.compiler_version,
             name: register_input.name,
             description: register_input.description,
-            video: register_input.video,
-            image: register_input.image,
-            location: register_input.location,
+            video_media: register_input.video_media,
         }
     }
 }

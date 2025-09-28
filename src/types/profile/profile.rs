@@ -5,11 +5,12 @@ use crate::*;
 pub struct Profile {
     pub id: AccountId,
     pub kind: ProfileKind,
+    pub visibility: ProfileVisibility,
     pub name: String,
     pub bio: Option<String>,
-    pub image: ImageHash,
-    pub video: Option<VideoId>,
     pub link: Option<String>,
+    pub photo: ProfilePhoto,
+    pub video_id: Option<VideoId>,
     pub public_keys: Option<PublicKeys>,
     pub joined_date: u64,
 }
@@ -20,11 +21,12 @@ impl Profile {
         Self { 
             id: account_id, 
             kind: input.kind,
+            visibility: input.visibility,
             name: input.name, 
             bio: input.bio, 
-            image: input.image, 
-            video: None, 
             link: input.link, 
+            photo: input.photo,
+            video_id: None, 
             public_keys: input.public_keys, 
             joined_date: env::block_timestamp()
         }

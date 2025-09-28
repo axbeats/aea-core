@@ -5,6 +5,6 @@ use crate::*;
 pub enum UpdateVideoAction {
     Title(String),
     Description(Option<String>),
-    VideoBundle(VideoBundle),
+    VideoMedia(VideoMedia),
     Permissions(VideoPermissions),
 }

@@ -6,6 +6,6 @@ pub enum UpdateProfileAction {
     Name(String),
     Bio(Option<String>),
     Link(Option<String>),
-    Image(ImageHash),
-    Video(VideoId),
+    Photo(ProfilePhoto),
+    VideoId(VideoId),
 }

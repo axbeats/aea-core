@@ -12,9 +12,7 @@ pub struct RoleInput {
     /// Video fields
     pub name: String,
     pub description: Option<String>,
-    pub video: VideoHash,
-    pub image: ImageHash,
-    pub location: Option<String>,
+    pub video_media: VideoMedia,
 }
 
 impl Default for RoleInput {
@@ -26,14 +24,9 @@ impl Default for RoleInput {
 impl RoleInput {
     pub fn from_video_option(
         input: RoleInputVideoOption,
-        proposal_video: VideoHash,
-        proposal_image: ImageHash,
+        proposal_video: VideoMedia,
     ) -> Self {
-        let (video, image) = if let Some(bundle) = input.video_bundle {
-            (bundle.video, bundle.image)
-        } else {
-            (proposal_video, proposal_image)
-        };
+        let video_media = input.video_media.unwrap_or(proposal_video);
 
         Self {
             // Role fields
@@ -43,16 +36,11 @@ impl RoleInput {
             // Video fields
             name: input.name,
             description: input.description,
-            video,
-            image,
-            location: input.location,
+            video_media,
         }
     }
 
     pub fn unwrap_video_option(input: RoleInputVideoOption) -> Self {
-
-        let bundle = input.video_bundle.unwrap();
-
         Self {
             // Role fields
             dao_id: input.dao_id,
@@ -61,9 +49,7 @@ impl RoleInput {
             // Video fields
             name: input.name,
             description: input.description,
-            video: bundle.video,
-            image: bundle.image,
-            location: input.location,
+            video_media: input.video_media.unwrap(),
         }
     }
 
@@ -102,9 +88,15 @@ impl RoleInput {
             permissions: Self::example_permissions(),
             name: "Followers".to_string(),
             description: Some("All followers of the DAO".to_string()),
-            video: "QmExampleVideoHash".to_string(),
-            image: "QmExampleImageHash".to_string(),
-            location: None,
+            video_media: VideoMedia {
+                hash: "QmExampleVideoHash".to_string(),
+                ipfs_hash: Some("QmExampleIpfsHash".to_string()),
+                streaming_url: "https://cloudflarestream.com/example-video-id/manifest/video.m3u8".to_string(),
+                file_size: 1024000,
+                duration: 60,
+                resolution: VideoResolution { width: 1920, height: 1080 },
+                thumbnail_timestamp: 1,
+            },
         }
     }
 
@@ -124,9 +116,15 @@ impl RoleInput {
             permissions: Self::example_permissions(),
             name: "Token Holders".to_string(),
             description: Some("Token holders with staked tokens".to_string()),
-            video: "QmExampleVideoHash".to_string(),
-            image: "QmExampleImageHash".to_string(),
-            location: None,
+            video_media: VideoMedia {
+                hash: "QmExampleVideoHash".to_string(),
+                ipfs_hash: Some("QmExampleIpfsHash".to_string()),
+                streaming_url: "https://cloudflarestream.com/example-video-id/manifest/video.m3u8".to_string(),
+                file_size: 1024000,
+                duration: 60,
+                resolution: VideoResolution { width: 1920, height: 1080 },
+                thumbnail_timestamp: 1,
+            },
         }
     }
 
@@ -146,9 +144,15 @@ impl RoleInput {
             permissions: Self::example_permissions(),
             name: "Council".to_string(),
             description: Some("Elected council members".to_string()),
-            video: "QmExampleVideoHash".to_string(),
-            image: "QmExampleImageHash".to_string(),
-            location: None,
+            video_media: VideoMedia {
+                hash: "QmExampleVideoHash".to_string(),
+                ipfs_hash: Some("QmExampleIpfsHash".to_string()),
+                streaming_url: "https://cloudflarestream.com/example-video-id/manifest/video.m3u8".to_string(),
+                file_size: 1024000,
+                duration: 60,
+                resolution: VideoResolution { width: 1920, height: 1080 },
+                thumbnail_timestamp: 1,
+            },
         }
     }
 }
@@ -163,6 +167,5 @@ pub struct RoleInputVideoOption {
     /// Video fields
     pub name: String,
     pub description: Option<String>,
-    pub video_bundle: Option<VideoBundle>,
-    pub location: Option<String>,
+    pub video_media: Option<VideoMedia>,
 }

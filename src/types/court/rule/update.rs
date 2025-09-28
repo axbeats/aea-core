@@ -5,7 +5,7 @@ use crate::*;
 pub enum UpdateRuleAction {
     Name(String),
     Description(String),
-    VideoBundle(VideoBundle),
+    VideoMedia(VideoMedia),
     FlagRole(RoleId),
     ReviewRole(RoleId),
     PenaltyFunction(FunctionCall),
