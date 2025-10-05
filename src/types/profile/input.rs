@@ -12,7 +12,6 @@ pub struct ProfileInput {
     pub link: Option<String>,
     pub photo: ProfilePhoto,
     pub public_keys: Option<PublicKeys>,
-    
 }
 
 impl Default for ProfileInput {
