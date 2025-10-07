@@ -24,6 +24,62 @@ impl Default for VideoContext {
     }
 }
 
+/// Simplified video context type for filtering (without associated data)
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum VideoContextType {
+    Content,
+    Proposal,
+    Role,
+    Value,
+    Contract,
+    Rule,
+    Review,
+}
+
+impl VideoContextType {
+    /// Check if a VideoContext matches this type
+    pub fn matches(&self, context: &VideoContext) -> bool {
+        match (self, context) {
+            (VideoContextType::Content, VideoContext::Content { .. }) => true,
+            (VideoContextType::Proposal, VideoContext::Proposal { .. }) => true,
+            (VideoContextType::Role, VideoContext::Role { .. }) => true,
+            (VideoContextType::Value, VideoContext::Value { .. }) => true,
+            (VideoContextType::Contract, VideoContext::Contract { .. }) => true,
+            (VideoContextType::Rule, VideoContext::Rule { .. }) => true,
+            (VideoContextType::Review, VideoContext::Review { .. }) => true,
+            _ => false,
+        }
+    }
+
+    /// Get the string representation for Neo4j queries
+    pub fn to_query_string(&self) -> &str {
+        match self {
+            VideoContextType::Content => "Content",
+            VideoContextType::Proposal => "Proposal",
+            VideoContextType::Role => "Role",
+            VideoContextType::Value => "Value",
+            VideoContextType::Contract => "Contract",
+            VideoContextType::Rule => "Rule",
+            VideoContextType::Review => "Review",
+        }
+    }
+}
+
+impl From<&VideoContext> for VideoContextType {
+    fn from(context: &VideoContext) -> Self {
+        match context {
+            VideoContext::Content { .. } => VideoContextType::Content,
+            VideoContext::Proposal { .. } => VideoContextType::Proposal,
+            VideoContext::Role { .. } => VideoContextType::Role,
+            VideoContext::Value { .. } => VideoContextType::Value,
+            VideoContext::Contract { .. } => VideoContextType::Contract,
+            VideoContext::Rule { .. } => VideoContextType::Rule,
+            VideoContext::Review { .. } => VideoContextType::Review,
+        }
+    }
+}
+
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]

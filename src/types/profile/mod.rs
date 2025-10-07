@@ -10,6 +10,7 @@ pub use self::profile::*;
 pub use self::results::*;
 pub use self::update::*;
 pub use self::visibility::*;
+pub use self::search::*;
 
 mod engagement;
 mod input;
@@ -23,3 +24,4 @@ mod profile;
 mod results;
 mod update;
 mod visibility;
+mod search;

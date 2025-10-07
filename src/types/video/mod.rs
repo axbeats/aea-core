@@ -13,6 +13,7 @@ pub use self::edit::*;
 pub use self::media::*;
 pub use self::update::*;
 pub use self::visibility::*;
+pub use self::search::*;
 
 mod media;
 mod edit;
@@ -29,3 +30,4 @@ mod token;
 mod video;
 mod update;
 mod visibility;
+mod search;
