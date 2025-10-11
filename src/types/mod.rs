@@ -30,6 +30,7 @@ pub use self::value::*;
 pub use self::video::*;
 pub use self::weight::*;
 pub use self::function::*;
+pub use self::notification::*;
 
 mod agent;
 mod algorithm;
@@ -63,3 +64,4 @@ mod value;
 mod video;
 mod weight;
 mod function;
+mod notification;

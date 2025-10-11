@@ -7,6 +7,7 @@ pub struct UnlikeCommentVideoEvent {
     pub unliker_id: AccountId,
     pub comment_id: CommentId,
     pub video_id: VideoId,
+    pub commenter_id: AccountId,
     pub owner_id: AccountId,
     pub creator_id: AccountId,
     pub timestamp: u64,

@@ -7,6 +7,7 @@ pub struct ReplyCommentVideoEvent {
     pub replier_id: AccountId,
     pub comment_id: CommentId,
     pub reply_id: ReplyId,
+    pub video_id: VideoId,
     pub owner_id: AccountId,
     pub creator_id: AccountId,
     pub content: String,

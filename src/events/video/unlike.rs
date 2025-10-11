@@ -6,6 +6,7 @@ use super::*;
 pub struct UnlikeVideoEvent {
     pub unliker_id: AccountId,
     pub video_id: VideoId,
+    pub owner_id: AccountId,
     pub timestamp: u64,
 }
 

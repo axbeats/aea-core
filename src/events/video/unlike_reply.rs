@@ -8,6 +8,7 @@ pub struct UnlikeReplyCommentVideoEvent {
     pub reply_id: ReplyId,
     pub comment_id: CommentId,
     pub video_id: VideoId,
+    pub owner_id: AccountId,
     pub timestamp: u64,
 }
 
