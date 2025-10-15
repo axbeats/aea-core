@@ -16,6 +16,18 @@ pub struct Notification {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
+pub struct NotificationOutput {
+    pub id: NotificationId,
+    pub recipient_id: AccountId,
+    pub sender_output: ProfileGraph,
+    pub kind: NotificationKindOutput,
+    pub issued_at: TimestampNanoSeconds,
+    pub read: bool,
+    pub read_at: Option<TimestampNanoSeconds>,
+}
+
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub enum NotificationKind {
     Follow,
     Like(VideoId),
@@ -30,8 +42,22 @@ pub enum NotificationKind {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
+pub enum NotificationKindOutput {
+    Follow,
+    Like(VideoGraph),
+    Comment(VideoGraph, CommentId),
+    Reply(VideoGraph, ReplyId),
+    LikeComment(VideoGraph, CommentId),
+    LikeReply(VideoGraph, ReplyId),
+    Favourite(VideoGraph),
+    Share(VideoGraph),
+    Transfer((AccountId, u128)),
+}
+
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
 pub struct NotificationResults {
-    pub notifications: Vec<Notification>,
+    pub notifications: Vec<NotificationOutput>,
     pub count: u64,
     pub from_index: u64,
     pub limit: u64,

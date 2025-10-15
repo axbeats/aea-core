@@ -80,6 +80,29 @@ impl From<&VideoContext> for VideoContextType {
     }
 }
 
+// TODO: Build supporting Graph types - Oct 13 2025
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
+pub enum VideoContextGraph {
+    Content { nft_id: VideoNftId },
+    Proposal { proposal_id: ProposalId },
+    Role { role_id: RoleId },
+    Value { value_id: ValueId },
+    Contract { contract_id: AccountId },
+    Rule { rule_id: RuleId },
+    Review { review_id: ReviewId, original: ReviewedContext },
+    // Product { product_id: ProductId },
+    // Content { nft: VideoNftGraph },
+    // Proposal { proposal: ProposalGraph },
+    // Role { role: RoleGraph },
+    // Value { value: ValueGraph },
+    // Contract { contract: ContractGraph },
+    // Rule { rule: RuleGraph },
+    // Review {
+    //     review: ReviewGraph,
+    //     original: Box<VideoContextGraph>  // Recursive, needs Box
+    // },
+}
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
@@ -118,3 +141,19 @@ impl From<VideoContext> for ReviewedContext {
         }
     }
  }
+
+// Temporary conversion from VideoContext to VideoContextGraph
+// TODO: Replace this when proper context graph fetching is implemented
+impl From<VideoContext> for VideoContextGraph {
+    fn from(context: VideoContext) -> Self {
+        match context {
+            VideoContext::Content { nft_id } => VideoContextGraph::Content { nft_id },
+            VideoContext::Proposal { proposal_id } => VideoContextGraph::Proposal { proposal_id },
+            VideoContext::Role { role_id } => VideoContextGraph::Role { role_id },
+            VideoContext::Value { value_id } => VideoContextGraph::Value { value_id },
+            VideoContext::Contract { contract_id } => VideoContextGraph::Contract { contract_id },
+            VideoContext::Rule { rule_id } => VideoContextGraph::Rule { rule_id },
+            VideoContext::Review { review_id, original } => VideoContextGraph::Review { review_id, original },
+        }
+    }
+}
