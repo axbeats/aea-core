@@ -13,10 +13,10 @@ pub struct ProfileGraph {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct ProfileGraphs {
+pub struct ProfileGraphPage {
     pub profiles: Vec<ProfileGraph>,
-    pub count: u64,
-    pub from_index: u64,
-    pub limit: u64,
+    pub count: i64,
+    pub from_index: i64,
+    pub limit: i64,
     pub has_more: bool,
 }

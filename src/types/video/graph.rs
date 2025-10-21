@@ -14,10 +14,10 @@ pub struct VideoGraph {
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct VideoGraphs {
+pub struct VideoGraphPage {
     pub videos: Vec<VideoGraph>,
-    pub count: u64,
-    pub from_index: u64,
-    pub limit: u64,
+    pub count: i64,
+    pub from_index: i64,
+    pub limit: i64,
     pub has_more: bool,
 }

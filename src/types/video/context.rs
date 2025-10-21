@@ -83,6 +83,7 @@ impl From<&VideoContext> for VideoContextType {
 // TODO: Build supporting Graph types - Oct 13 2025
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
+#[serde(tag = "type")]
 pub enum VideoContextGraph {
     Content { nft_id: VideoNftId },
     Proposal { proposal_id: ProposalId },
