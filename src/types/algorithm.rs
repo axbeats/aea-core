@@ -1,73 +1,98 @@
 use crate::*;
 
-pub type AlgorithmId = u64;
-
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct Algorithm {
-    pub id: AlgorithmId,
-    pub name: String,
-    pub stream_distribution: StreamDistribution,
-    pub focus_distribution: FocusDistribution,
-    pub score_distribution: ScoreDistribution,
-    pub weight_distribution: WeightDistribution,
+    pub balance_ratios: BalanceRatios,
+    pub source_ratios: SourceRatios,
+    pub weight_ratios: WeightRatios,
+    pub algorithm_ratios: AlgorithmRatios,
 }
 
-impl Algorithm {
-    pub fn from_input(id: AlgorithmId, input: AlgorithmInput) -> Self {
+impl Default for Algorithm {
+    fn default() -> Self {
         Self {
-            id,
-            name: input.name,
-            stream_distribution: input.stream_distribution,
-            focus_distribution: input.focus_distribution,
-            score_distribution: input.score_distribution,
-            weight_distribution: input.weight_distribution,
+            balance_ratios: BalanceRatios::default(),
+            source_ratios: SourceRatios::default(),
+            weight_ratios: WeightRatios::default(),
+            algorithm_ratios: AlgorithmRatios::default(),
         }
     }
 }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct AlgorithmInput {
-    pub name: String,
-    pub stream_distribution: StreamDistribution,
-    pub focus_distribution: FocusDistribution,
-    pub score_distribution: ScoreDistribution,
-    pub weight_distribution: WeightDistribution,
-}
-
-#[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
-pub struct StreamDistribution {
-    pub recommended: Percentage,
+pub struct BalanceRatios {
+    pub algorithm: Percentage,
     pub following: Percentage,
 }
 
+impl Default for BalanceRatios {
+    fn default() -> Self {
+        Self {
+            algorithm: 50,
+            following: 50,
+        }
+    }
+}
+
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct FocusDistribution {
-    pub entertainment: Percentage,
-    pub governance: Percentage,
+pub struct SourceRatios {
+    pub fun: Percentage,
+    pub vote: Percentage,
     pub court: Percentage,
 }
 
-#[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
-pub struct ScoreDistribution {
-    pub interest: Percentage,
-    pub social: Percentage,
-    pub trending: Percentage,
-    pub fresh: Percentage,
-    pub diversity: Percentage,
-    pub bridge: Percentage,
+impl Default for SourceRatios {
+    fn default() -> Self {
+        Self {
+            fun: 50,
+            vote: 25,
+            court: 25,
+        }
+    }
 }
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
-pub struct WeightDistribution {
-    pub view: Percentage,
+pub struct AlgorithmRatios {
+    pub interest: Percentage,
+    pub social: Percentage,
+    pub trending: Percentage,
+    pub freshness: Percentage,
+    pub variety: Percentage,
+    pub bridge: Percentage,
+}
+
+impl Default for AlgorithmRatios {
+    fn default() -> Self {
+        Self {
+            interest: 17,
+            social: 16,
+            trending: 17,
+            freshness: 17,
+            variety: 16,
+            bridge: 17,
+        }
+    }
+}
+#[near(serializers = [json, borsh])]
+#[derive(Debug, Clone)]
+pub struct WeightRatios {
     pub like: Percentage,
-    pub favorite: Percentage,
     pub comment: Percentage,
+    pub favorite: Percentage,
     pub share: Percentage,
+}
+
+impl Default for WeightRatios {
+    fn default() -> Self {
+        Self {
+            like: 25,
+            comment: 25,
+            favorite: 25,
+            share: 25,
+        }
+    }
 }

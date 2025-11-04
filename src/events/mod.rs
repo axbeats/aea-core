@@ -1,5 +1,6 @@
 use near_sdk::{env, serde::{Deserialize, Serialize}, serde_json};
 
+pub use self::algorithm::*;
 pub use self::account_factory::*;
 pub use self::calibration::*;
 pub use self::choice::*;
@@ -18,6 +19,7 @@ pub use self::token_factory::*;
 pub use self::value::*;
 pub use self::video::*;
 
+mod algorithm;
 mod account_factory;
 mod calibration;
 mod choice;

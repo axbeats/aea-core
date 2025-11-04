@@ -1,6 +1,7 @@
 // Import all items from the current crate.
 use crate::*;
 
+// I think VideoPermissions needs to be simplified to allow_comments, allow_promoted (maybe), allow_collaborations - Oct 27 2025
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct VideoPermissions {
