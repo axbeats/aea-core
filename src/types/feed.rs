@@ -1,28 +1,11 @@
 use crate::*;
 
+/// Simplified feed query - algorithm weights are fetched from the database
 #[near(serializers = [json])]
 #[derive(Debug, Clone)]
 pub struct GetFeedQuery {
     pub account_id: String,
     pub limit: i64,
-
-    pub entertainment_ratio: u8,
-    pub governance_ratio: u8,
-    pub court_ratio: u8,
-
-    pub following_ratio: u8,
-    pub recommended_ratio: u8,
-
-    pub like_weight: u8,
-    pub view_weight: u8,
-    pub comment_weight: u8,
-
-    pub interest_weight: u8,
-    pub social_weight: u8,
-    pub popularity_weight: u8,
-    pub freshness_weight: u8,
-    pub diversity_weight: u8,
-    pub bridge_weight: u8,
 }
 
 

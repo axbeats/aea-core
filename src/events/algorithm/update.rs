@@ -1,9 +1,10 @@
 use super::*;
 
-// CreateProfileEvent
+/// Event emitted when a user updates their algorithm
 #[near(serializers = [json, borsh])]
 #[derive(Debug)]
 pub struct UpdateAlgorithmEvent {
+    pub account_id: AccountId,
     pub algorithm: Algorithm,
 }
 
