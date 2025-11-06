@@ -4,8 +4,10 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub struct ProfileGraph {
     pub profile: Profile,
+    pub profile_video: Option<VideoMedia>,
     pub engagement: ProfileEngagement,
     pub video_engagement: VideoEngagement,
+    pub video_activity: VideoEngagement,
     pub interaction: ProfileInteraction,
     pub mutual_connections: Vec<ProfileSnapshot>,
     pub mutual_count: u64,
