@@ -4,5 +4,5 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub struct VerifyValueResult {
     pub title: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
 }

@@ -11,7 +11,7 @@ pub struct RoleInput {
     pub permissions: HashMap<ProposalAbility, ProposalPermission>,
     /// Video fields
     pub name: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
     pub video_media: VideoMedia,
 }
 
@@ -35,7 +35,7 @@ impl RoleInput {
             permissions: input.permissions,
             // Video fields
             name: input.name,
-            description: input.description,
+            caption: input.description,
             video_media,
         }
     }
@@ -48,7 +48,7 @@ impl RoleInput {
             permissions: input.permissions,
             // Video fields
             name: input.name,
-            description: input.description,
+            caption: input.description,
             video_media: input.video_media.unwrap(),
         }
     }
@@ -87,7 +87,7 @@ impl RoleInput {
             kind: RoleKindInput::Followers,
             permissions: Self::example_permissions(),
             name: "Followers".to_string(),
-            description: Some("All followers of the DAO".to_string()),
+            caption: Some("All followers of the DAO".to_string()),
             video_media: VideoMedia {
                 hash: "QmExampleVideoHash".to_string(),
                 ipfs_hash: Some("QmExampleIpfsHash".to_string()),
@@ -115,7 +115,7 @@ impl RoleInput {
             }),
             permissions: Self::example_permissions(),
             name: "Token Holders".to_string(),
-            description: Some("Token holders with staked tokens".to_string()),
+            caption: Some("Token holders with staked tokens".to_string()),
             video_media: VideoMedia {
                 hash: "QmExampleVideoHash".to_string(),
                 ipfs_hash: Some("QmExampleIpfsHash".to_string()),
@@ -143,7 +143,7 @@ impl RoleInput {
             }),
             permissions: Self::example_permissions(),
             name: "Council".to_string(),
-            description: Some("Elected council members".to_string()),
+            caption: Some("Elected council members".to_string()),
             video_media: VideoMedia {
                 hash: "QmExampleVideoHash".to_string(),
                 ipfs_hash: Some("QmExampleIpfsHash".to_string()),

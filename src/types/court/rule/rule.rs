@@ -6,6 +6,7 @@ pub type RuleId = u64;
 #[derive(Debug, Clone)]
 pub struct Rule {
     pub id: RuleId,
+    pub name: String,
     pub video_id: VideoId,
     pub dao_id: DaoId,
     pub flag_role_id: RoleId,
@@ -20,6 +21,7 @@ impl Rule {
     pub fn from_input(id: RuleId, video_id: VideoId, input: RuleInput) -> Self {
         Self {
             id,
+            name: input.name,
             video_id,
             dao_id: input.dao_id,
             flag_role_id: input.flag_role_id,

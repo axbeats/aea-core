@@ -13,7 +13,7 @@ pub struct RuleInput {
     pub policy: RulePolicy,
     // Video fields
     pub name: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
     pub video_media: VideoMedia,
 }
 
@@ -48,7 +48,7 @@ impl RuleInput {
                 review_quorum: Quorum::Percentage(20), // 20% of jury must participate
             },
             name: "No Spam".to_string(),
-            description: Some("Prohibits spam content in the DAO".to_string()),
+            caption: Some("Prohibits spam content in the DAO".to_string()),
             video_media: VideoMedia {
                 hash: "QmExampleVideoHash".to_string(),
                 ipfs_hash: Some("QmExampleIpfsHash".to_string()),
@@ -95,7 +95,7 @@ impl RuleInput {
             penalty_amount: input.penalty_amount,
             policy: input.policy,
             name: input.name,
-            description: input.description,
+            caption: input.description,
             video_media: video,
         }
     }
@@ -110,7 +110,7 @@ impl RuleInput {
             penalty_amount: input.penalty_amount,
             policy: input.policy,
             name: input.name,
-            description: input.description,
+            caption: input.description,
             video_media: input.video_media.unwrap(),
         }
     }

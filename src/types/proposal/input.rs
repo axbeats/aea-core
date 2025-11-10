@@ -10,8 +10,7 @@ pub struct ProposalInput {
     pub action: ProposalAction,
     pub bond: U128,
     // Video fields
-    pub title: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
     pub video_media: VideoMedia,
     pub user_location: Option<Point>,  // User's coordinates for region verification
 }

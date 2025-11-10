@@ -617,7 +617,7 @@ impl DaoAction {
             },
             DaoAction::Rule(action) => match action {
                 RuleAction::AddRule { rule } => {
-                    format!("Add new rule '{}': {}", rule.name, rule.description.as_deref().unwrap_or(""))
+                    format!("Add new rule '{}': {}", rule.name, rule.caption.as_deref().unwrap_or(""))
                 }
                 RuleAction::UpdateRuleName { rule_index, new_name } => {
                     format!("Update rule {} name to '{}'", rule_index, new_name)
@@ -658,7 +658,7 @@ impl DaoAction {
                     format!("Add new contract '{}' ({}): {}", 
                         contract.name, 
                         contract.contract_id, 
-                        contract.description.as_deref().unwrap_or(""))
+                        contract.caption.as_deref().unwrap_or(""))
                 }
                 ContractAction::RemoveContract { contract_index } => {
                     format!("Remove contract at index {}", contract_index)

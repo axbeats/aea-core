@@ -5,8 +5,7 @@ use crate::*;
 pub struct VideoInput {
     pub context: VideoContext,
     pub visibility: VideoVisibility,
-    pub title: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
     pub location: Option<String>,
     pub media: VideoMedia,
     pub permissions: VideoPermissions,
@@ -17,8 +16,7 @@ impl VideoInput {
         Self {
             context: VideoContext::Content { nft_id },
             visibility: input.visibility,
-            title: input.title,
-            description: input.description,
+            caption: input.caption,
             location: input.location,
             media: input.video_media,
             permissions: input.permissions,
@@ -29,8 +27,7 @@ impl VideoInput {
         Self {
             context: VideoContext::Proposal { proposal_id },
             visibility: VideoVisibility::default(),
-            title: input.title,
-            description: input.description,
+            caption: input.caption,
             location: None,
             media: input.video_media,
             permissions: VideoPermissions::vote_permissions(),
@@ -41,8 +38,7 @@ impl VideoInput {
         Self {
             context: VideoContext::Value { value_id: input.id },
             visibility: VideoVisibility::default(),
-            title,
-            description,
+            caption: description,
             location: None,
             media: input.video_media,
             permissions: VideoPermissions::vote_permissions(),
@@ -53,8 +49,7 @@ impl VideoInput {
         Self {
             context: VideoContext::Rule { rule_id },
             visibility: VideoVisibility::default(),
-            title: input.name,
-            description: input.description,
+            caption: input.caption,
             location: None,
             media: input.video_media,
             permissions: VideoPermissions::vote_permissions(),
@@ -65,8 +60,7 @@ impl VideoInput {
         Self {
             context: VideoContext::Role { role_id },
             visibility: VideoVisibility::default(),
-            title: input.name,
-            description: input.description,
+            caption: input.caption,
             location: None,
             media: input.video_media,
             permissions: VideoPermissions::role_permissions(),
@@ -77,8 +71,7 @@ impl VideoInput {
         Self {
             context: VideoContext::Contract { contract_id: input.contract_id },
             visibility: VideoVisibility::default(),
-            title: input.name,
-            description: input.description,
+            caption: input.caption,
             location: None,
             media: input.video_media,
             permissions: VideoPermissions::vote_permissions(),

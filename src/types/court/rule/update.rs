@@ -4,7 +4,7 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub enum UpdateRuleAction {
     Name(String),
-    Description(String),
+    Caption(Option<String>),
     VideoMedia(VideoMedia),
     FlagRole(RoleId),
     ReviewRole(RoleId),

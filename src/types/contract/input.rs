@@ -9,7 +9,7 @@ pub struct ContractInput {
     pub compiler_version: Option<String>,
     /// Video args
     pub name: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
     pub video_media: VideoMedia,
 }
 
@@ -28,7 +28,7 @@ impl ContractInput {
             repository_url: Some("https://github.com/example-dao/token-contract".to_string()),
             compiler_version: Some("rustc 1.70.0".to_string()),
             name: "DAO Token Contract".to_string(),
-            description: Some("Fungible token contract for DAO governance".to_string()),
+            caption: Some("Fungible token contract for DAO governance".to_string()),
             video_media: VideoMedia {
                 hash: "QmExampleVideoHash".to_string(),
                 ipfs_hash: Some("QmExampleIpfsHash".to_string()),
@@ -59,7 +59,7 @@ impl ContractInput {
             repository_url: deploy_input.repository_url,
             compiler_version: deploy_input.compiler_version,
             name: deploy_input.name,
-            description: deploy_input.description,
+            caption: deploy_input.description,
             video_media: deploy_input.video_media,
         }
     }
@@ -81,7 +81,7 @@ impl ContractInput {
             repository_url: register_input.repository_url,
             compiler_version: register_input.compiler_version,
             name: register_input.name,
-            description: register_input.description,
+            caption: register_input.description,
             video_media: register_input.video_media,
         }
     }

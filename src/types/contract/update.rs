@@ -4,6 +4,6 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub enum UpdateContractAction {
     Name(String),
-    Description(String),
+    Caption(Option<String>),
     VideoMedia(VideoMedia),
 }

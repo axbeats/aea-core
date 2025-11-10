@@ -5,8 +5,7 @@ pub type VideoNftId = u64;
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub struct VideoNftInput {
-    pub title: String,
-    pub description: Option<String>,
+    pub caption: Option<String>,
     pub video_media: VideoMedia,
     pub visibility: VideoVisibility,
     pub permissions: VideoPermissions,
