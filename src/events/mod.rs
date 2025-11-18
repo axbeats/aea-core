@@ -16,6 +16,7 @@ pub use self::staking_factory::*;
 pub use self::standard::*;
 pub use self::token::*;
 pub use self::token_factory::*;
+pub use self::token_stream::*;
 pub use self::value::*;
 pub use self::video::*;
 
@@ -35,6 +36,7 @@ mod staking_factory;
 mod standard;
 mod token;
 mod token_factory;
+mod token_stream;
 mod value;
 mod video;
 
