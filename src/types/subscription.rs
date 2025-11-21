@@ -16,7 +16,9 @@ pub struct CreatorSubscription {
 pub struct ActiveSubscription {
     pub subscriber_id: AccountId,
     pub creator_id: AccountId,
-    pub stream_id: FTStreamId,
-    pub rate_per_second: u128,
+    pub inbound_stream_id: FTStreamId,  // subscriber → subscription contract
+    pub rate_per_second: u128,           // total rate paid by subscriber
+    pub fee_rate: u128,                  // contract keeps (revenue)
+    pub forward_rate: u128,              // creator receives (rate - fee)
     pub started_at: u64,
 }
