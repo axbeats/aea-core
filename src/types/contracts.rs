@@ -22,6 +22,7 @@ pub const PRODUCT_ID: &str = "product1.aea4.testnet";
 pub const PROFILE_ID: &str = "profile4.aea4.testnet";
 pub const PROPOSAL_ID: &str = "proposal1.aea4.testnet";
 pub const STAKING_FACTORY_ID: &str = "staking1.aea4.testnet";
+pub const SUBSCRIPTION_ID: &str = "subscription1.aea4.testnet";
 pub const TOKEN_ID: &str = "aea1.ft1.aea4.testnet";
 pub const VALUE_ID: &str = "value1.aea4.testnet";
 pub const VIDEO_ID: &str = "video5.aea4.testnet";
@@ -51,6 +52,7 @@ pub enum AeaContract {
     Profile,
     Proposal,
     StakingFactory,
+    Subscription,
     Token,
     Value,
     Video,
@@ -82,6 +84,7 @@ impl AeaContract {
             AeaContract::Profile => PROFILE_ID,
             AeaContract::Proposal => PROPOSAL_ID,
             AeaContract::StakingFactory => STAKING_FACTORY_ID,
+            AeaContract::Subscription => SUBSCRIPTION_ID,
             AeaContract::Token => TOKEN_ID,
             AeaContract::Value => VALUE_ID,
             AeaContract::Video => VIDEO_ID,
@@ -114,6 +117,7 @@ pub fn str_to_contract_id(s: &str) -> Option<AeaContract> {
         PROFILE_ID => Some(AeaContract::Profile),
         PROPOSAL_ID => Some(AeaContract::Proposal),
         STAKING_FACTORY_ID => Some(AeaContract::StakingFactory),
+        SUBSCRIPTION_ID => Some(AeaContract::Subscription),
         TOKEN_ID => Some(AeaContract::Token),
         VALUE_ID => Some(AeaContract::Value),
         VIDEO_ID => Some(AeaContract::Video),
