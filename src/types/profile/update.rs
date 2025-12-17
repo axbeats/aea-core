@@ -1,5 +1,6 @@
 use crate::*;
 
+// TODO: Add privacy update - Dec 2 2025
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
 pub enum UpdateProfileAction {
@@ -7,5 +8,5 @@ pub enum UpdateProfileAction {
     Bio(Option<String>),
     Link(Option<String>),
     Photo(ProfilePhoto),
-    VideoId(VideoId),
+    VideoId(Option<VideoId>),
 }
