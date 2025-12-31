@@ -4,7 +4,9 @@ pub type TokenContractId = ContractId;
 pub type ContractId = AccountId;
 pub type StakingId = ContractId;
 
-pub const CALLBACK_GAS: Gas = Gas::from_gas(5_000_000_000_000);
+// Note: CALLBACK_GAS has been moved to types/gas/constants.rs
+// Use CALLBACK_GAS, CALLBACK_GAS_SIMPLE, CALLBACK_GAS_STORAGE, or CALLBACK_GAS_CHAINED
+// from the gas module for new code.
 
 #[near(serializers = [json, borsh])]
 #[derive(Debug, Clone)]
