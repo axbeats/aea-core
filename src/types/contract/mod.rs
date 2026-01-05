@@ -1,4 +1,3 @@
-pub use self::code::*;
 pub use self::contract::*;
 pub use self::contract_metadata::*;
 pub use self::deploy::*;

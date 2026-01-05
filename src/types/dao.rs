@@ -1,5 +1,4 @@
 use crate::*;
-use near_sdk::serde_json::{self, Value};
 use aea_macros::Generable;
 
 pub type DaoId = AccountId;

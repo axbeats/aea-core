@@ -14,7 +14,7 @@ pub struct CalibrationConfig {
 // I think this method can be simplified - Dec 30 2024
 impl From<ValueConfig> for CalibrationConfig {
     fn from(config: ValueConfig) -> Self {
-        let (role_id, kind, cooldown_period, adjustment_amount) = match config.method_input.clone() {
+        let (role_id, kind, cooldown_period, _adjustment_amount) = match config.method_input.clone() {
             VoteMethodInput::Calibration(calibration_input) => {
                 (
                     calibration_input.role_id,

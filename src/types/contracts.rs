@@ -1,5 +1,3 @@
-use crate::*;
-
 // Dynamically generated contract IDs
 pub const ACCOUNT_FACTORY_ID: &str = "aea4.testnet";
 pub const ALGORITHM_ID: &str = "algorithm1.aea4.testnet";

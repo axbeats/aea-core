@@ -1,5 +1,3 @@
-use near_sdk::serde_json;
-
 use crate::*;
 
 pub type CalibrationVoteId = u64;

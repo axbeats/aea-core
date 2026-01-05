@@ -34,7 +34,7 @@ impl VideoInput {
         }
     }
  
-    pub fn from_value_input(input: ValueInput, title: String, description: Option<String>) -> Self {
+    pub fn from_value_input(input: ValueInput, _title: String, description: Option<String>) -> Self {
         Self {
             context: VideoContext::Value { value_id: input.id },
             visibility: VideoVisibility::default(),

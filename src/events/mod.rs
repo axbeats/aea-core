@@ -1,4 +1,4 @@
-use near_sdk::{env, serde::{Deserialize, Serialize}, serde_json};
+use near_sdk::{env, serde_json};
 
 pub use self::algorithm::*;
 pub use self::account_factory::*;
@@ -16,7 +16,6 @@ pub use self::staking::*;
 pub use self::staking_factory::*;
 pub use self::standard::*;
 pub use self::subscription::*;
-pub use self::token::*;
 pub use self::token_factory::*;
 pub use self::token_stream::*;
 pub use self::value::*;
