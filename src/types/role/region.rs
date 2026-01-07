@@ -1,10 +1,20 @@
 use crate::*;
+use aea_macros::Generable;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Generable)]
 pub struct Point {
     pub latitude: f64,
     pub longitude: f64,
+}
+
+impl Default for Point {
+    fn default() -> Self {
+        Self {
+            latitude: 0.0,
+            longitude: 0.0,
+        }
+    }
 }
 
 #[near(serializers = [json, borsh])]

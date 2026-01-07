@@ -1,9 +1,10 @@
 use crate::*;
+use aea_macros::Generable;
 
 // pub type ProposalActionString = String;
 
 #[near(serializers = [json, borsh])]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Generable)]
 pub enum ProposalAction {
     AddCustomPolicy {
         input: CustomPolicyInput,
@@ -172,5 +173,11 @@ impl ProposalAction {
             ProposalAction::InteractProfile { .. } => ProposalAbility::Profile,
             ProposalAction::Vote => ProposalAbility::Profile,
         }
+    }
+}
+
+impl Default for ProposalAction {
+    fn default() -> Self {
+        Self::Vote
     }
 }
